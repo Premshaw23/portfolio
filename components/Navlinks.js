@@ -21,7 +21,7 @@ export default function NavLinks({ onClick, className = "" }) {
       <Link href="/contact" className="hover:text-green-200 ">
         Contact
       </Link>
-      <Link href="/blog" className="hover:text-green-200">
+      <Link href="/blogs" className="hover:text-green-200">
         Blog
       </Link>
     </div>

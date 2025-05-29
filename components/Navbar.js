@@ -24,19 +24,19 @@ export default function Navbar() {
     { name: "Skills", href: "/skills" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
-    { name: "Blog", href: "/blog" },
+    { name: "Blog", href: "/blogs" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 z-50 w-full backdrop-blur-md shadow-sm">
+    <nav className="fixed top-0 left-0 z-50 w-full backdrop-blur-md shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href={"/"}>
             <div className="flex items-center gap-5">
               <div className="relative w-10 h-10">
                 {/* Glow Background */}
-                <div className="absolute -inset-1 rounded-full bg-purple-500 opacity-30 blur-md animate-pulse z-0" />
+                <div className="absolute -inset-1 rounded-full bg-purple-500 opacity-40 blur-sm animate-pulse z-0" />
 
                 {/* Logo with border */}
                 <div className="relative w-full h-full rounded-full overflow-hidden shadow-xl ring-2 ring-white/20 z-10">
@@ -65,7 +65,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-4 text-white">
             <button
               onClick={toggleTheme}
-              className="p-1 rounded hover:text-pink-400"
+              className="p-1 rounded hover:text-pink-400 cursor-pointer"
               aria-label="Toggle theme"
             >
               {isDark ? (

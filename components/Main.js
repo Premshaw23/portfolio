@@ -4,7 +4,7 @@ import Orb from "./Orb";
 
 export default function HeroSection() {
   return (
-    <div className="mx-5 sm:mx-24 mt-30 mb-10 flex flex-col md:flex-row items-center justify-between gap-10 animate-fade-in">
+    <div className="mx-5 sm:mx-24 mt-30 mb-10 flex flex-col md:flex-row items-center justify-between gap-10 ">
       {/* LEFT SECTION */}
       <div className="flex-1 text-center md:text-left space-y-6">
         <h1 className="text-5xl sm:text-6xl font-extrabold text-white leading-tight">

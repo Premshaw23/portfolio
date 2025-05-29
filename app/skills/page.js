@@ -1,36 +1,38 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useLoader } from "@/context/LoaderContext";
 
-const skills = [
-  "Cloud Firestore",
-  "Firebase",
-  "SQL",
-  "JSON Web Token (JWT)",
-  "Next.js",
-  "Mongoose",
-  "MongoDB",
-  "Tailwind CSS",
-  "React.js",
-  "Redux.js",
-  "Generative AI Tools",
-  "AI Tools",
-  "Representational State Transfer (REST)",
-  "Embedded JavaScript (EJS)",
-  "Express.js ",
-  "Node.js ",
-  "API Testing",
-  "JavaScript",
-  "Responsive Web Design",
-  "Cascading Style Sheets (CSS)",
-  "Bootstrap (Framework)",
-  "HTML5",
-  "Microsoft Visual Studio Code",
-  "Git BASH",
-  "Git",
-];
+const SkillPage = () => {
+  const [skills, setSkills] = useState([]);
+  const { showLoader, hideLoader } = useLoader();
 
-const SkillsPage = () => {
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        showLoader();
+
+        const skillsCollection = collection(db, "skills");
+        const snapshot = await getDocs(skillsCollection);
+
+        const skillsList = snapshot.docs.map((doc) => doc.data().name);
+        // if you want just skill names as strings, or
+        // snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); for objects
+
+        setSkills(skillsList);
+      } catch (error) {
+        console.error("Failed to load skills:", error);
+      } finally {
+        hideLoader();
+      }
+    };
+
+    fetchSkills();
+  }, []);
+
   return (
-    <section className="min-h-screen bg-gray-900 mt-10 text-gray-300 py-16 px-4">
+    <section className="min-h-screen mt-10 text-gray-300 py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold text-center text-indigo-400 mb-12">
           My Skills
@@ -50,4 +52,4 @@ const SkillsPage = () => {
   );
 };
 
-export default SkillsPage;
+export default SkillPage;

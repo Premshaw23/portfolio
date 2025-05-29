@@ -1,11 +1,14 @@
-import Footer from "@/components/footer";
-import HeroSection from "@/components/Main";
-import Image from "next/image";
+"use client"
+import React, { useEffect, useState } from "react";
+import HeroSection from "@/components/Main"; // your actual app component
 
-export default function Home() {
+const App = () => {
+
   return (
     <>
-    <HeroSection/>
+        <HeroSection />
     </>
   );
-}
+};
+
+export default App;
