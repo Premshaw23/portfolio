@@ -4,7 +4,7 @@ import { Copy, Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bottom-0 left-0 w-full z-[55] bg-blend-color-burn text-gray-300 py-3 px-4">
+    <footer className="left-0 w-full z-[55] bg-blend-color-burn text-gray-300 py-[0.45rem] px-4">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         {/* Left: Name + Copyright */}
         <div className="text-center md:text-left">

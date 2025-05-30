@@ -1,37 +1,69 @@
+"use client";
+
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Orb from "./Orb";
+import Typewriter from "typewriter-effect";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
-    <div className="mx-5 sm:mx-24 mt-30 mb-10 flex flex-col md:flex-row items-center justify-between gap-10 ">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="mx-5 sm:mx-24 mt-30 mb-10 flex flex-col md:flex-row items-center justify-between gap-10"
+    >
       {/* LEFT SECTION */}
       <div className="flex-1 text-center md:text-left space-y-6">
+        {/* Heading */}
         <h1 className="text-5xl sm:text-6xl font-extrabold text-white leading-tight">
-          Hi, I'm <span className="text-pink-500">Prem Shaw</span>
+          Hi, I'm{" "}
+          <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+            Prem Shaw
+          </span>
         </h1>
 
-        <h2 className="text-2xl sm:text-3xl font-semibold text-pink-400 mt-4">
-          <p className="m-1">MERN Stack Developer,</p>
-          <p className="m-1">CSE Student at IIIT Bhopal</p>
+        {/* Dynamic Roles with Typewriter */}
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pink-400 mt-2 h-16">
+          <Typewriter
+            options={{
+              strings: [
+                "MERN Stack Developer",
+                "Open Source Contributor",
+                "Frontend Engineer (aspiring)",
+                "Tech Enthusiast",
+              ],
+              autoStart: true,
+              loop: true,
+              pauseFor: 1600,
+            }}
+          />
         </h2>
 
-        <p className="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed mt-6">
-          I'm passionate about crafting beautiful and responsive user interfaces
-          using technologies like{" "}
-          <span className="text-cyan-400 font-medium">ReactJs</span>,{" "}
-          <span className="text-cyan-400 font-medium">NextJs</span> ,{" "}
-          <span className="text-cyan-400 font-medium">MongoDb </span>and{" "}
-          <span className="text-cyan-400 font-medium">Tailwind CSS</span>. With
-          a strong foundation in web development and a growing interest in
-          scalable systems, I aim to build products that not only work great but
-          feel great to use.
+        {/* Info/Bio Section */}
+        <p className="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed mt-2">
+          I'm a{" "}
+          <span className="text-green-400 font-medium">
+            CSE student at IIIT Bhopal
+          </span>{" "}
+          with a deep passion for building fast, scalable, and user-focused web
+          applications. As a dedicated{" "}
+          <span className="text-cyan-400 font-medium">
+            MERN Stack Developer
+          </span>
+          , I specialize in crafting sleek, responsive UIs and intuitive user
+          experiences using{" "}
+          <span className="text-cyan-400 font-medium">React</span>,{" "}
+          <span className="text-cyan-400 font-medium">Next.js</span>,{" "}
+          <span className="text-cyan-400 font-medium">MongoDB</span>, and{" "}
+          <span className="text-cyan-400 font-medium">Tailwind CSS</span>.
           <br />
-          <br />
-          I'm also actively contributing to{" "}
-          <span className="text-green-400 font-medium">open-source </span>
-          and constantly exploring new tools and frameworks to level up my
-          skills.
+          <br />I actively contribute to{" "}
+          <span className="text-green-400 font-medium">open-source</span>{" "}
+          projects and continuously seek new technologies that help elevate my
+          development journey. My goal? To solve real-world problems with code
+          that’s clean, creative, and impactful.
         </p>
 
         {/* SOCIAL ICONS */}
@@ -66,25 +98,31 @@ export default function HeroSection() {
         <a
           href="/Prem_Shaw_Resume.pdf"
           download
-          className="inline-block px-8 py-3 bg-blue-600 text-white text-lg font-medium rounded-full hover:bg-blue-700 transition"
+          className="inline-block px-8 py-3 bg-blue-600 text-white text-lg font-medium rounded-full hover:bg-blue-700 transition shadow-md"
         >
           Download Resume
         </a>
       </div>
+
       {/* RIGHT SECTION – CIRCULAR IMAGE */}
-      <div className="relative w-[400px] h-[400px] sm:w-[550px] sm:h-[530px] flex-shrink-0">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.9 }}
+        className="relative w-[400px] h-[400px] sm:w-[550px] sm:h-[530px] flex-shrink-0"
+      >
         {/* Orb background */}
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 z-55">
           <Orb
             hoverIntensity={0.5}
             rotateOnHover={true}
             hue={0}
-            forceHoverState={false}
+            // Remove forceHoverState entirely
           />
         </div>
 
         {/* Circular Image */}
-        <div className="relative z-10 sm:w-[70%] sm:h-[70%] w-[67%] h-[67%] rounded-full inset-0 overflow-hidden shadow-xl mx-[4rem] my-[4rem] md:mx-[5rem] md:my-[5rem]">
+        <div className="relative z-10 sm:w-[65%] sm:h-[65%] w-[65%] h-[65%] rounded-full inset-0 overflow-hidden shadow-xl mx-[4rem] my-[4rem] md:mx-[6rem] md:my-[6rem]">
           <Image
             src="/prem.jpg"
             alt="Prem Shaw"
@@ -95,7 +133,7 @@ export default function HeroSection() {
             className="object-cover w-full h-full"
           />
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
