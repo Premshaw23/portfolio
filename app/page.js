@@ -8,7 +8,7 @@ const App = () => {
     <>
         <HeroSection />
     </>
-  );
+  );  
 };
 
 export default App;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ name, type = "button" }) => {
+const Bt2 = ({ name, type = "button" }) => {
   return (
     <button
       type={type}
@@ -22,4 +22,4 @@ const Button = ({ name, type = "button" }) => {
   );
 };
 
-export default Button;
+export default Bt2;

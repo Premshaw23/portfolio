@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Button from "@/components/Button2";
+import Bt2 from "@/components/buttonUi/Button2";
 import { useFetchWithLoader } from "@/hooks/useFetchWithLoader";
 
 const ProjectsPage = () => {
@@ -49,7 +49,7 @@ const ProjectsPage = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Button name={buttonText} />
+                        <Bt2 name={buttonText} />
                       </a>
                     </div>
                   </div>

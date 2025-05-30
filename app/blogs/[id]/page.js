@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import DOMPurify from "dompurify";
 
 const BlogDetails = ({ params }) => {
   // Unwrap params promise
@@ -34,21 +36,44 @@ const BlogDetails = ({ params }) => {
 
   if (!blog) return <p className="text-center text-indigo-400">Loading...</p>;
 
+  const sanitizedContent = DOMPurify.sanitize(blog.content);
+
   return (
-    <section className="px-10 py-16 mt-10 text-white min-h-screen max-w-4xl mx-auto">
-      <h1 className="text-5xl font-bold text-indigo-400 mb-8">{blog.title}</h1>
+    <section className="px-6 md:px-10 py-16 mt-10 text-white min-h-screen max-w-4xl mx-auto">
+      {/* Title */}
+      <h1 className="text-4xl md:text-5xl font-extrabold text-indigo-400 mb-6 text-center leading-snug">
+        {blog.title}
+      </h1>
+
+      {/* Cover Image */}
       {blog.coverImage && (
-        <img
-          src={blog.coverImage}
-          alt={blog.title}
-          className="w-full rounded-lg mb-8"
-        />
+        <div className="w-full h-auto mb-6 rounded-xl overflow-hidden shadow-lg border border-white/10">
+          <Image
+            src={blog.coverImage}
+            alt={blog.title}
+            className="object-cover w-full h-full"
+            width={800}
+            height={400}
+          />
+        </div>
       )}
-      <article className="prose prose-invert text-lg">
-        {blog.content.split("\n").map((para, i) => (
-          <p key={i}>{para}</p>
-        ))}
-      </article>
+
+      {/* About & Author Info */}
+        <p className="text-gray-300 italic text-lg my-4 border-l-4 py-2 border-gray-500 pl-4">&quot;{blog["about"]}&quot;</p>
+        <div className="flex flex-wrap justify-between text-sm text-gray-400">
+          <p className="flex-shrink-0 mb-4">
+            By <span className="font-medium text-pink-400 italic">{blog.author}</span>
+          </p>
+          <p>
+            {blog.createdAt && blog.createdAt.toDate().toLocaleDateString()}
+          </p>
+        </div>
+
+      {/* Blog Content */}
+      <article
+        className="prose prose-invert text-base md:text-lg max-w-none prose-p:leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+      />
     </section>
   );
 };

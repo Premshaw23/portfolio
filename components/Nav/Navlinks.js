@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 
-export default function NavLinks({ onClick, className = "" }) {
+export default function Links({ onClick, className = "" }) {
   return (
     <div className={`space-x-6 md:flex ${className}`}>
       <Link href="/" className="hover:text-green-200 ">

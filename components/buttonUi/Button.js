@@ -5,7 +5,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = (props) => {
+const Bt1 = (props) => {
   return (
     <StyledWrapper>
       <button className="button">
@@ -82,4 +82,4 @@ const StyledWrapper = styled.div`
   }
 `;
 
-export default Button;
+export default Bt1;

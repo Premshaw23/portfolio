@@ -24,7 +24,7 @@ const BlogPage = () => {
 
 
   return (
-    <section className="px-4 py-16 mt-10 text-white min-h-screen bg-gray-900">
+    <section className="px-4 py-16 mt-10 text-white min-h-screen ">
       <h1 className="text-4xl font-bold text-center text-indigo-400 mb-12">
         My Blog
       </h1>
@@ -49,7 +49,7 @@ const BlogPage = () => {
             <h2 className="text-2xl font-semibold text-indigo-300 mt-4">
               {blog.title}
             </h2>
-            <p className="text-gray-400 mt-2 flex-grow">{blog.snippet}</p>
+            <p className="text-gray-400 mt-2 flex-grow">{blog.about}</p>
             <Link href={`/blogs/${blog.id}`}>
               <button className="mt-4 text-indigo-400 hover:underline cursor-pointer">
                 Read More

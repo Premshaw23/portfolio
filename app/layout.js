@@ -1,9 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Nav/Navbar";
 import Footer from "@/components/footer";
 import Loader from "@/components/Loader";
 import { LoaderProvider } from "@/context/LoaderContext";
+import { ThemeProvider } from "@/components/theme-provider";
 import ToastWrapper from "@/components/ToastWrapper";
 
 const geistSans = Geist({
@@ -24,20 +25,24 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className="bg-gradient-to-b from-[#0c0f15] via-[#111139] to-[#0f0f1f] min-w-full min-h-full"
-    >
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[83vh]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-[#0c0f15] via-[#111139] to-[#0f0f1f] min-w-full min-h-[87vh]`}
       >
-        <LoaderProvider>
-        <Loader/>
-        <Navbar />
-        {children}
-        <ToastWrapper/>
-          <Footer />
-        </LoaderProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <LoaderProvider>
+            <Loader />
+            <Navbar />
+            {children}
+            <ToastWrapper />
+            <Footer />
+          </LoaderProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

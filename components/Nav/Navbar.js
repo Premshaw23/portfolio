@@ -1,22 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { useState } from "react";
+import { Menu, X} from "lucide-react";
 import Link from "next/link";
-import NavLinks from "./Navlinks";
 import Image from "next/image";
-import Button from "./Button";
+import Bt1 from "../buttonUi/Button";
+import Links from "./Navlinks";
+import { ModeToggle } from "../theme-btn";
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.toggle("dark", isDark);
-  }, [isDark]);
-
-  const toggleTheme = () => setIsDark(!isDark);
 
   const navItems = [
     { name: "Home", href: "/" },
@@ -59,22 +53,12 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <NavLinks className="hidden md:flex" />
+          <Links className="hidden md:flex" />
 
           {/* Right Controls */}
           <div className="flex items-center space-x-4 text-white">
-            <button
-              onClick={toggleTheme}
-              className="p-1 rounded hover:text-pink-400 cursor-pointer"
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <Sun size={20} className="text-white" />
-              ) : (
-                <Moon size={20} className="text-white" />
-              )}
-            </button>
-            <Button name="Login" />
+           <ModeToggle/>
+            <Bt1 name="Login" />
             <div className="md:hidden">
               <button onClick={() => setIsOpen(!isOpen)} className="p-1">
                 {isOpen ? (
