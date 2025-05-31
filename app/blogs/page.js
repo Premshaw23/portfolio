@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Image from "next/image";
 import Link from "next/link";
+import { useLoader } from "@/context/LoaderContext";
 import {
   Pagination,
   PaginationContent,
@@ -21,8 +22,10 @@ const ITEMS_PER_PAGE = 1;//control this from admin panel
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const { showLoader, hideLoader } = useLoader();
 
   useEffect(() => {
+    showLoader()
     const fetchBlogs = async () => {
       try {
         const blogSnapshot = await getDocs(collection(db, "blogs"));
@@ -33,6 +36,8 @@ const BlogPage = () => {
         setBlogs(blogList);
       } catch (error) {
         console.error("Error fetching blogs:", error);
+      }finally{
+        hideLoader()
       }
     };
 
@@ -88,7 +93,7 @@ const BlogPage = () => {
       </div>
       {/* Pagination */}
       {totalPages > 1 && (
-        <Pagination className="mt-16 flex justify-center">
+        <Pagination className="mt-16 flex justify-center cursor-pointer">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious

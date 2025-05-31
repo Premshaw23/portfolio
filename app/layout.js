@@ -6,6 +6,7 @@ import Loader from "@/components/Loader";
 import { LoaderProvider } from "@/context/LoaderContext";
 import { ThemeProvider } from "@/components/theme-provider";
 import ToastWrapper from "@/components/ToastWrapper";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-[#0c0f15] via-[#111139] to-[#0f0f1f] min-w-full min-h-[84vh]`}
       >
+        <AuthProvider>
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -43,6 +46,7 @@ export default function RootLayout({ children }) {
             <Footer />
           </LoaderProvider>
         </ThemeProvider>
+          </AuthProvider>
       </body>
     </html>
   );

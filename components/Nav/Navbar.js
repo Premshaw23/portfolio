@@ -1,7 +1,7 @@
 "use client";
 
-import { useState ,useEffect} from "react";
-import { Menu, X} from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import Bt1 from "../buttonUi/Button";
@@ -9,12 +9,15 @@ import Links from "./Navlinks";
 import { ModeToggle } from "../theme-btn";
 import LoadingBar from "react-top-loading-bar";
 import { usePathname } from "next/navigation";
-
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [progress, setProgress] = useState(0);
   const pathname = usePathname();
+  const { user } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     setProgress(20);
@@ -85,7 +88,52 @@ export default function Navbar() {
           {/* Right Controls */}
           <div className="flex items-center space-x-4 text-white">
             <ModeToggle />
-            <Bt1 name="Login" />
+            {!user ? (
+              <Link href="/login">
+                <Bt1 name="Login" />
+              </Link>
+            ) : (
+              <div className="relative group">
+                {!user.photoURL && (
+                  <UserCircle2
+                    className="text-white bg-blue-500 rounded-full"
+                    size={50}
+                  />
+                )}{" "}
+                {user.photoURL && (
+                  <Image
+                    src={user.photoURL || "/photo1.png"}
+                    alt="Profile"
+                    width={70}
+                    height={70}
+                    className="rounded-full border-2 border-white cursor-pointer size-11 object-cover"
+                    onClick={() => router.push("/admin")}
+                  />
+                )}
+                {/* Dropdown */}
+                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 z-50">
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => router.push("/admin")}
+                  >
+                    Admin
+                  </button>
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
+                    onClick={() => {
+                      // Call Firebase logout
+                      import("firebase/auth").then(({ getAuth, signOut }) => {
+                        const auth = getAuth();
+                        signOut(auth);
+                        router.push("/login");
+                      });
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            )}
             <div className="md:hidden">
               <button onClick={() => setIsOpen(!isOpen)} className="p-1">
                 {isOpen ? (
