@@ -1,6 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { auth, googleProvider, githubProvider,applyPersistence } from "@/lib/firebase";
+import {
+  auth,
+  googleProvider,
+  githubProvider,
+  applyPersistence,
+} from "@/lib/firebase";
 import { useLoader } from "@/context/LoaderContext";
 import {
   signInWithPopup,
@@ -24,7 +29,7 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false); // NEW STATE
   const router = useRouter();
 
-  const {showLoader,hideLoader}=useLoader();
+  const { showLoader, hideLoader, loading } = useLoader();
   const toastConfig = {
     position: "top-right",
     autoClose: 3000,
@@ -41,7 +46,7 @@ export default function LoginPage() {
     setError(null);
 
     try {
-        showLoader();
+      showLoader();
       await applyPersistence(rememberMe); // ensure persistence BEFORE sign‑in / sign‑up
 
       if (isLogin) {
@@ -58,38 +63,42 @@ export default function LoginPage() {
             "Please verify your email before logging in.",
             toastConfig
           );
+          await signOut(auth);
+          router.push("/verify-email"); // optional, good UX
           return;
         }
+        
 
         toast.success("Logged in successfully!", toastConfig);
       } else {
-        const userCredential = await createUserWithEmailAndPassword(
+        const { user } = await createUserWithEmailAndPassword(
           auth,
           email,
           password
         );
-        await sendEmailVerification(userCredential.user);
-        toast.success(
-          "Account created! Please check your inbox for email verification.",
+        await sendEmailVerification(user);
+        toast.info(
+          "Verification email sent. Please check your inbox.",
           toastConfig
         );
+        router.push("/verify-email");
+        return;
       }
-
       setEmail("");
       setPassword("");
       router.push("/admin");
     } catch (err) {
       setError(err.message);
       toast.error(err.message, toastConfig);
-    }finally{
-        hideLoader();
+    } finally {
+      hideLoader();
     }
   };
 
   const handleOAuthLogin = async (provider) => {
     setError(null);
     try {
-        showLoader()
+      showLoader();
       await applyPersistence(rememberMe); // ensure persistence BEFORE OAuth popup
 
       const result = await signInWithPopup(auth, provider);
@@ -112,8 +121,8 @@ export default function LoginPage() {
         setError(error.message);
         toast.error(error.message, toastConfig);
       }
-    }finally{
-        hideLoader();
+    } finally {
+      hideLoader();
     }
   };
 
@@ -131,16 +140,22 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-gray-200 p-6 my-7 shadow-xl shadow-gray-500 rounded-2xl font-sans w-full max-w-lg">
+    <div className="bg-gray-200 p-6 my-7 mx-4 shadow-xl shadow-gray-500 rounded-2xl font-sans w-full max-w-lg">
       {/* Title */}
       <h1 className="text-center text-2xl font-bold mb-6 text-[#151717]">
         {isLogin ? "Login" : "Sign Up"}
       </h1>
 
       {/* Auth Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form
+        autoComplete="on"
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4"
+      >
         {/* Email */}
-        <label className="text-[#151717] font-semibold">Email</label>
+        <label htmlFor="email" className="text-[#151717] font-semibold">
+          Email
+        </label>
         <div className="flex items-center border border-[#ecedec] rounded-xl h-12 px-3 transition duration-200 focus-within:border-[#2d79f7]">
           <svg
             height={20}
@@ -153,6 +168,9 @@ export default function LoginPage() {
           </svg>
           <input
             type="email"
+            name="email"
+            id="email"
+            autoComplete="email"
             placeholder="Enter your Email"
             className="w-full h-full rounded-xl border-none focus:outline-none placeholder-gray-400 text-gray-900 ml-2"
             value={email}
@@ -162,7 +180,9 @@ export default function LoginPage() {
         </div>
 
         {/* Password */}
-        <label className="text-[#151717] font-semibold">Password</label>
+        <label htmlFor="password" className="text-[#151717] font-semibold">
+          Password
+        </label>
         <div className="flex items-center border border-[#ecedec] rounded-xl h-12 px-3 transition duration-200 focus-within:border-[#2d79f7] space-x-2">
           <svg
             height={20}
@@ -176,6 +196,9 @@ export default function LoginPage() {
           </svg>
           <input
             type={showPassword ? "text" : "password"}
+            id="password"
+            autoComplete={isLogin ? "current-password" : "new-password"}
+            name="password"
             placeholder="Enter your Password"
             className="w-full h-full rounded-xl border-none focus:outline-none placeholder-gray-400 text-gray-900"
             value={password}
@@ -226,9 +249,15 @@ export default function LoginPage() {
         {/* Submit */}
         <button
           type="submit"
-          className="self-end bg-[#2d79f7] text-white rounded-xl px-6 py-2 font-semibold hover:bg-blue-600 transition duration-200"
+          disabled={loading}
+          className={`self-end rounded-xl px-6 py-2 font-semibold transition duration-200
+        ${
+          loading
+            ? "bg-blue-300 cursor-not-allowed"
+            : "bg-[#2d79f7] hover:bg-blue-600 text-white"
+        }`}
         >
-          {isLogin ? "Login" : "Sign Up"}
+          {loading ? "Loading..." : isLogin ? "Login" : "Sign Up"}
         </button>
       </form>
 
@@ -241,9 +270,9 @@ export default function LoginPage() {
             setIsLogin((prev) => !prev);
             setError(null); // Clear any previous errors when toggling modes
           }}
-          className="text-blue-600 hover:underline font-medium"
+          className="text-blue-600 hover:underline"
         >
-          {isLogin ? "Sign Up" : "Login"}
+          {isLogin ? "Sign up" : "Login"}
         </button>
       </p>
 

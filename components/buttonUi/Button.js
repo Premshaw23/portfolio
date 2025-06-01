@@ -1,5 +1,3 @@
-// components/Button.js
-
 "use client";
 
 import React from "react";
@@ -20,12 +18,13 @@ const Bt1 = (props) => {
 const StyledWrapper = styled.div`
   .button {
     cursor: pointer;
-    font-size: 0.9rem; /* reduced font size */
+    font-size: 0.9rem;
     border-radius: 12px;
     border: none;
     padding: 1px;
     background: radial-gradient(circle 50px at 80% -10%, #ffffff, #181b1b);
     position: relative;
+    transition: transform 0.2s ease-in-out;
   }
 
   .button::after {
@@ -57,7 +56,7 @@ const StyledWrapper = styled.div`
   }
 
   .inner {
-    padding: 8px 16px; /* reduced padding */
+    padding: 8px 16px;
     border-radius: 10px;
     color: #fff;
     z-index: 3;
@@ -79,6 +78,36 @@ const StyledWrapper = styled.div`
       transparent
     );
     position: absolute;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .button {
+      font-size: 0.8rem;
+    }
+
+    .inner {
+      padding: 6px 12px;
+    }
+
+    .blob1 {
+      width: 35px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .button {
+      font-size: 0.75rem;
+      transform: scale(0.95);
+    }
+
+    .inner {
+      padding: 8px 10px;
+    }
+
+    .blob1 {
+      width: 25px;
+    }
   }
 `;
 

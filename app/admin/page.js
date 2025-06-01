@@ -1,17 +1,55 @@
 // app/admin/page.js
 "use client";
+import { useEffect } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/context/AuthContext";
 import { UserCircle2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Admin() {
-  const { user } = useAuth();
-  console.log(user?.reloadUserInfo?.providerUserInfo[0]?.email);
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        // No user, redirect to login
+        router.push("/login");
+      } else if (!user.emailVerified) {
+        // User exists but email not verified
+        router.push("/verify-email");
+      }
+    }
+  }, [user, loading]);
+
+  if (loading || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <ProtectedRoute>
       <div className="min-h-[91.5vh] flex flex-col items-center justify-center px-4">
         <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md text-center">
-          <UserCircle2 className="mx-auto text-blue-500 mb-4" size={64} />
+          {!user.photoURL && (
+            <UserCircle2
+              className="text-white bg-blue-500 rounded-full mx-auto mb-4"
+              size={64}
+            />
+          )}
+          {user.photoURL && (
+            <Image
+              src={user.photoURL || "/photo1.png"}
+              alt="Profile"
+              width={70}
+              height={70}
+              className="rounded-full cursor-pointer size-16 mx-auto object-cover"
+            />
+          )}
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
             Welcome, Admin!
           </h2>

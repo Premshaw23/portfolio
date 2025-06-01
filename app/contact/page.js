@@ -73,7 +73,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="max-w-[33rem] mx-auto mt-24 mb-5 p-8 bg-gray-900 rounded-2xl shadow-lg shadow-purple-900/50">
+    <div className="max-w-[33rem] md:mx-auto mx-4 mt-24 mb-11 p-8 bg-gray-900 rounded-2xl shadow-xl shadow-purple-700">
       <h1 className="text-4xl font-extrabold text-center text-purple-400 mb-4">
         Get In Touch
       </h1>

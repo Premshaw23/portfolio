@@ -12,7 +12,7 @@ export default function HeroSection() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="mx-5 sm:mx-24 mt-30 mb-10 flex flex-col md:flex-row items-center justify-between gap-10"
+      className="mx-5 sm:mx-20 mt-28 mb-10 flex flex-col md:flex-row items-center justify-between gap-10"
     >
       {/* LEFT SECTION */}
       <div className="flex-1 text-center md:text-left space-y-6">
@@ -122,14 +122,14 @@ export default function HeroSection() {
         </div>
 
         {/* Circular Image */}
-        <div className="relative z-10 sm:w-[65%] sm:h-[65%] w-[65%] h-[65%] rounded-full inset-0 overflow-hidden shadow-xl mx-[4rem] my-[4rem] md:mx-[6rem] md:my-[6rem]">
+        <div className="relative z-10 sm:w-[65%] sm:h-[65%] w-[65%] h-[65%] rounded-full inset-0 overflow-hidden shadow-xl mx-[4.5rem] my-[4.5rem] md:mx-[6rem] md:my-[6rem]">
           <Image
             src="/prem.jpg"
             alt="Prem Shaw"
             placeholder="blur"
             blurDataURL="/prem.jpg"
-            width={400}
-            height={400}
+            width={300}
+            height={300}
             className="object-cover w-full h-full"
           />
         </div>
