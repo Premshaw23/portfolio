@@ -86,7 +86,7 @@ export default function LoginPage() {
       }
       setEmail("");
       setPassword("");
-      router.push("/admin");
+      router.push("/dashboard");
     } catch (err) {
       setError(err.message);
       toast.error(err.message, toastConfig);
@@ -106,7 +106,7 @@ export default function LoginPage() {
         `Welcome ${result.user.displayName || "User"}!`,
         toastConfig
       );
-      router.push("/admin");
+      router.push("/dashboard");
     } catch (error) {
       if (error.code === "auth/account-exists-with-different-credential") {
         const email = error.customData?.email;

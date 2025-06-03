@@ -64,17 +64,17 @@ export default function Navbar() {
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
     { name: "Blog", href: "/blogs" },
-    { name: "Admin", href: "/admin" },
+    { name: "Dashboard", href: "/dashboard" },
   ];
 
   const handleAdminAccess = () => {
     setDropdownOpen((prev) => !prev);
-    if (emailVerified) {
-      router.push("/admin");
-    } else {
-      toast.warning("Please verify your email to access the admin panel.");
-      router.push("/verify-email");
-    }
+    // if (emailVerified) {
+    //   router.push("/dashboard");
+    // } else {
+    //   toast.warning("Please verify your email to access the admin panel.");
+    //   router.push("/verify-email");
+    // }
   };
 
   const handleLogout = async () => {
@@ -154,7 +154,9 @@ export default function Navbar() {
                           : "text-gray-400 cursor-not-allowed"
                       }`}
                       onClick={
-                        emailVerified ? () => router.push("/admin") : undefined
+                        emailVerified
+                          ? () => router.push("/dashboard")
+                          : undefined
                       }
                       disabled={!emailVerified}
                       title={
@@ -163,7 +165,7 @@ export default function Navbar() {
                           : ""
                       }
                     >
-                      Admin
+                      Dashboard
                     </button>
 
                     <button

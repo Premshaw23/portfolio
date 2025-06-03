@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth, sendEmailVerification } from "@/lib/firebase"; // adjust if needed
-import { signOut,deleteUser ,onAuthStateChanged} from "firebase/auth";
+import {deleteUser ,onAuthStateChanged} from "firebase/auth";
 import { toast } from "react-toastify";
 
 export default function VerifyEmailPage() {
@@ -22,7 +22,7 @@ export default function VerifyEmailPage() {
       setUser(currentUser);
 
       if (currentUser.emailVerified) {
-        router.push("/admin");
+        router.push("/dashboard");
       }
     });
 
@@ -76,7 +76,7 @@ export default function VerifyEmailPage() {
 
       if (updatedUser.emailVerified) {
         toast.success("Email verified! Redirecting...");
-        router.push("/admin");
+        router.push("/dashboard");
       } else {
         toast.warning("Email is still not verified.");
       }
