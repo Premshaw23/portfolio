@@ -22,7 +22,7 @@ const SkillPage = () => {
 
         setSkills(skillsList);
       } catch (error) {
-        console.error("Failed to load skills:", error);
+        // console.error("Failed to load skills:", error);
       } finally {
         hideLoader();
       }

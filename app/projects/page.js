@@ -13,7 +13,7 @@ const ProjectsPage = () => {
         const data = await fetchWithLoader("/api/projects");
         setProjects(data);
       } catch (err) {
-        console.error("Failed to load projects", err);
+        // console.error("Failed to load projects", err);
       }
     };
 

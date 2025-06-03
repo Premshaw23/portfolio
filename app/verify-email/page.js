@@ -51,7 +51,7 @@ export default function VerifyEmailPage() {
       toast.success("Verification email sent again!");
       setCooldown(30); // 30 seconds cooldown
     } catch (err) {
-      console.error("Resend error:", err);
+      // console.error("Resend error:", err);
       if (err.code === "auth/too-many-requests") {
         toast.error("Too many requests. Please wait before trying again.");
       } else {
@@ -81,7 +81,7 @@ export default function VerifyEmailPage() {
         toast.warning("Email is still not verified.");
       }
     } catch (err) {
-      console.error("Check verification error:", err);
+      // console.error("Check verification error:", err);
       toast.error("Error checking email verification.");
     } finally {
       setChecking(false);
@@ -99,7 +99,7 @@ export default function VerifyEmailPage() {
       toast.success("User deleted and logged out.");
       router.push("/login");
     } catch (error) {
-      console.error("Error deleting user:", error);
+      // console.error("Error deleting user:", error);
 
       if (error.code === "auth/requires-recent-login") {
         toast.error("Please log in again to delete your account.");

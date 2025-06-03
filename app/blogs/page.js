@@ -35,7 +35,7 @@ const BlogPage = () => {
         }));
         setBlogs(blogList);
       } catch (error) {
-        console.error("Error fetching blogs:", error);
+        // console.error("Error fetching blogs:", error);
       }finally{
         hideLoader()
       }

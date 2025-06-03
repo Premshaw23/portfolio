@@ -14,7 +14,7 @@ export const useFetchWithLoader = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         return await response.json();
       } catch (error) {
-        console.error("Fetch error:", error);
+        // console.error("Fetch error:", error);
         throw error;
       } finally {
         hideLoader();

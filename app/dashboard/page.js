@@ -11,17 +11,18 @@ export default function Admin() {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!loading) {
-      if (!user) {
-        // No user, redirect to login
-        router.push("/login");
-      } else if (!user.emailVerified) {
-        // User exists but email not verified
-        router.push("/verify-email");
-      }
-    }
-  }, [user, loading]);
+  // useEffect(() => {
+  //   if (loading) return; // Wait until loading is false
+
+  //   if (!user) {
+  //     console.log("No user, redirecting to login");
+  //     router.push("/login");
+  //   } else if (!user.emailVerified) {
+  //     console.log("Email not verified, redirecting");
+  //     router.push("/verify-email");
+  //   }
+  // }, [user, loading, router]);
+  
 
   if (loading || !user) {
     return (

@@ -70,7 +70,7 @@ export default function BlogPage() {
           router.push("/blogs");
         }
       } catch (error) {
-        console.error("Failed to fetch blog:", error);
+        // console.error("Failed to fetch blog:", error);
         router.push("/blogs");
       } finally {
         hideLoader();
