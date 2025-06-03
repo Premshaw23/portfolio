@@ -14,11 +14,16 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   sendPasswordResetEmail,
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { toast, Bounce } from "react-toastify";
+
+const ADMIN_UID = process.env.NEXT_PUBLIC_ADMIN_UID;
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -26,7 +31,9 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const [isLogin, setIsLogin] = useState(true);
-  const [rememberMe, setRememberMe] = useState(false); // NEW STATE
+  const [rememberMe, setRememberMe] = useState(false);
+  const [name, setName] = useState("");
+
   const router = useRouter();
 
   const { showLoader, hideLoader, loading } = useLoader();
@@ -44,10 +51,11 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    let user = null;
 
     try {
       showLoader();
-      await applyPersistence(rememberMe); // ensure persistence BEFORE sign‑in / sign‑up
+      await applyPersistence(rememberMe);
 
       if (isLogin) {
         const userCredential = await signInWithEmailAndPassword(
@@ -55,7 +63,6 @@ export default function LoginPage() {
           email,
           password
         );
-
         await auth.currentUser.reload();
 
         if (!auth.currentUser.emailVerified) {
@@ -64,18 +71,22 @@ export default function LoginPage() {
             toastConfig
           );
           await signOut(auth);
-          router.push("/verify-email"); // optional, good UX
+          router.push("/verify-email");
           return;
         }
-        
 
+        user = userCredential.user;
         toast.success("Logged in successfully!", toastConfig);
       } else {
-        const { user } = await createUserWithEmailAndPassword(
+        const userCredential = await createUserWithEmailAndPassword(
           auth,
           email,
           password
         );
+        user = userCredential.user;
+        await updateProfile(user, {
+          displayName: name,
+        });        
         await sendEmailVerification(user);
         toast.info(
           "Verification email sent. Please check your inbox.",
@@ -84,9 +95,15 @@ export default function LoginPage() {
         router.push("/verify-email");
         return;
       }
+
       setEmail("");
       setPassword("");
-      router.push("/dashboard");
+
+      if (user?.uid === ADMIN_UID || user?.email === ADMIN_EMAIL) {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
       setError(err.message);
       toast.error(err.message, toastConfig);
@@ -99,20 +116,24 @@ export default function LoginPage() {
     setError(null);
     try {
       showLoader();
-      await applyPersistence(rememberMe); // ensure persistence BEFORE OAuth popup
+      await applyPersistence(rememberMe);
 
       const result = await signInWithPopup(auth, provider);
-      toast.success(
-        `Welcome ${result.user.displayName || "User"}!`,
-        toastConfig
-      );
-      router.push("/dashboard");
+      const user = result.user;
+
+      toast.success(`Welcome ${user.displayName || "User"}!`, toastConfig);
+
+      if (user.uid === ADMIN_UID || user.email === ADMIN_EMAIL) {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (error) {
       if (error.code === "auth/account-exists-with-different-credential") {
         const email = error.customData?.email;
         const methods = await fetchSignInMethodsForEmail(auth, email);
         toast.info(
-          `Account exists with a different sign‑in method: ${methods.join(
+          `Account exists with a different sign-in method: ${methods.join(
             ", "
           )}`,
           toastConfig
@@ -152,6 +173,41 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4"
       >
+        {!isLogin && (
+          <>
+            <label htmlFor="name" className="text-[#151717] font-semibold">
+              Full Name
+            </label>
+            <div className="flex items-center border border-[#ecedec] rounded-xl h-12 px-3 transition duration-200 focus-within:border-[#2d79f7]">
+              <svg
+                height={20}
+                width={20}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-gray-500"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M4 21v-2a4 4 0 0 1 3-3.87" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Enter your name"
+                className="w-full h-full rounded-xl border-none focus:outline-none placeholder-gray-400 text-gray-900 ml-2"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required={!isLogin}
+              />
+            </div>
+          </>
+        )}
+
         {/* Email */}
         <label htmlFor="email" className="text-[#151717] font-semibold">
           Email

@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { auth, sendEmailVerification } from "@/lib/firebase"; // adjust if needed
 import {deleteUser ,onAuthStateChanged} from "firebase/auth";
 import { toast } from "react-toastify";
+const ADMIN_UID = process.env.NEXT_PUBLIC_ADMIN_UID;
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
 export default function VerifyEmailPage() {
   const router = useRouter();
@@ -22,7 +24,12 @@ export default function VerifyEmailPage() {
       setUser(currentUser);
 
       if (currentUser.emailVerified) {
-        router.push("/dashboard");
+        if (user.uid === ADMIN_UID || user.email === ADMIN_EMAIL) {
+          router.push("/admin");
+        } else {
+          router.push("/dashboard");
+        }
+        
       }
     });
 
@@ -76,7 +83,11 @@ export default function VerifyEmailPage() {
 
       if (updatedUser.emailVerified) {
         toast.success("Email verified! Redirecting...");
-        router.push("/dashboard");
+        if (user.uid === ADMIN_UID || user.email === ADMIN_EMAIL) {
+          router.push("/admin");
+        } else {
+          router.push("/dashboard");
+        }
       } else {
         toast.warning("Email is still not verified.");
       }

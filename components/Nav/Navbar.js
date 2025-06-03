@@ -13,6 +13,9 @@ import Links from "./Navlinks";
 import { ModeToggle } from "../theme-btn";
 import { useAuth } from "@/context/AuthContext";
 
+const ADMIN_UID = process.env.NEXT_PUBLIC_ADMIN_UID;
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -66,6 +69,9 @@ export default function Navbar() {
     { name: "Blog", href: "/blogs" },
     { name: "Dashboard", href: "/dashboard" },
   ];
+
+  const isAdmin =
+    user && (user.uid === ADMIN_UID || user.email === ADMIN_EMAIL);
 
   const handleAdminAccess = () => {
     setDropdownOpen((prev) => !prev);
@@ -127,7 +133,7 @@ export default function Navbar() {
                 <Bt1 name="Login / Signup" />
               </Link>
             ) : (
-              <div className="relative flex-shrink-0" ref={dropdownRef}>
+              <div className="relative flex-shrink-0 z-[60]" ref={dropdownRef}>
                 {user.photoURL ? (
                   <Image
                     src={user.photoURL || "/photo1.png"}
@@ -146,11 +152,29 @@ export default function Navbar() {
 
                 {/* Dropdown */}
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg z-50">
+                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg z-[60]">
+                    {isAdmin && (
+                      <button
+                        className={`cursor-pointer w-full rounded-lg text-left px-4 py-2 ${
+                          emailVerified
+                            ? "hover:bg-gray-200"
+                            : "text-gray-400 cursor-not-allowed"
+                        }`}
+                        onClick={() => router.push("/admin")}
+                        disabled={!emailVerified}
+                        title={
+                          !emailVerified
+                            ? "Verify your email to access Admin"
+                            : ""
+                        }
+                      >
+                        Admin Panel
+                      </button>
+                    )}
                     <button
                       className={`cursor-pointer w-full rounded-lg text-left px-4 py-2 ${
                         emailVerified
-                          ? "hover:bg-gray-100"
+                          ? "hover:bg-gray-200"
                           : "text-gray-400 cursor-not-allowed"
                       }`}
                       onClick={
@@ -169,7 +193,7 @@ export default function Navbar() {
                     </button>
 
                     <button
-                      className="cursor-pointer rounded-lg w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
+                      className="cursor-pointer rounded-lg w-full text-left px-4 py-2 text-red-500 hover:bg-gray-200"
                       onClick={handleLogout}
                     >
                       Logout
