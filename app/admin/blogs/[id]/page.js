@@ -103,6 +103,10 @@ export default function AdminBlogEditorPage() {
         docRef = doc(db, "blogs", id);
       }
 
+      if (!content) {
+        toast.error("Content is empty!");
+        return;
+      }
       await setDoc(
         docRef,
         {
@@ -223,6 +227,21 @@ export default function AdminBlogEditorPage() {
           placeholder="https://example.com/image.jpg"
           onChange={(e) => setCoverImage(e.target.value)}
         />
+
+        {coverImage && (
+          <div className="mt-4">
+            <p className="text-white mb-2">Image Preview:</p>
+            <img
+              src={coverImage}
+              alt="Cover Preview"
+              className="max-w-full h-auto rounded-lg border border-gray-600"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
+          </div>
+        )}
+
         <div>
           <label htmlFor="status" className="text-white">
             Status
