@@ -13,14 +13,17 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import Bt2 from "@/components/buttonUi/Button2";
+import { useLoader } from "@/context/LoaderContext";
 
 const ITEMS_PER_PAGE = 2;
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const {showLoader,hideLoader}=useLoader();
 
   useEffect(() => {
+    showLoader()
     const fetchProjects = async () => {
       try {
         const snapshot = await getDocs(collection(db, "projects"));
@@ -31,6 +34,8 @@ const ProjectsPage = () => {
         setProjects(data);
       } catch (error) {
         console.error("Failed to load projects", error);
+      }finally{
+        hideLoader()
       }
     };
 

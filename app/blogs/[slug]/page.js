@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import matter from "gray-matter";
-import { unified } from "unified";
+import { unified } from "unified"; // ✅ CORRECT IMPORT
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeDocument from "rehype-document";
@@ -40,16 +40,15 @@ export default function BlogPage() {
           const { content, ...metadata } = docData;
 
           const { content: markdownContent } = matter(content);
-          const frontmatter = metadata;
-          setBlog(frontmatter);
+          setBlog(metadata);
 
           const processed = await unified()
             .use(remarkParse)
             .use(remarkRehype)
             .use(rehypeSlug)
             .use(rehypeDocument, {
-              title: frontmatter.title || "Blog",
-              description: blog?.about || "Blog description here",
+              title: metadata.title || "Blog",
+              description: metadata.about || "Blog description here",
             })
             .use(rehypeAutolinkHeadings)
             .use(rehypePrettyCode, {
@@ -70,7 +69,6 @@ export default function BlogPage() {
           router.push("/blogs");
         }
       } catch (error) {
-        // console.error("Failed to fetch blog:", error);
         router.push("/blogs");
       } finally {
         hideLoader();
@@ -87,7 +85,6 @@ export default function BlogPage() {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Left Column - Blog Content */}
         <div className="flex-1 bg-gray-900 p-6 rounded-xl shadow-gray-600 shadow-xl">
-          {/* Cover Image */}
           {blog.coverImage && (
             <div className="w-full h-64 md:h-96 mb-8 overflow-hidden rounded-lg border border-white/10 shadow-md">
               <img
@@ -97,35 +94,24 @@ export default function BlogPage() {
               />
             </div>
           )}
-
-          {/* Blog Title */}
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-indigo-400 leading-tight">
             {blog.title}
           </h1>
-
-          {/* Description */}
           {blog.about && (
             <blockquote className="border-l-4 border-indigo-500 pl-4 italic text-gray-300 text-lg mb-8">
               &ldquo;{blog.about}&rdquo;
             </blockquote>
           )}
-
-          {/* Author & Date */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-gray-400 text-sm mb-8">
             <p className="italic">
-              By{" "}
-              <span className="font-semibold text-pink-400">{blog.author}</span>
+              By <span className="font-semibold text-pink-400">{blog.author}</span>
             </p>
             <p>{blog.date}</p>
           </div>
-
-          {/* Blog Content */}
           <article
             className="prose prose-invert prose-a:text-blue-400 max-w-none prose-p:leading-relaxed"
             dangerouslySetInnerHTML={{ __html: htmlContent }}
           />
-
-          {/* Optional: Back Button */}
           <button
             onClick={() => router.push("/blogs")}
             className="mt-8 text-sm text-blue-400 hover:underline"
