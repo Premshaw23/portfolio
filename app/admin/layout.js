@@ -8,7 +8,6 @@ import {
   FileText,
   FolderKanban,
   LogOut,
-  Settings,
   CodeIcon,
   Menu,
   X,
@@ -28,7 +27,6 @@ const navLinks = [
     icon: <FolderKanban size={18} />,
   },
   { href: "/admin/skills", label: "Skills", icon: <CodeIcon size={18} /> },
-  { href: "/admin/settings", label: "Settings", icon: <Settings size={18} /> },
 ];
 
 export default function AdminLayout({ children }) {

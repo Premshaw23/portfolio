@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import CustomMarkdownEditor from "@/components/CustomMarkdownEditor";
 import {
   doc,
   getDoc,
@@ -13,6 +14,7 @@ import {
 import { db } from "@/lib/firebase";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
+import MarkdownWrapper from "@/components/customConvertor";
 
 const MarkdownEditor = dynamic(() => import("@uiw/react-md-editor"), {
   ssr: false,
@@ -269,16 +271,9 @@ export default function AdminBlogEditorPage() {
         </div>
 
         {showPreview ? (
-          <div className="prose max-w-none bg-slate-500 p-8 mt-10 rounded-lg text-white">
-            <ReactMarkdown>{content}</ReactMarkdown>
-          </div>
+          <MarkdownWrapper content={content} />
         ) : (
-          <MarkdownEditor
-            value={content}
-            onChange={(value) => setContent(value || "")}
-            height={500}
-            className="bg-gray-900 rounded-lg"
-          />
+          <CustomMarkdownEditor content={content} setContent={setContent} />
         )}
 
         <div className="flex gap-4 justify-end mt-4">

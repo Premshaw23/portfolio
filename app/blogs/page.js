@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,40 +15,48 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const ITEMS_PER_PAGE = 1; // Control this from admin panel
-
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
+  const [itemsPerPage, setItemsPerPage] = useState(3); // default fallback
   const [currentPage, setCurrentPage] = useState(1);
   const { showLoader, hideLoader } = useLoader();
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchSettingsAndBlogs = async () => {
       showLoader();
       try {
+        // Fetch itemsPerPage from settings
+        const settingsRef = doc(db, "settings", "blogs");
+        const settingsSnap = await getDoc(settingsRef);
+        if (settingsSnap.exists()) {
+          const { itemsPerPage } = settingsSnap.data();
+          if (itemsPerPage) setItemsPerPage(itemsPerPage);
+        }
+
+        // Fetch blogs
         const blogSnapshot = await getDocs(collection(db, "blogs"));
         const blogList = blogSnapshot.docs
           .map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }))
-          .filter((blog) => blog.status === "published"); // Only show published blogs
+          .filter((blog) => blog.status === "published"); // Only show published
 
         setBlogs(blogList);
       } catch (error) {
-        console.error("Error fetching blogs:", error);
+        console.error("Error loading blog settings or blogs:", error);
       } finally {
         hideLoader();
       }
     };
 
-    fetchBlogs();
+    fetchSettingsAndBlogs();
   }, []);
 
-  const totalPages = Math.ceil(blogs.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(blogs.length / itemsPerPage);
   const currentBlogs = blogs.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
   const handlePageChange = (page) => {
@@ -59,7 +67,7 @@ const BlogPage = () => {
   };
 
   return (
-    <section className="px-4 py-18 mt-10 text-white min-h-[94vh]">
+    <section className="px-4 py-10 mt-14 text-white min-h-[90vh]">
       <h1 className="text-4xl font-bold text-center text-indigo-400 mb-12">
         My Blog
       </h1>

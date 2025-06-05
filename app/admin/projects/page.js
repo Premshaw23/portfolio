@@ -7,7 +7,9 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  setDoc,
   doc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Pencil, Trash2 } from "lucide-react";
@@ -29,9 +31,22 @@ export default function ProjectsPage() {
   const [deleteId, setDeleteId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [newItemsPerPage, setNewItemsPerPage] = useState(6);
+
+  const fetchItemsPerPage = async () => {
+    try {
+      const settingsDoc = await getDoc(doc(db, "settings", "projects"));
+      if (settingsDoc.exists()) {
+        const data = settingsDoc.data();
+        setItemsPerPage(data.itemsPerPage || 6);
+        setNewItemsPerPage(data.itemsPerPage || 6);
+      }
+    } catch (error) {
+      console.error("Error fetching settings:", error);
+      toast.error("Failed to load settings");
+    }
+  };
 
   const fetchProjects = async () => {
     setLoading(true);
@@ -48,11 +63,16 @@ export default function ProjectsPage() {
     setLoading(false);
   };
 
+  useEffect(() => {
+    fetchItemsPerPage();
+    fetchProjects();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-
     const { title, description, image, buttonText, buttonLink } = formData;
+
     if (!title || !description || !image) {
       toast.error("Title, description, and image are required");
       setSubmitting(false);
@@ -95,7 +115,6 @@ export default function ProjectsPage() {
       setSubmitting(false);
     }
   };
-  
 
   const handleEdit = (project) => {
     setFormData({
@@ -127,11 +146,50 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="text-white w-full max-w-5xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8 text-center text-indigo-400">
+    <div className="w-full max-w-5xl mx-auto px-4 py-8 text-white">
+      {/* Header */}
+      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-400">
         {editingId ? "Edit Project" : "Add New Project"}
       </h1>
 
+      {/* Items per page setting */}
+      <div className="flex items-center gap-3 mb-8">
+        <label htmlFor="perPage" className="text-gray-300 font-medium text-sm">
+          Projects per page:
+        </label>
+        <input
+          id="perPage"
+          type="number"
+          min={1}
+          value={Number.isNaN(newItemsPerPage) ? "" : String(newItemsPerPage)}
+          onChange={(e) => {
+            const parsed = parseInt(e.target.value);
+            setNewItemsPerPage(isNaN(parsed) ? "" : parsed);
+          }}
+          className="px-3 py-1.5 rounded-md bg-gray-800 text-white border border-gray-600 w-20 text-sm"
+        />
+        <button
+          onClick={async () => {
+            try {
+              await setDoc(
+                doc(db, "settings", "projects"),
+                { itemsPerPage: newItemsPerPage },
+                { merge: true }
+              );
+              toast.success("Items per page updated");
+              setItemsPerPage(newItemsPerPage);
+            } catch (error) {
+              console.error("Update failed:", error);
+              toast.error("Failed to update setting");
+            }
+          }}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-md text-sm font-medium"
+        >
+          Update
+        </button>
+      </div>
+
+      {/* Project Form */}
       <form
         onSubmit={handleSubmit}
         className="bg-gray-900 p-6 rounded-xl border border-white/10 shadow-xl mb-12 space-y-4"
@@ -165,8 +223,8 @@ export default function ProjectsPage() {
 
         <button
           type="submit"
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition disabled:opacity-50"
           disabled={submitting}
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition disabled:opacity-50"
         >
           {submitting
             ? editingId
@@ -178,18 +236,22 @@ export default function ProjectsPage() {
         </button>
       </form>
 
-      <h2 className="text-2xl font-semibold mb-6">Existing Projects</h2>
+      {/* Project List */}
+      <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        Existing Projects
+      </h2>
+
       {loading ? (
         <p className="text-center text-gray-400">Loading...</p>
       ) : (
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => (
             <div
               key={project.id}
               className="bg-gray-900 p-5 rounded-xl border border-white/10 shadow-md flex flex-col justify-between"
             >
               <div className="mb-4">
-                <h3 className="text-xl font-bold text-indigo-300 mb-2">
+                <h3 className="text-xl font-bold text-indigo-300 mb-1">
                   {project.title}
                 </h3>
                 <p className="text-sm text-gray-400 mb-2">
@@ -206,7 +268,7 @@ export default function ProjectsPage() {
                   </a>
                 )}
               </div>
-              <div className="flex justify-end gap-3">
+              <div className="flex justify-end gap-3 mt-auto">
                 <button
                   onClick={() => handleEdit(project)}
                   className="text-yellow-400 hover:text-yellow-300"
