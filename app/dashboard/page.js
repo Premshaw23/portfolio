@@ -36,34 +36,37 @@ export default function Admin() {
   return (
     <ProtectedRoute>
       <>
-      <div className="min-h-[91.5vh] flex flex-col items-center justify-center px-4">
-        <div className="dark:bg-white bg-gray-200 shadow-xl rounded-2xl p-8 w-full max-w-md text-center">
-          {!user.photoURL && (
-            <UserCircle2
-              className="text-white bg-blue-500 rounded-full mx-auto mb-4"
-              size={64}
+        <div className="min-h-[91.5vh] flex flex-col items-center justify-center px-4">
+          <div className="dark:bg-white bg-gray-200 shadow-xl rounded-2xl p-8 w-full max-w-md text-center">
+            {!user.photoURL && (
+              <UserCircle2
+                className="text-white bg-blue-500 rounded-full mx-auto mb-4"
+                size={64}
               />
-          )}
-          {user.photoURL && (
-            <Image
-              src={user.photoURL || "/photo1.png"}
-              alt="Profile"
-              width={70}
-              height={70}
-              className="rounded-full cursor-pointer size-16 mx-auto object-cover"
-            />
-          )}
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Welcome, {user.displayName||"User"}!
-          </h2>
-          <p className="text-gray-600 text-sm">You are logged in as:</p>
-          <p className="text-blue-600 mt-2 font-medium">
-            {user?.email || user?.reloadUserInfo?.providerUserInfo[0]?.email}
-          </p>
+            )}
+            {user.photoURL && (
+              <Image
+                src={
+                  user.photoURL ||
+                  "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&w=600"
+                }
+                alt="Profile"
+                width={70}
+                height={70}
+                className="rounded-full cursor-pointer size-16 mx-auto object-cover"
+              />
+            )}
+            <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+              Welcome, {user.displayName || "User"}!
+            </h2>
+            <p className="text-gray-600 text-sm">You are logged in as:</p>
+            <p className="text-blue-600 mt-2 font-medium">
+              {user?.email || user?.reloadUserInfo?.providerUserInfo[0]?.email}
+            </p>
+          </div>
         </div>
-      </div>
-      <Footer/>
-              </>
+        <Footer />
+      </>
     </ProtectedRoute>
   );
 }

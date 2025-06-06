@@ -89,7 +89,7 @@ const Footer = () => {
           <ul className="space-y-2 text-sm">
             <li>
               <Link
-                href="/blog"
+                href="/blogs"
                 className="
                   hover:text-pink-600 dark:hover:text-pink-400 
                   transition duration-200 
@@ -134,12 +134,12 @@ const Footer = () => {
                 label: "LinkedIn",
               },
               {
-                href: "https://twitter.com/",
+                href: "https://x.com/premshaw23",
                 icon: <Twitter size={20} />,
                 label: "Twitter",
               },
               {
-                href: "https://instagram.com/",
+                href: "https://www.instagram.com/its__prem__174/",
                 icon: <Instagram size={20} />,
                 label: "Instagram",
               },

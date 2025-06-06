@@ -135,7 +135,10 @@ export default function Navbar() {
               <div className="relative flex-shrink-0 z-[60]" ref={dropdownRef}>
                 {user.photoURL ? (
                   <Image
-                    src={user.photoURL || "/photo1.png"}
+                    src={
+                      user.photoURL ||
+                      "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    }
                     alt="Profile"
                     width={44}
                     height={44}

@@ -66,7 +66,7 @@ export default function AboutPage() {
           </Link>
           , read my{" "}
           <Link
-            href="/blog"
+            href="/blogs"
             className="text-pink-600 dark:text-pink-400 hover:underline"
           >
             Blog
