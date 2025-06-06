@@ -17,6 +17,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { transformerCopyButton } from "@rehype-pretty/transformers";
 import OnThisPage from "@/components/onthispage";
 import { useLoader } from "@/context/LoaderContext";
+import Footer from "@/components/footer";
 
 export default function BlogPage() {
   const { slug } = useParams();
@@ -81,12 +82,13 @@ export default function BlogPage() {
   if (!blog) return <p className="text-center text-indigo-400">Loading...</p>;
 
   return (
+    <>
     <div className="mt-20 mb-10 max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Left Column - Blog Content */}
-        <div className="flex-1 bg-gray-900 p-6 rounded-xl shadow-gray-600 shadow-xl">
+        <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-6 rounded-xl shadow-gray-400 dark:shadow-gray-600 shadow-xl transition-colors">
           {blog.coverImage && (
-            <div className="w-full h-64 md:h-96 mb-8 overflow-hidden rounded-lg border border-white/10 shadow-md">
+            <div className="w-full h-64 md:h-96 mb-8 overflow-hidden rounded-lg border border-black/10 dark:border-white/10 shadow-md">
               <img
                 src={blog.coverImage}
                 alt={blog.title || "Blog Cover"}
@@ -94,37 +96,47 @@ export default function BlogPage() {
               />
             </div>
           )}
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-indigo-400 leading-tight">
+  
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-indigo-700 dark:text-indigo-400 leading-tight">
             {blog.title}
           </h1>
+  
           {blog.about && (
-            <blockquote className="border-l-4 border-indigo-500 pl-4 italic text-gray-300 text-lg mb-8">
+            <blockquote className="border-l-4 border-indigo-500 pl-4 italic text-gray-700 dark:text-gray-300 text-lg mb-8">
               &ldquo;{blog.about}&rdquo;
             </blockquote>
           )}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-gray-400 text-sm mb-8">
+  
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-gray-600 dark:text-gray-400 text-sm mb-8">
             <p className="italic">
-              By <span className="font-semibold text-pink-400">{blog.author}</span>
+              By{" "}
+              <span className="font-semibold text-pink-600 dark:text-pink-400">
+                {blog.author}
+              </span>
             </p>
             <p>{blog.date}</p>
           </div>
+  
           <article
-            className="prose prose-invert prose-a:text-blue-400 max-w-none prose-p:leading-relaxed"
+            className="prose max-w-none dark:prose-invert prose-p:leading-relaxed dark:prose-pre:bg-transparent dark:prose-code:text-white dark:prose-code:bg-transparent dark:prose-a:text-blue-400 dark:prose-headings:text-white dark:prose-blockquote:border-l-indigo-500 dark:prose-strong:text-white dark:prose-li:marker:text-indigo-400"
             dangerouslySetInnerHTML={{ __html: htmlContent }}
           />
+  
           <button
             onClick={() => router.push("/blogs")}
-            className="mt-8 text-sm text-blue-400 hover:underline"
+            className="mt-8 text-sm text-blue-600 dark:text-blue-400 hover:underline"
           >
             ← Back to Blogs
           </button>
         </div>
-
+  
         {/* Right Column - TOC */}
         <aside className="hidden lg:block w-80 sticky top-32 self-start">
           <OnThisPage htmlContent={htmlContent} />
         </aside>
       </div>
     </div>
+      <Footer/>
+      </>
   );
-}
+}  

@@ -16,6 +16,7 @@ import {
 import { db } from "@/lib/firebase";
 import toast from "react-hot-toast";
 import ConfirmModal from "@/components/confirmModal";
+import Footer from "@/components/footer";
 
 export default function AdminBlogsPage() {
   // ----- State -----
@@ -142,7 +143,7 @@ export default function AdminBlogsPage() {
         <div className="flex items-center gap-3">
           <label
             htmlFor="perPage"
-            className="text-gray-300 font-medium text-sm"
+            className="dark:text-gray-300 text-gray-700 font-medium text-sm"
           >
             Blogs per page:
           </label>
@@ -155,7 +156,7 @@ export default function AdminBlogsPage() {
               const parsed = parseInt(e.target.value);
               setNewItemsPerPage(isNaN(parsed) ? "" : parsed);
             }}
-            className="px-3 py-1.5 rounded-md bg-gray-800 text-white border border-gray-600 w-20 text-sm"
+            className="px-3 py-1.5 rounded-md dark:bg-gray-800 dark:text-white border border-gray-600 w-20 text-sm"
           />
 
           <button
@@ -194,7 +195,7 @@ export default function AdminBlogsPage() {
           {blogs.map(({ id, title, author, date, coverImage, status }) => (
             <div
               key={id}
-              className="bg-gray-900 rounded-lg shadow-lg overflow-hidden flex flex-col"
+              className="dark:bg-gray-900 bg-gray-200 rounded-lg shadow-lg overflow-hidden flex flex-col"
             >
               {coverImage ? (
                 <img
@@ -208,17 +209,17 @@ export default function AdminBlogsPage() {
                 </div>
               )}
               <div className="p-6 flex flex-col flex-grow">
-                <h2 className="text-xl font-bold text-indigo-400 mb-2 truncate">
+                <h2 className="text-xl font-bold dark:text-indigo-400 text-indigo-600 mb-2 truncate">
                   {title}
                 </h2>
-                <p className="text-gray-400 italic mb-1 flex-grow">
-                  By <span className="text-pink-400">{author}</span>
+                <p className="dark:text-gray-400 text-gray-900 italic mb-1 flex-grow">
+                  By <span className="dark:text-pink-400 text-pink-600 font-semibold">{author}</span>
                 </p>
-                <p className="text-gray-500 text-sm mb-1">{date}</p>
+                <p className="dark:text-gray-500 text-gray-900 text-sm mb-1">{date}</p>
                 <p
                   className={`text-sm font-semibold ${
                     status === "published"
-                      ? "text-green-400"
+                      ? "text-green-500"
                       : "text-yellow-400"
                   }`}
                 >
@@ -227,7 +228,7 @@ export default function AdminBlogsPage() {
                 <div className="flex justify-between items-center pt-4 border-t border-gray-800">
                   <Link
                     href={`/admin/blogs/${id}`}
-                    className="text-blue-400 hover:underline font-medium"
+                    className="text-blue-500 hover:underline font-medium"
                   >
                     Edit
                   </Link>
@@ -236,7 +237,7 @@ export default function AdminBlogsPage() {
                       setBlogToDelete(id);
                       setModalOpen(true);
                     }}
-                    className="text-red-400 hover:underline font-medium"
+                    className="text-red-500 hover:underline font-medium"
                   >
                     Delete
                   </button>
@@ -247,5 +248,6 @@ export default function AdminBlogsPage() {
         </div>
       )}
     </div>
+   
   );
 }

@@ -59,7 +59,7 @@ export default function AdminLayout({ children }) {
         {/* Sidebar */}
         <aside
           className={`fixed lg:sticky top-0 left-0 h-screen overflow-y-auto z-40 w-64 
-  bg-black/30 backdrop-blur-md border-r border-white/10 
+  dark:bg-black/30 bg-slate-600 backdrop-blur-md border-r border-white/10 
   text-white shadow-xl p-6 pt-20 transform 
   transition-transform duration-300 ease-in-out
   ${mobileNavOpen ? "translate-x-0" : "-translate-x-full"} 
@@ -96,14 +96,14 @@ export default function AdminLayout({ children }) {
             })}
             <button
               onClick={() => setModalOpen(true)}
-              className="flex items-center gap-3 px-4 py-2 rounded-lg transition-all font-medium hover:bg-red-500/80 text-red-300 hover:text-white mt-8"
+              className="flex items-center gap-3 px-4 py-2 rounded-lg transition-all font-medium hover:bg-red-500/80 text-red-600 dark:text-red-300 hover:text-white mt-8"
             >
               <LogOut size={18} />
               <span className="text-sm">Logout</span>
             </button>
           </nav>
 
-          <div className="mt-10 text-xs text-gray-400 hidden lg:block">
+          <div className="mt-10 text-xs dark:text-gray-400 text-gray-200 hidden lg:block">
             &copy; {new Date().getFullYear()} Admin Panel
           </div>
         </aside>
@@ -127,7 +127,7 @@ export default function AdminLayout({ children }) {
               >
                 <Menu size={24} className="text-white" />
               </button>
-              <h1 className="md:text-2xl text-lg font-bold text-gray-300">
+              <h1 className="md:text-2xl text-lg font-bold text-gray-700 dark:text-gray-300">
                 Admin Dashboard
               </h1>
             </div>
@@ -144,7 +144,7 @@ export default function AdminLayout({ children }) {
               ) : (
                 <div className="w-9 h-9 bg-gray-500 rounded-full" />
               )}
-              <span className="text-sm text-gray-300 font-medium">
+              <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                 {user?.displayName || user?.email || "Admin"}
               </span>
             </div>

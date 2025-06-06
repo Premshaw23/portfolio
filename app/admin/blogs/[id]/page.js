@@ -15,6 +15,7 @@ import { db } from "@/lib/firebase";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
 import MarkdownWrapper from "@/components/customConvertor";
+import Footer from "@/components/footer";
 
 const MarkdownEditor = dynamic(() => import("@uiw/react-md-editor"), {
   ssr: false,
@@ -141,8 +142,8 @@ export default function AdminBlogEditorPage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 mt-20 mb-20">
-      <h1 className="text-4xl font-extrabold text-indigo-600 mb-6">
+    <div className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 dark:bg-gray-900 bg-gray-400 py-5 rounded-lg mt-10 mb-20">
+      <h1 className="text-5xl font-extrabold text-center text-indigo-600 mb-6">
         {id === "new" ? "Create New Blog" : "Edit Blog"}
       </h1>
 
@@ -160,7 +161,7 @@ export default function AdminBlogEditorPage() {
           type="text"
           id="title"
           name="title"
-          className="w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-white"
+          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
           value={title}
           placeholder="Blog title"
           onChange={(e) => setTitle(e.target.value)}
@@ -173,7 +174,7 @@ export default function AdminBlogEditorPage() {
           type="text"
           id="slug"
           name="slug"
-          className="w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-white"
+          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
           value={slug}
           placeholder="url-friendly-slug"
           onChange={(e) => setSlug(e.target.value)}
@@ -186,7 +187,7 @@ export default function AdminBlogEditorPage() {
           id="description"
           name="description"
           rows={3}
-          className="w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-white"
+          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
           value={about}
           placeholder="Brief summary of the blog"
           onChange={(e) => setAbout(e.target.value)}
@@ -199,7 +200,7 @@ export default function AdminBlogEditorPage() {
           type="text"
           id="author"
           name="author"
-          className="w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-white"
+          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
           value={author}
           placeholder="Author name"
           onChange={(e) => setAuthor(e.target.value)}
@@ -212,7 +213,7 @@ export default function AdminBlogEditorPage() {
           type="date"
           id="date"
           name="date"
-          className="w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-white"
+          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
@@ -224,7 +225,7 @@ export default function AdminBlogEditorPage() {
           type="url"
           id="coverImage"
           name="coverImage"
-          className="w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-white"
+          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
           value={coverImage}
           placeholder="https://example.com/image.jpg"
           onChange={(e) => setCoverImage(e.target.value)}
@@ -253,7 +254,7 @@ export default function AdminBlogEditorPage() {
             name="status"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="w-full rounded border border-gray-600 bg-gray-900 px-3 py-2 text-white"
+            className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
           >
             <option value="draft">Draft</option>
             <option value="published">Published</option>
@@ -294,5 +295,6 @@ export default function AdminBlogEditorPage() {
         </div>
       </div>
     </div>
+  
   );
 }

@@ -18,14 +18,23 @@ export default function HeroSection() {
       {/* LEFT SECTION */}
       <div className="flex-1 text-center md:text-left space-y-6">
         {/* Heading */}
-        <h1 className="text-5xl sm:text-6xl font-extrabold text-white leading-tight">
+        <h1
+          className="text-5xl sm:text-6xl font-extrabold leading-tight 
+                       text-gray-900 dark:text-white"
+        >
           Hey, I'm{" "}
-          <span className="bg-gradient-to-r from-indigo-400 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+          <span
+            className="bg-gradient-to-r from-indigo-500 via-pink-500 to-purple-600 
+                           bg-clip-text text-transparent"
+          >
             Prem Shaw
           </span>
         </h1>
 
-        <h2 className="text-2xl sm:text-3xl font-semibold text-fuchsia-400 mt-2 min-h-[3.5rem] font-mono antialiased">
+        <h2
+          className="text-2xl sm:text-3xl font-semibold mt-2 min-h-[3.5rem] font-mono antialiased
+                       text-gray-700 dark:text-fuchsia-400"
+        >
           <Typewriter
             options={{
               strings: [
@@ -43,25 +52,35 @@ export default function HeroSection() {
           />
         </h2>
 
-        <p className="text-sm sm:text-base text-gray-300 max-w-2xl leading-7 mt-4">
+        <p
+          className="text-sm sm:text-base max-w-2xl leading-7 mt-4
+                      text-gray-700 dark:text-gray-300"
+        >
           I'm a{" "}
-          <span className="text-green-400 font-semibold">
+          <span className="text-green-600 dark:text-green-400 font-semibold">
             Computer Science undergrad at IIIT Bhopal
           </span>{" "}
           passionate about building performant, scalable, and beautiful web
           applications using the{" "}
-          <span className="text-cyan-400 font-semibold">MERN stack</span> and{" "}
-          <span className="text-cyan-400 font-semibold">Next.js</span>. I love
-          crafting responsive UIs, architecting APIs, and solving real-world
-          problems through code.
+          <span className="text-cyan-600 dark:text-cyan-400 font-semibold">
+            MERN stack
+          </span>{" "}
+          and{" "}
+          <span className="text-cyan-600 dark:text-cyan-400 font-semibold">
+            Next.js
+          </span>
+          . I love crafting responsive UIs, architecting APIs, and solving
+          real-world problems through code.
           <br />
           <br />
           As an{" "}
-          <span className="text-green-400 font-semibold">
+          <span className="text-green-600 dark:text-green-400 font-semibold">
             open-source contributor
           </span>{" "}
           and{" "}
-          <span className="text-pink-400 font-semibold">CodeChef 2★ coder</span>{" "}
+          <span className="text-pink-600 dark:text-pink-400 font-semibold">
+            CodeChef 2★ coder
+          </span>{" "}
           with a max rating of 1457 and rank 141 in Div-4, I constantly push my
           limits through projects, contests, and AI tool exploration.
           <br />
@@ -72,23 +91,23 @@ export default function HeroSection() {
 
         <button
           type="button"
-          className="mt-6 px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white font-semibold hover:scale-105 transition-transform"
+          className="mt-6 px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-700 to-pink-600
+                     text-white font-semibold hover:scale-105 transition-transform"
         >
-          <Link
-            href="/contact"
-          >
-            Let’s Build Together →
-          </Link>
+          <Link href="/contact">Let’s Build Together →</Link>
         </button>
 
         {/* SOCIAL ICONS */}
-        <div className="flex justify-center md:justify-start space-x-6 text-2xl text-gray-400 mt-4">
+        <div
+          className="flex justify-center md:justify-start space-x-6 text-2xl 
+                        text-gray-600 dark:text-gray-400 mt-4"
+        >
           <a
             href="https://github.com/premshaw23"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="hover:text-white transition"
+            className="hover:text-gray-900 dark:hover:text-white transition"
           >
             <FaGithub />
           </a>
@@ -97,7 +116,7 @@ export default function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="hover:text-blue-400 transition"
+            className="hover:text-blue-600 dark:hover:text-blue-400 transition"
           >
             <FaLinkedin />
           </a>
@@ -106,7 +125,7 @@ export default function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Twitter"
-            className="hover:text-cyan-400 transition"
+            className="hover:text-cyan-600 dark:hover:text-cyan-400 transition"
           >
             <FaTwitter />
           </a>
@@ -116,7 +135,9 @@ export default function HeroSection() {
         <a
           href="/Prem_Shaw_Resume.pdf"
           download="Prem_Shaw_Resume.pdf"
-          className="inline-block px-8 py-3 bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white text-lg font-semibold rounded-full hover:scale-105 transition transform shadow-md shadow-fuchsia-600/30 mt-1"
+          className="inline-block px-8 py-3 bg-gradient-to-r from-indigo-700 to-fuchsia-600
+                     text-white text-lg font-semibold rounded-full hover:scale-105 transition transform
+                     shadow-md shadow-fuchsia-600/40 mt-1"
         >
           Download Resume
         </a>
@@ -135,7 +156,11 @@ export default function HeroSection() {
         </div>
 
         {/* Circular Image */}
-        <div className="relative z-20 sm:w-[65%] sm:h-[65%] w-[65%] h-[65%] rounded-full overflow-hidden shadow-2xl mx-[4.5rem] my-[4.5rem] md:mx-[6rem] md:my-[6rem] ring-2 ring-fuchsia-600/20">
+        <div
+          className="relative z-20 sm:w-[65%] sm:h-[65%] w-[65%] h-[65%] rounded-full overflow-hidden
+                        shadow-2xl mx-[4.5rem] my-[4.5rem] md:mx-[6rem] md:my-[6rem]
+                        ring-2 ring-fuchsia-600/20"
+        >
           <Image
             src="/prem.jpg"
             alt="Prem Shaw"

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import Footer from "@/components/footer";
 import { db } from "@/lib/firebase";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,15 +68,16 @@ const BlogPage = () => {
   };
 
   return (
-    <section className="px-4 py-10 mt-14 text-white min-h-[90vh]">
-      <h1 className="text-4xl font-bold text-center text-indigo-400 mb-12">
+    <>
+    <section className="px-4 py-10 mt-14 min-h-[90vh] bg-white text-gray-800 dark:bg-transparent dark:text-white">
+      <h1 className="text-4xl font-bold text-center text-indigo-500 dark:text-indigo-400 mb-12">
         My Blog
       </h1>
       <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
         {currentBlogs.map((blog) => (
           <div
             key={blog.id}
-            className="bg-gray-800 p-5 rounded-lg shadow-lg max-w-xl w-full flex flex-col"
+            className="bg-gray-100 dark:bg-gray-800 p-5 rounded-xl shadow-md max-w-xl w-full flex flex-col transition-colors"
           >
             <div className="relative w-full h-48 rounded-lg overflow-hidden">
               <Image
@@ -87,13 +89,15 @@ const BlogPage = () => {
                 priority
               />
             </div>
-            <h2 className="text-2xl font-semibold text-indigo-300 mt-4">
+            <h2 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mt-4">
               {blog.title}
             </h2>
-            <p className="text-gray-400 mt-2 flex-grow">{blog.about}</p>
+            <p className="text-gray-600 dark:text-gray-300 mt-2 flex-grow">
+              {blog.about}
+            </p>
             <Link
               href={`/blogs/${blog.slug}`}
-              className="mt-4 text-indigo-400 hover:underline"
+              className="mt-4 text-indigo-500 dark:text-indigo-400 hover:underline"
             >
               Read More
             </Link>
@@ -140,6 +144,8 @@ const BlogPage = () => {
         </Pagination>
       )}
     </section>
+      <Footer/>
+      </>
   );
 };
 

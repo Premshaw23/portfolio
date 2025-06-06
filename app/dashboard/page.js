@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { UserCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Footer from "@/components/footer";
 
 export default function Admin() {
   const { user, loading } = useAuth();
@@ -34,13 +35,14 @@ export default function Admin() {
 
   return (
     <ProtectedRoute>
+      <>
       <div className="min-h-[91.5vh] flex flex-col items-center justify-center px-4">
-        <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md text-center">
+        <div className="dark:bg-white bg-gray-200 shadow-xl rounded-2xl p-8 w-full max-w-md text-center">
           {!user.photoURL && (
             <UserCircle2
               className="text-white bg-blue-500 rounded-full mx-auto mb-4"
               size={64}
-            />
+              />
           )}
           {user.photoURL && (
             <Image
@@ -60,6 +62,8 @@ export default function Admin() {
           </p>
         </div>
       </div>
+      <Footer/>
+              </>
     </ProtectedRoute>
   );
 }

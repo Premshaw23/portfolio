@@ -129,7 +129,7 @@ export default function SkillsPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-8 text-white">
-      <h2 className="text-3xl font-semibold mb-8 text-center text-indigo-500">
+      <h2 className="text-3xl font-semibold mb-8 text-center text-indigo-600">
         Manage Skills
       </h2>
 
@@ -137,7 +137,7 @@ export default function SkillsPage() {
       <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
         <label
           htmlFor="perPage"
-          className="text-gray-300 font-semibold text-sm whitespace-nowrap"
+          className="dark:text-gray-300 text-gray-700 font-semibold text-sm whitespace-nowrap"
         >
           Projects per page:
         </label>
@@ -150,7 +150,7 @@ export default function SkillsPage() {
             const parsed = parseInt(e.target.value);
             setNewItemsPerPage(isNaN(parsed) ? "" : parsed);
           }}
-          className="w-20 rounded-md bg-gray-900 text-white border border-gray-700 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-20 rounded-md dark:bg-gray-900 text-slate-900 font-semibold dark:text-white border border-gray-700 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
         <button
           onClick={async () => {
@@ -176,13 +176,13 @@ export default function SkillsPage() {
       {/* Skill Form */}
       <form
         onSubmit={handleSubmit}
-        className="mb-10 bg-gray-900 p-4 rounded-lg border border-indigo-500 shadow-md max-w-3xl mx-auto"
+        className="mb-10 dark:bg-gray-900 bg-gray-400 p-4 rounded-lg border border-indigo-500 shadow-md max-w-3xl mx-auto"
       >
         <div className="flex flex-col sm:flex-row gap-5">
           <input
             type="text"
             placeholder="Skill name"
-            className="flex-1 p-3 bg-gray-800 rounded-md text-white placeholder-gray-400 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="flex-1 p-3 dark:bg-gray-800 rounded-md dark:text-white bg-gray-200 text-slate-800 font-semibold placeholder-gray-600 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-500"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             disabled={loading}
@@ -191,7 +191,7 @@ export default function SkillsPage() {
           <input
             type="number"
             placeholder="%"
-            className="w- p-3 bg-gray-800 rounded-md text-white placeholder-gray-400 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w- p-3 dark:bg-gray-800 rounded-md dark:text-white bg-gray-200 text-slate-800 font-semibold placeholder-gray-600 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-500"
             value={formData.percentage}
             onChange={(e) =>
               setFormData({ ...formData, percentage: e.target.value })
@@ -228,7 +228,7 @@ export default function SkillsPage() {
           {skills.map((skill) => (
             <li
               key={skill.id}
-              className="bg-gray-900 rounded-lg p-3 border border-indigo-600 shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition hover:scale-[1.02] duration-150"
+              className="dark:bg-gray-900 bg-gray-400 rounded-lg p-3 border border-indigo-600 shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 transition hover:scale-[1.02] duration-150"
             >
               <div className="flex-1 min-w-full">
                 <p className="font-semibold w-full text-lg truncate sm:text-base md:text-lg">

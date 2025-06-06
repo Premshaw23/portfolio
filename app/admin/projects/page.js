@@ -154,7 +154,10 @@ export default function ProjectsPage() {
 
       {/* Items per page setting */}
       <div className="flex items-center gap-3 mb-8">
-        <label htmlFor="perPage" className="text-gray-300 font-medium text-sm">
+        <label
+          htmlFor="perPage"
+          className="dark:text-gray-300 text-gray-800 font-medium text-sm"
+        >
           Projects per page:
         </label>
         <input
@@ -166,7 +169,7 @@ export default function ProjectsPage() {
             const parsed = parseInt(e.target.value);
             setNewItemsPerPage(isNaN(parsed) ? "" : parsed);
           }}
-          className="px-3 py-1.5 rounded-md bg-gray-800 text-white border border-gray-600 w-20 text-sm"
+          className="px-3 py-1.5 rounded-md dark:bg-gray-800 dark:text-white text-gray-800 font-semibold border border-gray-600 w-20 text-sm"
         />
         <button
           onClick={async () => {
@@ -192,7 +195,7 @@ export default function ProjectsPage() {
       {/* Project Form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-900 p-6 rounded-xl border border-white/10 shadow-xl mb-12 space-y-4"
+        className="dark:bg-gray-900 bg-gray-400 p-6 rounded-xl border border-white/10 shadow-xl mb-12 space-y-4"
       >
         {[
           ["title", "Project Title"],
@@ -204,7 +207,7 @@ export default function ProjectsPage() {
           <div key={field} className="flex flex-col space-y-1">
             <label
               htmlFor={field}
-              className="text-sm font-medium text-gray-300"
+              className="text-sm font-medium dark:text-gray-300 text-white"
             >
               {label}
             </label>
@@ -212,7 +215,7 @@ export default function ProjectsPage() {
               id={field}
               type="text"
               placeholder={label}
-              className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 rounded-lg dark:text-white font-semibold text-slate-900 bg-gray-200 dark:bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={formData[field]}
               onChange={(e) =>
                 setFormData({ ...formData, [field]: e.target.value })
@@ -237,7 +240,7 @@ export default function ProjectsPage() {
       </form>
 
       {/* Project List */}
-      <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+      <h2 className="text-2xl font-semibold mb-6 text-indigo-700 dark:text-indigo-300">
         Existing Projects
       </h2>
 
@@ -248,13 +251,13 @@ export default function ProjectsPage() {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="bg-gray-900 p-5 rounded-xl border border-white/10 shadow-md flex flex-col justify-between"
+              className="dark:bg-gray-900 bg-gray-200 p-5 rounded-xl border border-white/10 shadow-md flex flex-col justify-between"
             >
               <div className="mb-4">
-                <h3 className="text-xl font-bold text-indigo-300 mb-1">
+                <h3 className="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-1">
                   {project.title}
                 </h3>
-                <p className="text-sm text-gray-400 mb-2">
+                <p className="text-sm text-gray-700 dark:text-gray-400 mb-2">
                   {project.description}
                 </p>
                 {project.buttonText && (
@@ -262,7 +265,7 @@ export default function ProjectsPage() {
                     href={project.buttonLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-indigo-500 hover:underline text-sm"
+                    className="dark:text-indigo-500 text-indigo-700 hover:underline text-sm"
                   >
                     {project.buttonText}
                   </a>

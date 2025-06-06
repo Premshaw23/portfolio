@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       className="scroll-smooth scroll-p-20"
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-[#0c0f15] via-[#111139] to-[#0f0f1f] min-w-full min-h-[87vh]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-w-full min-h-[87vh] transition-colors duration-300 bg-white text-black dark:bg-gradient-to-b dark:from-[#0c0f15] dark:via-[#111139] dark:to-[#0f0f1f] dark:text-white`}
       >
         <AuthProvider>
           <ThemeProvider
@@ -46,7 +46,14 @@ export default function RootLayout({ children }) {
               <Navbar />
               {children}
               <ToastWrapper />
-              <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 3000,
+                  className:
+                    "bg-white text-black dark:bg-gray-900 dark:text-white",
+                }}
+              />
             </LoaderProvider>
           </ThemeProvider>
         </AuthProvider>

@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/pagination";
 import Bt2 from "@/components/buttonUi/Button2";
 import { useLoader } from "@/context/LoaderContext";
+import Footer from "@/components/footer";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
@@ -65,19 +66,20 @@ const ProjectsPage = () => {
   };
 
   return (
-    <section className="bg-transparent text-gray-300 min-h-[87vh] py-16 mt-12 body-font">
+    <>
+    <section className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 min-h-[87vh] py-16 mt-12 body-font">
       <div className="container mx-auto px-5">
-        <h1 className="text-4xl font-bold text-center text-indigo-400 mb-14">
+        <h1 className="text-4xl font-bold text-center text-indigo-600 dark:text-indigo-400 mb-14">
           My Projects
         </h1>
 
         <div className="flex flex-wrap justify-center gap-8 min-h-[250px]">
           {loading ? (
-            <p className="text-indigo-300 text-lg animate-pulse">
+            <p className="text-indigo-600 dark:text-indigo-300 text-lg animate-pulse">
               Loading projects...
             </p>
           ) : currentProjects.length === 0 ? (
-            <p className="text-center text-gray-400 w-full">
+            <p className="text-center text-gray-600 dark:text-gray-400 w-full">
               No projects found.
             </p>
           ) : (
@@ -85,7 +87,7 @@ const ProjectsPage = () => {
               ({ id, title, description, image, buttonText, buttonLink }) => (
                 <div
                   key={id}
-                  className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-all duration-300"
+                  className="bg-gray-200 dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-all duration-300"
                 >
                   <Image
                     src={image || "/fallback.png"}
@@ -96,10 +98,12 @@ const ProjectsPage = () => {
                     className="w-full h-52 object-cover"
                   />
                   <div className="p-6">
-                    <h2 className="text-2xl font-semibold text-indigo-300 mb-3">
+                    <h2 className="text-2xl font-semibold text-indigo-700 dark:text-indigo-300 mb-3">
                       {title}
                     </h2>
-                    <p className="text-gray-400 text-sm mb-5">{description}</p>
+                    <p className="text-gray-700 dark:text-gray-400 text-sm mb-5">
+                      {description}
+                    </p>
                     <a
                       href={buttonLink}
                       target="_blank"
@@ -146,14 +150,17 @@ const ProjectsPage = () => {
                       ? "pointer-events-none opacity-50"
                       : ""
                   }
-                />
+                  />
               </PaginationItem>
             </PaginationContent>
           </Pagination>
         )}
       </div>
     </section>
+    <Footer/>
+        </>
   );
+  
 };
 
 export default ProjectsPage;

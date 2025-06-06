@@ -27,28 +27,49 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-gradient-to-r from-gray-950 via-slate-900 to-indigo-950 text-gray-300 border-t border-gray-800 shadow-inner">
+    <footer
+      className="
+        relative 
+        bg-gradient-to-r 
+        from-gray-100 via-gray-50 to-indigo-100 
+        dark:from-gray-900 dark:via-gray-950 dark:to-indigo-900 
+        text-gray-700 
+        dark:text-gray-300 
+        border-t border-gray-300 
+        dark:border-gray-700 
+        shadow-inner
+      "
+    >
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         {/* Branding */}
         <div className="space-y-2 text-center md:text-left">
-          <h2 className="text-2xl font-bold text-white">Prem Shaw</h2>
-          <p className="text-sm text-gray-400">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Prem Shaw
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Full-stack Developer & Designer
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-500">
             &copy; {new Date().getFullYear()} All rights reserved.
           </p>
         </div>
 
         {/* Main Links */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">Main</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+            Main
+          </h3>
           <ul className="space-y-2 text-sm">
             {["/", "/about", "/contact", "/skills"].map((path, index) => (
               <li key={index}>
                 <Link
                   href={path}
-                  className="hover:text-pink-400 transition duration-200 focus:outline-none focus:text-pink-400"
+                  className="
+                    hover:text-pink-600 dark:hover:text-pink-400 
+                    transition duration-200 
+                    focus:outline-none 
+                    focus:text-pink-600 dark:focus:text-pink-400
+                  "
                 >
                   {path === "/"
                     ? "Home"
@@ -62,12 +83,19 @@ const Footer = () => {
 
         {/* Learn Links */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">Learn</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+            Learn
+          </h3>
           <ul className="space-y-2 text-sm">
             <li>
               <Link
                 href="/blog"
-                className="hover:text-pink-400 transition duration-200 focus:outline-none focus:text-pink-400"
+                className="
+                  hover:text-pink-600 dark:hover:text-pink-400 
+                  transition duration-200 
+                  focus:outline-none 
+                  focus:text-pink-600 dark:focus:text-pink-400
+                "
               >
                 Blog
               </Link>
@@ -75,7 +103,12 @@ const Footer = () => {
             <li>
               <Link
                 href="/projects"
-                className="hover:text-pink-400 transition duration-200 focus:outline-none focus:text-pink-400"
+                className="
+                  hover:text-pink-600 dark:hover:text-pink-400 
+                  transition duration-200 
+                  focus:outline-none 
+                  focus:text-pink-600 dark:focus:text-pink-400
+                "
               >
                 Projects
               </Link>
@@ -85,7 +118,9 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">Connect</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+            Connect
+          </h3>
           <div className="flex space-x-4">
             {[
               {
@@ -120,7 +155,12 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={item.label}
-                className="hover:text-pink-400 transition focus:outline-none focus:text-pink-400"
+                className="
+                  hover:text-pink-600 dark:hover:text-pink-400 
+                  transition 
+                  focus:outline-none 
+                  focus:text-pink-600 dark:focus:text-pink-400
+                "
               >
                 {item.icon}
               </a>
@@ -133,11 +173,20 @@ const Footer = () => {
       {showButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 p-3 bg-pink-500 hover:bg-pink-600 text-white rounded-full shadow-lg transition-all duration-300 group z-50"
+          className="
+            fixed bottom-6 right-6 p-3 bg-pink-600 hover:bg-pink-700 
+            dark:bg-pink-500 dark:hover:bg-pink-600 
+            text-white rounded-full shadow-lg transition-all duration-300 group z-50
+          "
           aria-label="Back to top"
         >
           <ArrowUp size={20} />
-          <span className="absolute bottom-full left-0 w-[64px] mb-2 text-xs bg-gray-900 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+          <span
+            className="
+            absolute bottom-full left-0 w-[64px] mb-2 text-xs bg-gray-900 text-white 
+            rounded opacity-0 group-hover:opacity-100 transition-opacity
+          "
+          >
             Back to Top
           </span>
         </button>

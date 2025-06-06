@@ -67,7 +67,6 @@ export default function Navbar() {
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
     { name: "Blog", href: "/blogs" },
-    { name: "Dashboard", href: "/dashboard" },
   ];
 
   const isAdmin =
@@ -116,7 +115,7 @@ export default function Navbar() {
                 />
               </div>
             </div>
-            <p className="text-2xl text-white font-bold tracking-wide">
+            <p className="text-2xl font-bold tracking-wide text-gray-900 dark:text-white">
               Portfolio
             </p>
           </Link>
@@ -125,7 +124,7 @@ export default function Navbar() {
           <Links className="hidden md:flex" />
 
           {/* Right Section */}
-          <div className="flex items-center gap-2 md:gap-4 text-white">
+          <div className="flex items-center gap-2 md:gap-4 text-gray-900 dark:text-white">
             <ModeToggle />
 
             {!user ? (
@@ -140,7 +139,7 @@ export default function Navbar() {
                     alt="Profile"
                     width={44}
                     height={44}
-                    className="w-11 h-11 rounded-full border-2 border-amber-100 object-cover cursor-pointer hover:scale-105 transition"
+                    className="w-11 h-11 rounded-full border-2 border-amber-300 dark:border-amber-600 object-cover cursor-pointer hover:scale-105 transition"
                     onClick={handleAdminAccess}
                   />
                 ) : (
@@ -152,12 +151,12 @@ export default function Navbar() {
 
                 {/* Dropdown */}
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg z-[60]">
+                  <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-lg z-[60]">
                     {isAdmin && (
                       <button
                         className={`cursor-pointer w-full rounded-lg text-left px-4 py-2 ${
                           emailVerified
-                            ? "hover:bg-gray-200"
+                            ? "hover:bg-gray-200 dark:hover:bg-gray-700"
                             : "text-gray-400 cursor-not-allowed"
                         }`}
                         onClick={() => router.push("/admin")}
@@ -174,7 +173,7 @@ export default function Navbar() {
                     <button
                       className={`cursor-pointer w-full rounded-lg text-left px-4 py-2 ${
                         emailVerified
-                          ? "hover:bg-gray-200"
+                          ? "hover:bg-gray-200 dark:hover:bg-gray-700"
                           : "text-gray-400 cursor-not-allowed"
                       }`}
                       onClick={
@@ -193,7 +192,7 @@ export default function Navbar() {
                     </button>
 
                     <button
-                      className="cursor-pointer rounded-lg w-full text-left px-4 py-2 text-red-500 hover:bg-gray-200"
+                      className="cursor-pointer rounded-lg w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200 dark:hover:bg-gray-700"
                       onClick={handleLogout}
                     >
                       Logout
@@ -205,7 +204,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden p-1"
+              className="md:hidden p-1 text-gray-900 dark:text-white"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -217,7 +216,7 @@ export default function Navbar() {
         <div
           className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
             isOpen ? "max-h-96 py-3" : "max-h-0"
-          }`}
+          } bg-transparent dark:bg-gray-900`}
         >
           <div className="flex flex-col space-y-3">
             {navItems.map(({ name, href }) => (
@@ -225,24 +224,35 @@ export default function Navbar() {
                 key={name}
                 href={href}
                 onClick={() => setIsOpen(false)}
-                className="text-green-200 hover:text-pink-400 transition px-2"
+                className="text-green-700 dark:text-green-400 hover:text-pink-600 dark:hover:text-pink-400 transition px-2"
               >
                 {name}
               </Link>
             ))}
 
             {user && (
-              <button
-                onClick={() => {
-                  setIsOpen(false);
-                  handleLogout();
-                }}
-                className="text-left text-red-400 hover:text-red-600 transition border border-gray-800 w-18 rounded-lg px-2"
-              >
-                Logout
-              </button>
+              <div className="flex flex-col items-start space-y-3">
+                <button className="text-green-700 dark:text-green-400 hover:text-pink-600 dark:hover:text-pink-400 transition px-2">
+                  <Link
+                    key="Dashboard"
+                    href={"/dashboard"}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                </button>
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    handleLogout();
+                  }}
+                  className="text-left text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-600 transition border border-gray-400 dark:border-gray-700 w-18 rounded-lg px-2"
+                >
+                  Logout
+                </button>
+              </div>
             )}
-          </div>  
+          </div>
         </div>
       </div>
     </nav>
