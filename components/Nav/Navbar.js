@@ -242,7 +242,7 @@ export default function Navbar() {
                 Logout
               </button>
             )}
-          </div>
+          </div>  
         </div>
       </div>
     </nav>

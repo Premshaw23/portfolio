@@ -91,6 +91,7 @@ const ProjectsPage = () => {
                     src={image || "/fallback.png"}
                     alt={title || "Project image"}
                     width={300}
+                    priority
                     height={300}
                     className="w-full h-52 object-cover"
                   />

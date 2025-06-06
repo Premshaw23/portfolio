@@ -1,159 +1,181 @@
 "use client";
+
 import { toast, Bounce } from "react-toastify";
 import { useState } from "react";
 import emailjs from "emailjs-com";
 
 const ContactUs = () => {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [queryType, setQueryType] = useState("General Enquiry");
+  const [consent, setConsent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!consent) {
+      toast.warn("Please give consent to be contacted.", {
+        theme: "dark",
+        transition: Bounce,
+      });
+      return;
+    }
 
-    // Define the parameters to be sent to the EmailJS template
     const templateParams = {
-      name,
+      name: `${firstName} ${lastName}`,
       email,
       message,
+      queryType,
     };
 
     setIsLoading(true);
-    // Send the email using EmailJS
+
     emailjs
       .send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, // Replace with your EmailJS service ID
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, // Replace with your EmailJS template ID
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
         templateParams,
-        process.env.NEXT_PUBLIC_EMAILJS_USER_ID // Replace with your EmailJS user ID
+        process.env.NEXT_PUBLIC_EMAILJS_USER_ID
       )
       .then(
-        (response) => {
-          setSuccessMessage("Your message has been sent successfully!");
-          setErrorMessage(""); // Clear previous errors
-          setIsLoading(false);
-
+        () => {
           toast.success("Your message has been sent successfully!", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             theme: "dark",
             transition: Bounce,
           });
-
-          setName("");
+          setFirstName("");
+          setLastName("");
           setEmail("");
           setMessage("");
+          setConsent(false);
+          setQueryType("General Enquiry");
         },
-        (error) => {
-          setErrorMessage("Oops! Something went wrong. Please try again.");
-          setSuccessMessage(""); // Clear previous success messages
-          setIsLoading(false);
-
+        () => {
           toast.error("Oops! Something went wrong. Please try again.", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             theme: "dark",
             transition: Bounce,
           });
         }
-      );
+      )
+      .finally(() => setIsLoading(false));
   };
 
   return (
-    <div className="max-w-[33rem] md:mx-auto mx-4 mt-24 mb-11 p-8 bg-gray-900 rounded-2xl shadow-xl shadow-purple-700">
-      <h1 className="text-4xl font-extrabold text-center text-purple-400 mb-4">
-        Get In Touch
+    <div className="max-w-2xl md:mx-auto mx-2 mt-24 mb-8 px-6 py-10 bg-gray-900 rounded-2xl shadow-2xl shadow-purple-800/30">
+      <h1 className="text-4xl font-bold text-center text-purple-400 mb-10">
+        Contact Us
       </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-7">
-        {/* Name Input */}
-        <div>
-          <label
-            htmlFor="name"
-            className="block mb-2 text-sm font-medium text-purple-300"
-          >
-            Your Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="John Doe"
-            required
-            className="w-full px-4 py-3 bg-gray-800 border border-purple-700 rounded-lg shadow-sm text-purple-100 placeholder-purple-500
-                         focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-          />
+      <form onSubmit={handleSubmit} className="space-y-6 text-purple-100">
+        {/* Name Fields */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
+            <label className="block mb-2 text-sm text-purple-300">
+              First Name
+            </label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="John"
+              required
+              className="w-full px-4 py-3 bg-gray-800 border border-purple-700 rounded-lg placeholder-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block mb-2 text-sm text-purple-300">
+              Last Name
+            </label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Doe"
+              required
+              className="w-full px-4 py-3 bg-gray-800 border border-purple-700 rounded-lg placeholder-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
         </div>
 
-        {/* Email Input */}
+        {/* Email */}
         <div>
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-purple-300"
-          >
-            Your Email
+          <label className="block mb-2 text-sm text-purple-300">
+            Email Address
           </label>
           <input
             type="email"
-            id="email"
-            name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
             required
-            className="w-full px-4 py-3 bg-gray-800 border border-purple-700 rounded-lg shadow-sm text-purple-100 placeholder-purple-500
-                         focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+            className="w-full px-4 py-3 bg-gray-800 border border-purple-700 rounded-lg placeholder-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
-        {/* Message Input */}
+        {/* Query Type */}
         <div>
-          <label
-            htmlFor="message"
-            className="block mb-2 text-sm font-medium text-purple-300"
-          >
-            Your Message
+          <label className="block mb-3 text-sm text-purple-300">
+            Query Type
           </label>
+          <div className="flex gap-6">
+            {["General Enquiry", "Support Request"].map((type) => (
+              <label
+                key={type}
+                className="inline-flex items-center cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  value={type}
+                  checked={queryType === type}
+                  onChange={() => setQueryType(type)}
+                  className="form-radio text-purple-600 focus:ring-purple-500"
+                />
+                <span className="ml-2 text-sm">{type}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Message */}
+        <div>
+          <label className="block mb-2 text-sm text-purple-300">Message</label>
           <textarea
-            id="message"
-            name="message"
+            rows={4}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            rows="4"
             placeholder="Write your message here..."
             required
-            className="w-full px-4 py-3 bg-gray-800 border border-purple-700 rounded-lg shadow-sm text-purple-100 placeholder-purple-500 resize-none
-                         focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+            className="w-full px-4 py-3 bg-gray-800 border border-purple-700 rounded-lg placeholder-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Consent */}
+        <div className="flex items-start">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={() => setConsent(!consent)}
+            className="mt-1 mr-3 accent-purple-600"
+          />
+          <label className="text-sm text-purple-300">
+            I hereby consent to being contacted by the team
+          </label>
+        </div>
+
+        {/* Submit */}
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full py-3 mt-2 rounded-lg text-white font-semibold text-lg transition shadow-lg shadow-purple-700/60 
-    ${
-      isLoading
-        ? "bg-purple-400 cursor-not-allowed"
-        : "bg-purple-600 hover:bg-purple-700"
-    }`}
+          className={`w-full py-3 mt-4 rounded-lg text-white font-semibold text-lg transition shadow-lg
+            ${
+              isLoading
+                ? "bg-purple-400 cursor-not-allowed"
+                : "bg-purple-600 hover:bg-purple-700"
+            }`}
         >
-          {isLoading ? "Sending..." : "Send Message"}
+          {isLoading ? "Sending..." : "Submit"}
         </button>
       </form>
     </div>

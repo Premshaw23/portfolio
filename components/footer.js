@@ -1,69 +1,147 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Copy, Github, Linkedin, Mail } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Mail,
+  ArrowUp,
+} from "lucide-react";
 
 const Footer = () => {
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowButton(window.scrollY > 200);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="left-0 w-full z-[55] bg-blend-color-burn text-gray-300 py-[0.45rem] px-4">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        {/* Left: Name + Copyright */}
-        <div className="text-center md:text-left">
-          <p className="text-lg font-semibold">Prem Shaw</p>
+    <footer className="relative bg-gradient-to-r from-gray-950 via-slate-900 to-indigo-950 text-gray-300 border-t border-gray-800 shadow-inner">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+        {/* Branding */}
+        <div className="space-y-2 text-center md:text-left">
+          <h2 className="text-2xl font-bold text-white">Prem Shaw</h2>
           <p className="text-sm text-gray-400">
+            Full-stack Developer & Designer
+          </p>
+          <p className="text-xs text-gray-500">
             &copy; {new Date().getFullYear()} All rights reserved.
           </p>
         </div>
 
-        {/* Middle: Quick Links */}
-        <div className="flex space-x-6 text-sm">
-          <Link href="/" className="hover:text-pink-400">
-            Home
-          </Link>
-          <Link href="/projects" className="hover:text-pink-400">
-            Projects
-          </Link>
-          <Link href="/skills" className="hover:text-pink-400">
-            Skills
-          </Link>
-          <Link href="/about" className="hover:text-pink-400">
-            About
-          </Link>
-          <Link href="/contact" className="hover:text-pink-400">
-            Contact
-          </Link>
-          <Link href="/blog" className="hover:text-pink-400">
-            Blog
-          </Link>
+        {/* Main Links */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">Main</h3>
+          <ul className="space-y-2 text-sm">
+            {["/", "/about", "/contact", "/skills"].map((path, index) => (
+              <li key={index}>
+                <Link
+                  href={path}
+                  className="hover:text-pink-400 transition duration-200 focus:outline-none focus:text-pink-400"
+                >
+                  {path === "/"
+                    ? "Home"
+                    : path.replace("/", "").charAt(0).toUpperCase() +
+                      path.slice(2)}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Right: Socials */}
-        <div className="flex space-x-4">
-          <a
-            href="https://github.com/premshaw23"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-pink-400"
-          >
-            <Github size={20} />
-          </a>
-          <a
-            href="https://linkedin.com/in/premshaw2311"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-pink-400"
-          >
-            <Linkedin size={20} />
-          </a>
+        {/* Learn Links */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">Learn</h3>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link
+                href="/blog"
+                className="hover:text-pink-400 transition duration-200 focus:outline-none focus:text-pink-400"
+              >
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/projects"
+                className="hover:text-pink-400 transition duration-200 focus:outline-none focus:text-pink-400"
+              >
+                Projects
+              </Link>
+            </li>
+          </ul>
+        </div>
 
-          <a
-            href="mailto:shawprem217@gmail.com"
-            className="hover:text-pink-400 text-white"
-            aria-label="Send Email"
-          >
-            <Mail size={24} />
-          </a>
+        {/* Social Icons */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">Connect</h3>
+          <div className="flex space-x-4">
+            {[
+              {
+                href: "https://github.com/premshaw23",
+                icon: <Github size={20} />,
+                label: "GitHub",
+              },
+              {
+                href: "https://linkedin.com/in/premshaw2311",
+                icon: <Linkedin size={20} />,
+                label: "LinkedIn",
+              },
+              {
+                href: "https://twitter.com/",
+                icon: <Twitter size={20} />,
+                label: "Twitter",
+              },
+              {
+                href: "https://instagram.com/",
+                icon: <Instagram size={20} />,
+                label: "Instagram",
+              },
+              {
+                href: "mailto:shawprem217@gmail.com",
+                icon: <Mail size={20} />,
+                label: "Email",
+              },
+            ].map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.label}
+                className="hover:text-pink-400 transition focus:outline-none focus:text-pink-400"
+              >
+                {item.icon}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Scroll to Top Button */}
+      {showButton && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 p-3 bg-pink-500 hover:bg-pink-600 text-white rounded-full shadow-lg transition-all duration-300 group z-50"
+          aria-label="Back to top"
+        >
+          <ArrowUp size={20} />
+          <span className="absolute bottom-full left-0 w-[64px] mb-2 text-xs bg-gray-900 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+            Back to Top
+          </span>
+        </button>
+      )}
     </footer>
   );
 };

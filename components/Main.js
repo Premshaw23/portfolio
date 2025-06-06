@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Orb from "./Orb";
+import Link from "next/link";
 import Typewriter from "typewriter-effect";
 import { motion } from "framer-motion";
 
@@ -18,61 +19,76 @@ export default function HeroSection() {
       <div className="flex-1 text-center md:text-left space-y-6">
         {/* Heading */}
         <h1 className="text-5xl sm:text-6xl font-extrabold text-white leading-tight">
-          Hi, I'm{" "}
-          <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+          Hey, I'm{" "}
+          <span className="bg-gradient-to-r from-indigo-400 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
             Prem Shaw
           </span>
         </h1>
 
-        {/* Dynamic Roles with Typewriter */}
-        <h2 className="text-2xl sm:text-3xl font-semibold text-pink-400 mt-2 h-16">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-fuchsia-400 mt-2 min-h-[3.5rem] font-mono antialiased">
           <Typewriter
             options={{
               strings: [
                 "MERN Stack Developer",
+                "Next.js Developer",
+                "Firebase Enthusiast",
                 "Open Source Contributor",
-                "Frontend Engineer (aspiring)",
-                "Tech Enthusiast",
+                "AI & C++ Explorer",
+                "CodeChef 2★ Competitive Programmer",
               ],
               autoStart: true,
               loop: true,
-              pauseFor: 1600,
+              pauseFor: 1300,
             }}
           />
         </h2>
 
-        {/* Info/Bio Section */}
-        <p className="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed mt-2">
+        <p className="text-sm sm:text-base text-gray-300 max-w-2xl leading-7 mt-4">
           I'm a{" "}
-          <span className="text-green-400 font-medium">
-            CSE student at IIIT Bhopal
+          <span className="text-green-400 font-semibold">
+            Computer Science undergrad at IIIT Bhopal
           </span>{" "}
-          with a deep passion for building fast, scalable, and user-focused web
-          applications. As a dedicated{" "}
-          <span className="text-cyan-400 font-medium">
-            MERN Stack Developer
-          </span>
-          , I specialize in crafting sleek, responsive UIs and intuitive user
-          experiences using{" "}
-          <span className="text-cyan-400 font-medium">React</span>,{" "}
-          <span className="text-cyan-400 font-medium">Next.js</span>,{" "}
-          <span className="text-cyan-400 font-medium">MongoDB</span>, and{" "}
-          <span className="text-cyan-400 font-medium">Tailwind CSS</span>.
+          passionate about building performant, scalable, and beautiful web
+          applications using the{" "}
+          <span className="text-cyan-400 font-semibold">MERN stack</span> and{" "}
+          <span className="text-cyan-400 font-semibold">Next.js</span>. I love
+          crafting responsive UIs, architecting APIs, and solving real-world
+          problems through code.
           <br />
-          <br />I actively contribute to{" "}
-          <span className="text-green-400 font-medium">open-source</span>{" "}
-          projects and continuously seek new technologies that help elevate my
-          development journey. My goal? To solve real-world problems with code
-          that’s clean, creative, and impactful.
+          <br />
+          As an{" "}
+          <span className="text-green-400 font-semibold">
+            open-source contributor
+          </span>{" "}
+          and{" "}
+          <span className="text-pink-400 font-semibold">CodeChef 2★ coder</span>{" "}
+          with a max rating of 1457 and rank 141 in Div-4, I constantly push my
+          limits through projects, contests, and AI tool exploration.
+          <br />
+          <br />
+          My mission? To empower people through technology — one line of code at
+          a time.
         </p>
 
+        <button
+          type="button"
+          className="mt-6 px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white font-semibold hover:scale-105 transition-transform"
+        >
+          <Link
+            href="/contact"
+          >
+            Let’s Build Together →
+          </Link>
+        </button>
+
         {/* SOCIAL ICONS */}
-        <div className="flex justify-center md:justify-start space-x-6 text-3xl text-gray-700">
+        <div className="flex justify-center md:justify-start space-x-6 text-2xl text-gray-400 mt-4">
           <a
             href="https://github.com/premshaw23"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-black transition"
+            aria-label="GitHub"
+            className="hover:text-white transition"
           >
             <FaGithub />
           </a>
@@ -80,7 +96,8 @@ export default function HeroSection() {
             href="https://linkedin.com/in/premshaw2311"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-600 transition"
+            aria-label="LinkedIn"
+            className="hover:text-blue-400 transition"
           >
             <FaLinkedin />
           </a>
@@ -88,7 +105,8 @@ export default function HeroSection() {
             href="https://twitter.com/premshaw23"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-400 transition"
+            aria-label="Twitter"
+            className="hover:text-cyan-400 transition"
           >
             <FaTwitter />
           </a>
@@ -97,8 +115,8 @@ export default function HeroSection() {
         {/* RESUME BUTTON */}
         <a
           href="/Prem_Shaw_Resume.pdf"
-          download
-          className="inline-block px-8 py-3 bg-blue-600 text-white text-lg font-medium rounded-full hover:bg-blue-700 transition shadow-md"
+          download="Prem_Shaw_Resume.pdf"
+          className="inline-block px-8 py-3 bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white text-lg font-semibold rounded-full hover:scale-105 transition transform shadow-md shadow-fuchsia-600/30 mt-1"
         >
           Download Resume
         </a>
@@ -112,22 +130,18 @@ export default function HeroSection() {
         className="relative w-[400px] h-[400px] sm:w-[550px] sm:h-[530px] flex-shrink-0"
       >
         {/* Orb background */}
-        <div className="absolute inset-0 z-55">
-          <Orb
-            hoverIntensity={0.5}
-            rotateOnHover={true}
-            hue={0}
-            // Remove forceHoverState entirely
-          />
+        <div className="absolute inset-0 z-10 shadow-[0_0_40px_rgba(137,97,255,0.25)]">
+          <Orb hoverIntensity={0.5} rotateOnHover={true} hue={270} />
         </div>
 
         {/* Circular Image */}
-        <div className="relative z-10 sm:w-[65%] sm:h-[65%] w-[65%] h-[65%] rounded-full inset-0 overflow-hidden shadow-xl mx-[4.5rem] my-[4.5rem] md:mx-[6rem] md:my-[6rem]">
+        <div className="relative z-20 sm:w-[65%] sm:h-[65%] w-[65%] h-[65%] rounded-full overflow-hidden shadow-2xl mx-[4.5rem] my-[4.5rem] md:mx-[6rem] md:my-[6rem] ring-2 ring-fuchsia-600/20">
           <Image
             src="/prem.jpg"
             alt="Prem Shaw"
             placeholder="blur"
             blurDataURL="/prem.jpg"
+            priority
             width={300}
             height={300}
             className="object-cover w-full h-full"

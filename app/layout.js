@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       className="scroll-smooth scroll-p-20"
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-[#0c0f15] via-[#111139] to-[#0f0f1f] min-w-full min-h-[84vh]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-[#0c0f15] via-[#111139] to-[#0f0f1f] min-w-full min-h-[87vh]`}
       >
         <AuthProvider>
           <ThemeProvider
