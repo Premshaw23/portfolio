@@ -22,7 +22,7 @@ export default function HeroSection() {
           className="text-5xl sm:text-6xl font-extrabold leading-tight 
                        text-gray-900 dark:text-white"
         >
-          Hey, I'm{" "}
+          Hey, I&apos;m{" "}
           <span
             className="bg-gradient-to-r from-indigo-500 via-pink-500 to-purple-600 
                            bg-clip-text text-transparent"
@@ -56,7 +56,7 @@ export default function HeroSection() {
           className="text-sm sm:text-base max-w-2xl leading-7 mt-4
                       text-gray-700 dark:text-gray-300"
         >
-          I'm a{" "}
+          I&apos;m a{" "}
           <span className="text-green-600 dark:text-green-400 font-semibold">
             Computer Science student at IIIT Bhopal
           </span>{" "}

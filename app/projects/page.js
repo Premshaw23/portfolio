@@ -49,6 +49,7 @@ const ProjectsPage = () => {
     };
 
     fetchSettingsAndProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const totalPages = Math.ceil(projects.length / itemsPerPage);

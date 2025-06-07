@@ -13,7 +13,7 @@ export default function NotFound() {
         </div>
         <h1 className="text-3xl font-bold mb-2">Page Not Found</h1>
         <p className="text-gray-400 mb-6">
-          This route doesn't exist or you don't have access.
+          This route doesn&apos;t exist or you don&apos;t have access.
         </p>
         <Link
           href="/"

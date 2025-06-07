@@ -24,18 +24,20 @@ export default function VerifyEmailPage() {
       setUser(currentUser);
 
       if (currentUser.emailVerified) {
-        if (user.uid === ADMIN_UID || user.email === ADMIN_EMAIL) {
+        if (
+          currentUser.uid === ADMIN_UID ||
+          currentUser.email === ADMIN_EMAIL
+        ) {
           router.push("/admin");
         } else {
           router.push("/dashboard");
         }
-        
       }
     });
 
-    // Cleanup listener on unmount
     return () => unsubscribe();
   }, [router]);
+  
 
   const [cooldown, setCooldown] = useState(0);
 

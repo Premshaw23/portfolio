@@ -319,7 +319,7 @@ export default function LoginPage() {
 
       {/* Toggle Auth Mode */}
       <p className="text-gray-600 text-center mt-4">
-        {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+        {isLogin ? "Don&apos;t have an account?" : "Already have an account?"}{" "}
         <button
           type="button"
           onClick={() => {

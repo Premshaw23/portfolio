@@ -44,6 +44,7 @@ const SkillPage = () => {
     };
 
     fetchSkillsAndSettings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const totalPages = Math.max(1, Math.ceil(skills.length / itemsPerPage));

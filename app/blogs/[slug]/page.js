@@ -81,6 +81,7 @@ export default function BlogPage() {
     };
 
     fetchBlog();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug, router]);
 
   const handleShare = async () => {

@@ -21,8 +21,8 @@ export default function AboutPage() {
 
         <div className="space-y-6 text-lg sm:text-xl leading-relaxed">
           <p>
-            Hey, I'm{" "}
-            <strong className="text-gray-900 dark:text-white">Prem Shaw</strong>{" "}
+            Hey, I&apos;m
+            <strong className="text-gray-900 dark:text-white">Prem Shaw</strong>
             — a passionate <strong>MERN Stack Developer</strong> and Computer
             Science student at <strong>IIIT Bhopal</strong>. I build robust
             full-stack applications, blending clean UIs with high-performance
@@ -37,23 +37,23 @@ export default function AboutPage() {
           </p>
 
           <p>
-            I’m an active <strong>open-source contributor</strong> (like GSSoC
-            Extended 2024 💻), and my contributions earned me badges like{" "}
+            I&apos;m an active <strong>open-source contributor</strong> (like
+            GSSoC Extended 2024 💻), and my contributions earned me badges like{" "}
             <em>Champion</em>, <em>Trailblazer</em>, and <em>Summit Seeker</em>{" "}
             🏅 — proof of my consistency and growth.
           </p>
 
           <p>
-            Outside code, I’m driven by curiosity — exploring AI tools, learning
-            from real-world projects, and growing every day. I’ve also sharpened
-            my skills through coding competitions on platforms like CodeChef
-            (Max rating: 1457, Highest Rank: 141 Div-4).
+            Outside code, I&apos;m driven by curiosity — exploring AI tools,
+            learning from real-world projects, and growing every day. I&apos;ve
+            also sharpened my skills through coding competitions on platforms
+            like CodeChef (Max rating: 1457, Highest Rank: 141 Div-4).
           </p>
 
           <p>
             This portfolio is a live reflection of my journey — through
-            projects, blogs, and experiments. Whether you're a dev, designer, or
-            collaborator — you're welcome here.
+            projects, blogs, and experiments. Whether you&apos;re a dev,
+            designer, or collaborator — you&apos;re welcome here.
           </p>
 
           <p>

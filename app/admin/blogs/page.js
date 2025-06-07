@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useCallback} from "react";
 import Link from "next/link";
 import {
   collection,
@@ -46,7 +46,7 @@ export default function AdminBlogsPage() {
   };
 
   // ----- Fetch Blogs -----
-  const fetchBlogs = async () => {
+  const fetchBlogs = useCallback(async () => {
     setLoading(true);
     try {
       const blogsRef = collection(db, "blogs");
@@ -74,7 +74,7 @@ export default function AdminBlogsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
 
   // ----- Delete Blog -----
   const handleDelete = async () => {
@@ -97,7 +97,7 @@ export default function AdminBlogsPage() {
 
   useEffect(() => {
     fetchBlogs();
-  }, [filter]);
+  }, [fetchBlogs]);
 
   // ----- Render -----
   return (
@@ -189,7 +189,8 @@ export default function AdminBlogsPage() {
         </p>
       ) : blogs.length === 0 ? (
         <p className="text-center text-gray-400 text-lg">
-          No blogs found for "{filter}" status. Click "New Blog" to create one.
+          No blogs found for &qout;{filter}&qout; status. Click &qout;New
+          Blog&qout; to create one.
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -216,9 +217,14 @@ export default function AdminBlogsPage() {
                   {title}
                 </h2>
                 <p className="dark:text-gray-400 text-gray-900 italic mb-1 flex-grow">
-                  By <span className="dark:text-pink-400 text-pink-600 font-semibold">{author}</span>
+                  By{" "}
+                  <span className="dark:text-pink-400 text-pink-600 font-semibold">
+                    {author}
+                  </span>
                 </p>
-                <p className="dark:text-gray-500 text-gray-900 text-sm mb-1">{date}</p>
+                <p className="dark:text-gray-500 text-gray-900 text-sm mb-1">
+                  {date}
+                </p>
                 <p
                   className={`text-sm font-semibold ${
                     status === "published"
@@ -251,6 +257,5 @@ export default function AdminBlogsPage() {
         </div>
       )}
     </div>
-   
   );
 }
