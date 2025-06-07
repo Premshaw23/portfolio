@@ -1,6 +1,6 @@
 // components/ProtectedRoute.js
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -11,13 +11,25 @@ export default function ProtectedRoute({ children, adminOnly = false }) {
   const { user, loading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+  const [reloading, setReloading] = useState(false);
+
+  // Reload user on route change for freshest info
+  useEffect(() => {
+    const reloadUser = async () => {
+      if (user && typeof user.reload === "function") {
+        setReloading(true);
+        await user.reload();
+        setReloading(false);
+      }
+    };
+    reloadUser();
+  }, [pathname]);
 
   useEffect(() => {
-    if (loading) return;
+    if (loading || reloading) return;
 
     // Not logged in → go to login
     if (!user) {
-      // console.log("loginerror1");
       router.push("/login");
       return;
     }
@@ -36,9 +48,9 @@ export default function ProtectedRoute({ children, adminOnly = false }) {
         return;
       }
     }
-  }, [user, loading, pathname, router, adminOnly]);
+  }, [user, loading, reloading, pathname, router, adminOnly]);
 
-  if (loading || !user) {
+  if (loading || reloading || !user) {
     return <div className="text-center mt-40">Loading...</div>;
   }
 

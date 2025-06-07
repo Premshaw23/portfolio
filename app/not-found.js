@@ -6,7 +6,7 @@ import { ShieldOff } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-950 to-gray-800 px-4">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br bg-gray-300 px-4">
       <div className="bg-gray-900 border border-white/10 p-8 rounded-xl shadow-lg text-center text-white max-w-md">
         <div className="flex justify-center mb-4">
           <ShieldOff size={48} className="text-red-400" />

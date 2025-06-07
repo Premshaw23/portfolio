@@ -18,18 +18,32 @@ const navLinks = [
 export default function Links({ className = "" }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, emailVerified } = useAuth();
+  const { user, loading, emailVerified } = useAuth();
 
   const isVerifyPage = pathname === "/verify-email";
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isDashboardRoute = pathname.startsWith("/dashboard");
 
   useEffect(() => {
-    const shouldRedirect =
-      user && !emailVerified && pathname !== "/verify-email";
-    if (shouldRedirect) {
+    if (
+      !loading &&
+      user &&
+      !emailVerified &&
+      !isVerifyPage &&
+      !isAdminRoute &&
+      !isDashboardRoute
+    ) {
       router.push("/verify-email");
     }
-  }, [user, emailVerified, pathname, router]);
-  
+  }, [
+    user,
+    emailVerified,
+    loading,
+    isVerifyPage,
+    isAdminRoute,
+    isDashboardRoute,
+    router,
+  ]);
 
   return (
     <nav
@@ -46,7 +60,7 @@ export default function Links({ className = "" }) {
           className={clsx(
             "text-gray-600 dark:text-gray-300 hover:text-green-500 transition-colors duration-200",
             pathname === href &&
-              "dark:text-green-600 text-lg text-green-600 font-bold"
+              "dark:text-green-500 text-lg text-green-500 font-bold underline underline-offset-4"
           )}
         >
           {label}

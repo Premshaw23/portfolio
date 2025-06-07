@@ -189,8 +189,8 @@ export default function AdminBlogsPage() {
         </p>
       ) : blogs.length === 0 ? (
         <p className="text-center text-gray-400 text-lg">
-          No blogs found for &qout;{filter}&qout; status. Click &qout;New
-          Blog&qout; to create one.
+          No blogs found for &quot;{filter}&quot; status. Click &quot;New
+          Blog&quot; to create one.
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

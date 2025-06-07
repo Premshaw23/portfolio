@@ -124,6 +124,7 @@ export default function LoginPage() {
       toast.success(`Welcome ${user.displayName || "User"}!`, toastConfig);
 
       if (user.uid === ADMIN_UID || user.email === ADMIN_EMAIL) {
+        // console.log("check1");
         router.push("/admin");
       } else {
         router.push("/dashboard");
@@ -319,7 +320,7 @@ export default function LoginPage() {
 
       {/* Toggle Auth Mode */}
       <p className="text-gray-600 text-center mt-4">
-        {isLogin ? "Don&apos;t have an account?" : "Already have an account?"}{" "}
+        {isLogin ? "Dont have an account?" : "Already have an account?"}{" "}
         <button
           type="button"
           onClick={() => {
