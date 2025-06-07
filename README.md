@@ -53,20 +53,34 @@ Welcome to my **personal developer portfolio**, meticulously crafted to showcase
 ## 📆 Folder Structure
 
 ```
-/pages
-  /admin           # Admin dashboard
-  /blog            # Blog reading pages
-  /login           # Authentication page
-/components
-  /BlogCard        # Blog previews
-  /MarkdownView    # Blog content renderer
-/context
-  AuthContext      # Authentication context
-  LoadingContext   # Global loading state
-/lib
-  firebase.js      # Firebase setup & utilities
-/public
-  /assets          # Icons, images, etc.
+├── app/                             # Application routes and pages (Next.js App Router)
+│   ├── admin/                       # Admin dashboard pages (secured area)
+│   │   ├── blog/                    # Admin: Manage blog posts (CRUD)
+│   │   ├── project/                 # Admin: Manage projects (CRUD)
+│   │   └── skill/                   # Admin: Manage skills (CRUD)
+│   ├── blog/                        # Public blog listing and post viewing pages
+│   ├── project/                     # Public projects showcase page
+│   ├── skill/                       # Public skills showcase page
+│   ├── about/                       # Public About Me page
+│   ├── contact/                     # Public contact form page
+│   ├── login/                       # Login page for admin access
+│   └── page.js                     # Home page (root route `/`)
+├── components/                      # Reusable UI components (Navbar, Footer, Cards, etc.)
+├── context/                         # React contexts (AuthContext, LoaderContext, etc.)
+├── hooks/                           # Custom React hooks
+├── lib/                             # Utility libraries (Firebase config, helpers)
+├── public/                          # Static assets (images, icons, fonts)
+├── .gitignore                       # Files/folders to ignore in Git
+├── README.md                        # Project overview and documentation
+├── components.json                  # Component configuration file (e.g., for shadcn/ui)
+├── eslint.config.mjs                # ESLint configuration
+├── jsconfig.json                   # JavaScript config (path aliases, etc.)
+├── next.config.mjs                  # Next.js configuration
+├── package-lock.json                # Exact dependency versions
+├── package.json                    # Project dependencies and scripts
+└── postcss.config.mjs               # Tailwind CSS/PostCSS config
+
+
 ```
 
 ---
