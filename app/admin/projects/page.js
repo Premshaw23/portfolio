@@ -148,7 +148,7 @@ export default function ProjectsPage() {
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-8 text-white">
       {/* Header */}
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-400">
+      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600 dark:text-indigo-400">
         {editingId ? "Edit Project" : "Add New Project"}
       </h1>
 

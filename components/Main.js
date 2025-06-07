@@ -58,10 +58,10 @@ export default function HeroSection() {
         >
           I'm a{" "}
           <span className="text-green-600 dark:text-green-400 font-semibold">
-            Computer Science undergrad at IIIT Bhopal
+            Computer Science student at IIIT Bhopal
           </span>{" "}
-          passionate about building performant, scalable, and beautiful web
-          applications using the{" "}
+          with a passion for building performant, scalable, and visually
+          appealing web applications. I specialize in the{" "}
           <span className="text-cyan-600 dark:text-cyan-400 font-semibold">
             MERN stack
           </span>{" "}
@@ -69,24 +69,20 @@ export default function HeroSection() {
           <span className="text-cyan-600 dark:text-cyan-400 font-semibold">
             Next.js
           </span>
-          . I love crafting responsive UIs, architecting APIs, and solving
-          real-world problems through code.
-          <br />
-          <br />
+          , with a strong focus on crafting responsive UIs, architecting robust
+          APIs, and solving real-world problems through code.
+          <br /> <br />
           As an{" "}
           <span className="text-green-600 dark:text-green-400 font-semibold">
             open-source contributor
           </span>{" "}
-          and{" "}
+          and a{" "}
           <span className="text-pink-600 dark:text-pink-400 font-semibold">
-            CodeChef 2★ coder
+            2★ CodeChef coder
           </span>{" "}
-          with a max rating of 1457 and rank 141 in Div-4, I constantly push my
-          limits through projects, contests, and AI tool exploration.
-          <br />
-          <br />
-          My mission? To empower people through technology — one line of code at
-          a time.
+          with a peak rating of 1457 and a Div-4 rank of 141, I’m always
+          striving to level up my skills through challenging projects, coding
+          contests, and hands-on exploration of AI tools.
         </p>
 
         <button

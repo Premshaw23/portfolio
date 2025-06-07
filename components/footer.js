@@ -183,7 +183,7 @@ const Footer = () => {
           <ArrowUp size={20} />
           <span
             className="
-            absolute bottom-full left-0 w-[64px] mb-2 text-xs bg-gray-900 text-white 
+            absolute bottom-full left-0 w-[70px] mb-2 p-0.5 text-xs bg-gray-800 text-white 
             rounded opacity-0 group-hover:opacity-100 transition-opacity
           "
           >

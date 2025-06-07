@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 import CustomMarkdownEditor from "@/components/CustomMarkdownEditor";
 import {
   doc,
@@ -234,9 +234,11 @@ export default function AdminBlogEditorPage() {
         {coverImage && (
           <div className="mt-4">
             <p className="text-white mb-2">Image Preview:</p>
-            <img
+            <Image
               src={coverImage}
               alt="Cover Preview"
+              width={400}
+              height={400}
               className="max-w-full h-auto rounded-lg border border-gray-600"
               onError={(e) => {
                 e.target.style.display = "none";

@@ -107,7 +107,6 @@ export default function VerifyEmailPage() {
 
     try {
       await deleteUser(user);
-      toast.success("User deleted and logged out.");
       router.push("/login");
     } catch (error) {
       // console.error("Error deleting user:", error);
@@ -124,8 +123,8 @@ export default function VerifyEmailPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md text-center">
-        <h1 className="text-2xl font-bold mb-4">Verify Your Email</h1>
+      <div className="dark:bg-white bg-gray-300 p-8 rounded-2xl shadow-indigo-400 shadow-md w-full max-w-md text-center">
+        <h1 className="text-2xl dark:text-gray-800 font-bold mb-4">Verify Your Email</h1>
         <p className="mb-6 text-gray-600">
           A verification link has been sent to your email. Please verify your
           account to continue.
@@ -158,7 +157,7 @@ export default function VerifyEmailPage() {
           Logout
         </button>
 
-        <p className="text-sm text-gray-400 mt-4">
+        <p className="text-sm text-gray-800 mt-4">
           Didn’t get the email? Check your spam folder.
         </p>
       </div>

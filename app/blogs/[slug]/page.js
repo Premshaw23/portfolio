@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -117,12 +118,14 @@ export default function BlogPage() {
       <div className="mt-20 mb-10 max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Column - Blog Content */}
-          <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-6 rounded-xl shadow-gray-400 dark:shadow-gray-600 shadow-xl transition-colors">
+          <div className="flex-1 bg-gray-200 dark:bg-gray-900 p-6 rounded-xl shadow-gray-400 dark:shadow-gray-600 shadow-xl transition-colors">
             {blog.coverImage && (
               <div className="w-full h-64 md:h-96 mb-8 overflow-hidden rounded-lg border border-black/10 dark:border-white/10 shadow-md">
-                <img
+                <Image
                   src={blog.coverImage}
                   alt={blog.title || "Blog Cover"}
+                  width={600}
+                  height={600}
                   className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
                 />
               </div>

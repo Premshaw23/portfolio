@@ -102,7 +102,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
             <div className="relative w-10 h-10">
-              <div className="absolute -inset-1 rounded-full bg-purple-500 opacity-40 blur-sm animate-pulse z-0" />
+              <div className="absolute -inset-1 rounded-full dark:bg-purple-500 opacity-40 blur-sm animate-pulse z-0" />
               <div className="relative w-full h-full rounded-full overflow-hidden shadow-xl ring-2 ring-white/20 z-10">
                 <Image
                   src="/logo.png"

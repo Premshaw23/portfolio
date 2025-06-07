@@ -4,6 +4,16 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
+import clsx from "clsx";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/skills", label: "Skills" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+  { href: "/blogs", label: "Blog" },
+];
 
 export default function Links({ className = "" }) {
   const pathname = usePathname();
@@ -13,35 +23,35 @@ export default function Links({ className = "" }) {
   const isVerifyPage = pathname === "/verify-email";
 
   useEffect(() => {
-    if (user && !emailVerified && !isVerifyPage) {
+    const shouldRedirect =
+      user && !emailVerified && pathname !== "/verify-email";
+    if (shouldRedirect) {
       router.push("/verify-email");
     }
-  }, [emailVerified,router]);
+  }, [user, emailVerified, pathname, router]);
+  
 
   return (
-    <div
-      className={`space-x-6 md:flex ${className} ${
-        isVerifyPage ? "pointer-events-none opacity-50" : ""
-      }`}
+    <nav
+      className={clsx(
+        "flex flex-wrap items-center gap-4 md:gap-6 text-sm font-medium transition-all",
+        className,
+        isVerifyPage && "pointer-events-none opacity-50"
+      )}
     >
-      <Link href="/" className="hover:text-green-200">
-        Home
-      </Link>
-      <Link href="/projects" className="hover:text-green-200">
-        Projects
-      </Link>
-      <Link href="/skills" className="hover:text-green-200">
-        Skills
-      </Link>
-      <Link href="/about" className="hover:text-green-200">
-        About
-      </Link>
-      <Link href="/contact" className="hover:text-green-200">
-        Contact
-      </Link>
-      <Link href="/blogs" className="hover:text-green-200">
-        Blog
-      </Link>
-    </div>
+      {navLinks.map(({ href, label }) => (
+        <Link
+          key={href}
+          href={href}
+          className={clsx(
+            "text-gray-600 dark:text-gray-300 hover:text-green-500 transition-colors duration-200",
+            pathname === href &&
+              "dark:text-green-600 text-lg text-green-600 font-bold"
+          )}
+        >
+          {label}
+        </Link>
+      ))}
+    </nav>
   );
 }

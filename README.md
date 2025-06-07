@@ -1,6 +1,6 @@
 # 🌐 Prem Shaw - Developer Portfolio
 
-Welcome to my **personal developer portfolio**, designed and built to showcase my technical skills, projects, achievements, and professional journey. This site also includes admin login functionality for easy content management and dynamic updates.
+Welcome to my **personal developer portfolio**, meticulously crafted to showcase my technical skills, projects, achievements, and professional journey. This site features an integrated admin dashboard for seamless content management and dynamic updates.
 
 ---
 
@@ -14,8 +14,7 @@ Welcome to my **personal developer portfolio**, designed and built to showcase m
 * 🌗 **Blog System** – Markdown-powered blog posts managed via Firebase.
 * 🌑 **Dark Mode** – Toggle between light and dark themes.
 * 📱 **Responsive Design** – Optimized for all screen sizes.
-* 🔐 **Admin Login** – Secure access for managing content.
-* 🧠 **MongoDB Integration** – Stores dynamic data like messages or projects (optional).
+* 🔐 **Admin Panel** – Secure Firebase-authenticated access for managing content.
 * 🛠️ **Firebase Auth** – Email/Password, Google, and GitHub sign-in with "Remember Me" support.
 
 ---
@@ -26,7 +25,7 @@ Welcome to my **personal developer portfolio**, designed and built to showcase m
 
 * **Next.js** – React-based framework for SSR and performance.
 * **Tailwind CSS** – Utility-first CSS framework for fast styling.
-* **TypeScript / JavaScript** – Type-safe and dynamic code.
+* **JavaScript** – Type-safe and dynamic code.
 * **Framer Motion** – For smooth animations and visual polish.
 * **ShadCN UI** – Clean and consistent UI components.
 * **Lucide Icons** – Lightweight and stylish icon pack.
@@ -34,7 +33,6 @@ Welcome to my **personal developer portfolio**, designed and built to showcase m
 ### Backend / Services
 
 * **Firebase** – Handles authentication and Firestore for storing blog content.
-* **MongoDB** *(optional)* – Stores project metadata and contact messages.
 * **EmailJS** – Sends emails from the contact form without a backend.
 * **JWT / Cookies** – Secure admin route protection.
 
@@ -42,7 +40,7 @@ Welcome to my **personal developer portfolio**, designed and built to showcase m
 
 ## 🔐 Admin Login
 
-* JWT-based secure login.
+* **Authentication**: Secured using Firebase Auth (Email/Password, Google, GitHub).
 * Access restricted to authenticated users only.
 * Features:
 
@@ -122,10 +120,9 @@ http://localhost:3000
 * [x] Firebase email/password + OAuth login
 * [x] Blog posts stored in Firestore
 * [x] Markdown rendering
-* [ ] Admin markdown editor & preview UI
-* [ ] Add phone number auth (optional)
-* [ ] Add dark mode toggle persistence
-* [ ] Add admin dashboard analytics
+* [x] Admin markdown editor & preview UI
+* [x] Add dark mode toggle persistence
+* [x] Add admin panel
 
 ---
 
@@ -147,4 +144,4 @@ http://localhost:3000
 
 ---
 
-> Made with ❤️ by **Prem Shaw**
+> Built and maintained with care by **Prem Shaw** – Full Stack Developer, passionate about clean code, open source, and creating meaningful web experiences.

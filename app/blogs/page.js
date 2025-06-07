@@ -69,7 +69,7 @@ const BlogPage = () => {
 
   return (
     <>
-    <section className="px-4 py-10 mt-14 min-h-[90vh] bg-white text-gray-800 dark:bg-transparent dark:text-white">
+    <section className="px-4 py-10 mt-14 mb-8 min-h-[90vh] bg-white text-gray-800 dark:bg-transparent dark:text-white">
       <h1 className="text-4xl font-bold text-center text-indigo-500 dark:text-indigo-400 mb-12">
         My Blog
       </h1>

@@ -39,7 +39,7 @@ export default function LoginPage() {
   const { showLoader, hideLoader, loading } = useLoader();
   const toastConfig = {
     position: "top-right",
-    autoClose: 3000,
+    autoClose: 1500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

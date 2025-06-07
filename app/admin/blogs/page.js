@@ -17,6 +17,7 @@ import { db } from "@/lib/firebase";
 import toast from "react-hot-toast";
 import ConfirmModal from "@/components/confirmModal";
 import Footer from "@/components/footer";
+import Image from "next/image";
 
 export default function AdminBlogsPage() {
   // ----- State -----
@@ -198,9 +199,11 @@ export default function AdminBlogsPage() {
               className="dark:bg-gray-900 bg-gray-200 rounded-lg shadow-lg overflow-hidden flex flex-col"
             >
               {coverImage ? (
-                <img
+                <Image
                   src={coverImage}
                   alt={title}
+                  width={400}
+                  height={400}
                   className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
                 />
               ) : (

@@ -25,9 +25,9 @@ const ProjectsPage = () => {
 
   useEffect(() => {
     const fetchSettingsAndProjects = async () => {
-      showLoader();
       setLoading(true);
       try {
+        showLoader();
         const settingsData = await getDoc(doc(db, "settings", "projects"));
         if (settingsData.exists()) {
           const { itemsPerPage } = settingsData.data();
