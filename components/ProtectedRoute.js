@@ -23,6 +23,7 @@ export default function ProtectedRoute({ children, adminOnly = false }) {
       }
     };
     reloadUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   useEffect(() => {
