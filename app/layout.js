@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import ToastWrapper from "@/components/ToastWrapper";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
               <Loader />
               <Navbar />
               {children}
+              <SpeedInsights/>
               <ToastWrapper />
               <Toaster
                 position="top-right"

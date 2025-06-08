@@ -125,7 +125,7 @@ export default function AdminLayout({ children }) {
                 className="lg:hidden"
                 onClick={() => setMobileNavOpen(true)}
               >
-                <Menu size={24} className="text-white" />
+                <Menu size={24} className="dark:text-white" />
               </button>
               <h1 className="md:text-2xl text-lg font-bold text-gray-700 dark:text-gray-300">
                 Admin Dashboard
