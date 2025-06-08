@@ -59,7 +59,7 @@ export default function AdminLayout({ children }) {
         {/* Sidebar */}
         <aside
           className={`fixed lg:sticky top-0 left-0 h-screen overflow-y-auto z-40 w-64 
-  dark:bg-black/30 bg-transparent backdrop-blur-md border-r border-white/10 
+  dark:bg-black/30 bg-transparent md:bg-slate-600 backdrop-blur-md border-r border-white/10 
   text-white shadow-xl p-6 pt-20 transform 
   transition-transform duration-300 ease-in-out
   ${mobileNavOpen ? "translate-x-0" : "-translate-x-full"} 
