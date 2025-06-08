@@ -2,6 +2,8 @@
 
 Welcome to my **personal developer portfolio**, meticulously crafted to showcase my technical skills, projects, achievements, and professional journey. This site features an integrated admin dashboard for seamless content management and dynamic updates.
 
+🔗 [Live Site →](https://portfolio-one-omega-53.vercel.app/)
+
 ---
 
 ## 🚀 Features
@@ -40,13 +42,14 @@ Welcome to my **personal developer portfolio**, meticulously crafted to showcase
 
 ## 🔐 Admin Login
 
-* **Authentication**: Secured using Firebase Auth (Email/Password, Google, GitHub).
-* Access restricted to authenticated users only.
-* Features:
+**Authentication**  
+- Firebase Auth with Email/Password, Google, and GitHub sign-in options.  
+- "Remember Me" support and email verification enabled.
 
-  * Create, edit, delete blog posts (Markdown)
-  * View submitted messages
-  * Manage profile and portfolio content
+**Admin Panel Features**
+- Create, edit, and delete blog posts with Markdown + live preview.
+- Manage portfolio content: projects, skills, and about section.
+- View and manage messages submitted via contact form.
 
 ---
 
