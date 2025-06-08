@@ -219,7 +219,7 @@ export default function Navbar() {
         <div
           className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
             isOpen ? "max-h-96 py-3" : "max-h-0"
-          } bg-transparent dark:bg-gray-900`}
+          } bg-transparent`}
         >
           <div className="flex flex-col space-y-3">
             {navItems.map(({ name, href }) => (
