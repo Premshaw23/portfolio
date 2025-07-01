@@ -30,7 +30,7 @@ export default function SkillsPage() {
 
   const fetchItemsPerPage = async () => {
     try {
-      const settingsDoc = await getDoc(doc(db, "settings", "projects"));
+      const settingsDoc = await getDoc(doc(db, "settings", "skills"));
       if (settingsDoc.exists()) {
         const data = settingsDoc.data();
         setItemsPerPage(data.itemsPerPage || 6);
