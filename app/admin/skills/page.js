@@ -156,7 +156,7 @@ export default function SkillsPage() {
           onClick={async () => {
             try {
               await setDoc(
-                doc(db, "settings", "projects"),
+                doc(db, "settings", "skills"),
                 { itemsPerPage: newItemsPerPage },
                 { merge: true }
               );
