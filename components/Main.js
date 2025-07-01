@@ -129,8 +129,9 @@ export default function HeroSection() {
 
         {/* RESUME BUTTON */}
         <a
-          href="/Prem_Shaw_Resume.pdf"
-          download="Prem_Shaw_Resume.pdf"
+          href="https://drive.google.com/uc?export=download&id=1xxHEbZbwFW9MW-gYq4f9DwFK2fJ6HsmG"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-block px-8 py-3 bg-gradient-to-r from-indigo-700 to-fuchsia-600
                      text-white text-lg font-semibold rounded-full hover:scale-105 transition transform
                      shadow-md shadow-fuchsia-600/40 mt-1"
