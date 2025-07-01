@@ -139,7 +139,7 @@ export default function SkillsPage() {
           htmlFor="perPage"
           className="dark:text-gray-300 text-gray-700 font-semibold text-sm whitespace-nowrap"
         >
-          Projects per page:
+          Skills per page:
         </label>
         <input
           id="perPage"
