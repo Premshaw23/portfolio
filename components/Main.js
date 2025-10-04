@@ -80,7 +80,7 @@ export default function HeroSection() {
           <span className="text-pink-600 dark:text-pink-400 font-semibold">
             2★ CodeChef coder
           </span>{" "}
-          with a peak rating of 1457 and a Div-4 rank of 141, I’m always
+          with a peak rating of 1574, I’m always
           striving to level up my skills through challenging projects, coding
           contests, and hands-on exploration of AI tools.
         </p>
