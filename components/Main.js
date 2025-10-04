@@ -80,9 +80,9 @@ export default function HeroSection() {
           <span className="text-pink-600 dark:text-pink-400 font-semibold">
             2★ CodeChef coder
           </span>{" "}
-          with a peak rating of 1574, I’m always
-          striving to level up my skills through challenging projects, coding
-          contests, and hands-on exploration of AI tools.
+          with a peak rating of 1574, I’m always striving to level up my skills
+          through challenging projects, coding contests, and hands-on
+          exploration of AI tools.
         </p>
 
         <button
@@ -129,7 +129,7 @@ export default function HeroSection() {
 
         {/* RESUME BUTTON */}
         <a
-          href="https://drive.google.com/uc?export=download&id=1xxHEbZbwFW9MW-gYq4f9DwFK2fJ6HsmG"
+          href="https://drive.google.com/file/d/11jgXM4OCHG2Bcf6980ti3jRZpJ7LQyXh/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block px-8 py-3 bg-gradient-to-r from-indigo-700 to-fuchsia-600
