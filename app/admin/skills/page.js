@@ -30,7 +30,7 @@ export default function SkillsPage() {
 
   const fetchItemsPerPage = async () => {
     try {
-      const settingsDoc = await getDoc(doc(db, "settings", "projects"));
+      const settingsDoc = await getDoc(doc(db, "settings", "skills"));
       if (settingsDoc.exists()) {
         const data = settingsDoc.data();
         setItemsPerPage(data.itemsPerPage || 6);
@@ -139,7 +139,7 @@ export default function SkillsPage() {
           htmlFor="perPage"
           className="dark:text-gray-300 text-gray-700 font-semibold text-sm whitespace-nowrap"
         >
-          Projects per page:
+          Skills per page:
         </label>
         <input
           id="perPage"
@@ -156,7 +156,7 @@ export default function SkillsPage() {
           onClick={async () => {
             try {
               await setDoc(
-                doc(db, "settings", "projects"),
+                doc(db, "settings", "skills"),
                 { itemsPerPage: newItemsPerPage },
                 { merge: true }
               );

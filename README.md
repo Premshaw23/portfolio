@@ -127,7 +127,7 @@ npm run dev
 ### 5. Visit the App
 
 ```
-http://localhost:3000
+https://portfolio-one-omega-53.vercel.app/
 ```
 
 ---
