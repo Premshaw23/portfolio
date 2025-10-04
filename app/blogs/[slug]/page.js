@@ -117,9 +117,9 @@ export default function BlogPage() {
   return (
     <>
       <div className="mt-20 mb-10 max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Column - Blog Content */}
-          <div className="flex-1 bg-gray-200 dark:bg-gray-900 p-6 rounded-xl shadow-gray-400 dark:shadow-gray-600 shadow-xl transition-colors">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_15rem] gap-10">
+          {/* Left Column */}
+          <div className="min-w-0 bg-gray-200 dark:bg-gray-900 p-6 rounded-xl shadow-gray-400 dark:shadow-gray-600 shadow-xl transition-colors">
             {blog.coverImage && (
               <div className="w-full h-64 md:h-96 mb-8 overflow-hidden rounded-lg border border-black/10 dark:border-white/10 shadow-md">
                 <Image

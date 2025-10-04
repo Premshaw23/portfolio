@@ -179,6 +179,10 @@ code[data-line-numbers-max-digits="4"] > [data-line]::before {
   width: 2.25rem;
 }
 
+pre{
+  background-color: #3f4345;
+}
+
 [data-theme="github-dark"] {
   background-color: transparent;
 }
