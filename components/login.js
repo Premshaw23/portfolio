@@ -21,6 +21,8 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { toast, Bounce } from "react-toastify";
+import { motion } from "framer-motion";
+import { Mail, Lock, User } from "lucide-react";
 
 const ADMIN_UID = process.env.NEXT_PUBLIC_ADMIN_UID;
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
@@ -86,7 +88,7 @@ export default function LoginPage() {
         user = userCredential.user;
         await updateProfile(user, {
           displayName: name,
-        });        
+        });
         await sendEmailVerification(user);
         toast.info(
           "Verification email sent. Please check your inbox.",
@@ -124,7 +126,6 @@ export default function LoginPage() {
       toast.success(`Welcome ${user.displayName || "User"}!`, toastConfig);
 
       if (user.uid === ADMIN_UID || user.email === ADMIN_EMAIL) {
-        // console.log("check1");
         router.push("/admin");
       } else {
         router.push("/dashboard");
@@ -162,201 +163,268 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-gray-200 p-6 my-7 mx-4 shadow-xl shadow-gray-500 rounded-2xl font-sans w-full max-w-lg">
-      {/* Title */}
-      <h1 className="text-center text-2xl font-bold mb-6 text-[#151717]">
-        {isLogin ? "Login" : "Sign Up"}
-      </h1>
-
-      {/* Auth Form */}
-      <form
-        autoComplete="on"
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4"
+    <>
+      {" "}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-lg"
       >
-        {!isLogin && (
-          <>
-            <label htmlFor="name" className="text-[#151717] font-semibold">
-              Full Name
-            </label>
-            <div className="flex items-center border border-[#ecedec] rounded-xl h-12 px-3 transition duration-200 focus-within:border-[#2d79f7]">
-              <svg
-                height={20}
-                width={20}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-gray-500"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M4 21v-2a4 4 0 0 1 3-3.87" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Enter your name"
-                className="w-full h-full rounded-xl border-none focus:outline-none placeholder-gray-400 text-gray-900 ml-2"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required={!isLogin}
-              />
-            </div>
-          </>
-        )}
-
-        {/* Email */}
-        <label htmlFor="email" className="text-[#151717] font-semibold">
-          Email
-        </label>
-        <div className="flex items-center border border-[#ecedec] rounded-xl h-12 px-3 transition duration-200 focus-within:border-[#2d79f7]">
-          <svg
-            height={20}
-            width={20}
-            viewBox="0 0 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fill-current text-gray-500"
-          >
-            <path d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z" />
-          </svg>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            autoComplete="email"
-            placeholder="Enter your Email"
-            className="w-full h-full rounded-xl border-none focus:outline-none placeholder-gray-400 text-gray-900 ml-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        {/* Password */}
-        <label htmlFor="password" className="text-[#151717] font-semibold">
-          Password
-        </label>
-        <div className="flex items-center border border-[#ecedec] rounded-xl h-12 px-3 transition duration-200 focus-within:border-[#2d79f7] space-x-2">
-          <svg
-            height={20}
-            width={20}
-            viewBox="-64 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fill-current text-gray-500"
-          >
-            <path d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0" />
-            <path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0" />
-          </svg>
-          <input
-            type={showPassword ? "text" : "password"}
-            id="password"
-            autoComplete={isLogin ? "current-password" : "new-password"}
-            name="password"
-            placeholder="Enter your Password"
-            className="w-full h-full rounded-xl border-none focus:outline-none placeholder-gray-400 text-gray-900"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
-            aria-label={showPassword ? "Hide password" : "Show password"}
-            className="focus:outline-none"
-          >
-            {showPassword ? (
-              <FiEyeOff className="text-gray-500" size={20} />
-            ) : (
-              <FiEye className="text-gray-500" size={20} />
-            )}
-          </button>
-        </div>
-
-        {/* Remember Me & Forgot Password */}
-        <div className="flex items-center justify-between text-gray-600 text-sm mt-1">
-          <label className="flex items-center space-x-2 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              className="form-checkbox"
-              checked={rememberMe}
-              onChange={() => setRememberMe((prev) => !prev)}
-            />
-            <span>Remember me</span>
-          </label>
-          {isLogin ? (
-            <button
-              type="button"
-              onClick={handleForgotPassword}
-              className="text-blue-600 hover:underline"
+        <div className="bg-white mx-5 dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          {/* Header with gradient */}
+          <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-8 text-center">
+            <motion.h1
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              className="text-3xl font-bold text-white mb-2"
             >
-              Forgot password?
-            </button>
-          ) : (
-            <div />
-          )}
+              {isLogin ? "Welcome Back" : "Create Account"}
+            </motion.h1>
+            <p className="text-purple-100 text-sm">
+              {isLogin
+                ? "Sign in to continue your journey"
+                : "Join us and start exploring"}
+            </p>
+          </div>
+
+          <div className="p-8">
+            {/* Auth Form */}
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {!isLogin && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                >
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    Full Name
+                  </label>
+                  <div className="relative">
+                    <User
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                      size={20}
+                    />
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      placeholder="John Doe"
+                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white transition"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required={!isLogin}
+                    />
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                >
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    size={20}
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    autoComplete="email"
+                    placeholder="you@example.com"
+                    className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white transition"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                >
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    size={20}
+                  />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    autoComplete={isLogin ? "current-password" : "new-password"}
+                    name="password"
+                    placeholder="••••••••"
+                    className="w-full pl-11 pr-12 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white transition"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition focus:outline-none"
+                  >
+                    {showPassword ? (
+                      <FiEyeOff size={20} />
+                    ) : (
+                      <FiEye size={20} />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Remember Me & Forgot Password */}
+              <div className="flex items-center justify-between">
+                <label className="flex items-center space-x-2 cursor-pointer select-none group">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500 cursor-pointer"
+                    checked={rememberMe}
+                    onChange={() => setRememberMe((prev) => !prev)}
+                  />
+                  <span className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200">
+                    Remember me
+                  </span>
+                </label>
+                {isLogin && (
+                  <button
+                    type="button"
+                    onClick={handleForgotPassword}
+                    className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium transition"
+                  >
+                    Forgot password?
+                  </button>
+                )}
+              </div>
+
+              {/* Error Display */}
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
+                >
+                  <p className="text-red-600 dark:text-red-400 text-sm">
+                    {error}
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Submit */}
+              <motion.button
+                whileHover={{ scale: loading ? 1 : 1.02 }}
+                whileTap={{ scale: loading ? 1 : 0.98 }}
+                type="submit"
+                disabled={loading}
+                className={`w-full py-3 rounded-xl font-semibold text-white shadow-lg transition duration-200
+                  ${
+                    loading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-purple-500/50"
+                  }`}
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg
+                      className="animate-spin h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Loading...
+                  </span>
+                ) : isLogin ? (
+                  "Sign In"
+                ) : (
+                  "Create Account"
+                )}
+              </motion.button>
+            </form>
+
+            {/* Toggle Auth Mode */}
+            <p className="text-center text-gray-600 dark:text-gray-400 mt-6 text-sm">
+              {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLogin((prev) => !prev);
+                  setError(null);
+                }}
+                className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold transition"
+              >
+                {isLogin ? "Sign up" : "Sign in"}
+              </button>
+            </p>
+
+            {/* Divider */}
+            <div className="flex items-center my-6">
+              <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
+              <span className="px-4 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                OR
+              </span>
+              <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
+            </div>
+
+            {/* OAuth Buttons */}
+            <div className="space-y-3">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => handleOAuthLogin(googleProvider)}
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-600 hover:border-gray-300 dark:hover:border-gray-500 transition duration-200 shadow-sm"
+              >
+                <FaGoogle className="text-red-500" size={20} />
+                Continue with Google
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => handleOAuthLogin(githubProvider)}
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-gray-900 dark:bg-gray-700 border-2 border-gray-900 dark:border-gray-600 rounded-xl text-white font-medium hover:bg-gray-800 dark:hover:bg-gray-600 transition duration-200 shadow-sm"
+              >
+                <FaGithub size={20} />
+                Continue with GitHub
+              </motion.button>
+            </div>
+          </div>
         </div>
 
-        {/* Error Display */}
-        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className={`self-end rounded-xl px-6 py-2 font-semibold transition duration-200
-        ${
-          loading
-            ? "bg-blue-300 cursor-not-allowed"
-            : "bg-[#2d79f7] hover:bg-blue-600 text-white"
-        }`}
-        >
-          {loading ? "Loading..." : isLogin ? "Login" : "Sign Up"}
-        </button>
-      </form>
-
-      {/* Toggle Auth Mode */}
-      <p className="text-gray-600 text-center mt-4">
-        {isLogin ? "Dont have an account?" : "Already have an account?"}{" "}
-        <button
-          type="button"
-          onClick={() => {
-            setIsLogin((prev) => !prev);
-            setError(null); // Clear any previous errors when toggling modes
-          }}
-          className="text-blue-600 hover:underline"
-        >
-          {isLogin ? "Sign up" : "Login"}
-        </button>
-      </p>
-
-      {/* Divider */}
-      <div className="flex items-center my-4">
-        <div className="flex-grow h-px bg-gray-300"></div>
-        <span className="mx-2 text-sm text-gray-500">OR</span>
-        <div className="flex-grow h-px bg-gray-300"></div>
-      </div>
-
-      {/* OAuth Buttons */}
-      <div className="flex flex-col gap-3">
-        <button
-          onClick={() => handleOAuthLogin(googleProvider)}
-          className="flex items-center cursor-pointer justify-center gap-2 bg-white border border-gray-300 rounded-xl py-2 text-gray-800 hover:bg-gray-100 transition duration-200"
-        >
-          <FaGoogle className="text-red-500" />
-          Continue with Google
-        </button>
-        <button
-          onClick={() => handleOAuthLogin(githubProvider)}
-          className="flex items-center justify-center cursor-pointer gap-2 bg-black text-white rounded-xl py-2 hover:bg-gray-900 transition duration-200"
-        >
-          <FaGithub />
-          Continue with GitHub
-        </button>
-      </div>
-    </div>
+        {/* Footer text */}
+        <p className="text-center text-gray-500 dark:text-gray-400 text-xs mt-6">
+          By continuing, you agree to our Terms of Service and Privacy Policy
+        </p>
+      </motion.div>
+    </>
   );
 }

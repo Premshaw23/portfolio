@@ -49,8 +49,9 @@ const Footer = () => {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Full-stack Developer & Designer
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-500">
-            &copy; {new Date().getFullYear()} All rights reserved.
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            © {new Date().getFullYear()} Prem Shaw. Built with Next.js &
+            passion.
           </p>
         </div>
 
