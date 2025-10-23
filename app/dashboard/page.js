@@ -88,7 +88,7 @@ export default function DashboardPage() {
                 </h1>
               </div>
               <p className="text-gray-600 dark:text-gray-400">
-                Here's what's happening with your account today.
+                Here&apos;s what&apos;s happening with your account today.
               </p>
             </motion.div>
 

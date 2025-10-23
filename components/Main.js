@@ -95,7 +95,7 @@ export default function PremiumHeroSection() {
                 transition={{ delay: 0.3 }}
                 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-4"
               >
-                Hey, I'm{" "}
+                Hey, I&apos;m{" "}
                 <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
                   Prem Shaw
                 </span>
@@ -121,7 +121,7 @@ export default function PremiumHeroSection() {
               transition={{ delay: 0.5 }}
               className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-xl"
             >
-              I'm a{" "}
+              I&apos;m a{" "}
               <span className="text-green-600 dark:text-green-400 font-semibold">
                 Computer Science student at IIIT Bhopal
               </span>{" "}
@@ -147,7 +147,7 @@ export default function PremiumHeroSection() {
             >
               <Link href="/contact">
                 <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:shadow-xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 flex items-center gap-2">
-                  Let's Build Together
+                  Let&apos;s Build Together
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>

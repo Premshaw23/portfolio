@@ -216,7 +216,7 @@ export default function AboutPage() {
                 className="pt-8 border-t border-gray-200 dark:border-gray-800"
               >
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  Let's Connect
+                  Let&apos;s Connect
                 </h3>
                 <div className="flex gap-4">
                   <Link
