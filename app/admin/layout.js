@@ -11,6 +11,7 @@ import {
   CodeIcon,
   Menu,
   X,
+  MessageSquare,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
@@ -27,6 +28,7 @@ const navLinks = [
     icon: <FolderKanban size={18} />,
   },
   { href: "/admin/skills", label: "Skills", icon: <CodeIcon size={18} /> },
+  { href: "/admin/comments", label: "Comments", icon: <MessageSquare size={18} /> },
 ];
 
 export default function AdminLayout({ children }) {

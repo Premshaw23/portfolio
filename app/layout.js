@@ -8,6 +8,7 @@ import ToastWrapper from "@/components/ToastWrapper";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +25,74 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Prem Shaw — Developer Portfolio",
+  metadataBase: new URL("https://itspremdev.vercel.app"),
+  title: {
+    default: "Prem Shaw — Developer Portfolio",
+    template: "%s | Prem Shaw",
+  },
   description:
-    "Explore the portfolio of Prem Shaw, a front-end developer specializing in responsive design, clean code, and scalable architecture using React and Next.js.",
+    "Explore the portfolio of Prem Shaw, a MERN Stack Developer and Next.js Specialist. Showcasing projects, blogs, and technical expertise in building scalable web applications.",
+  keywords: [
+    "Prem Shaw",
+    "MERN Stack Developer",
+    "Next.js Specialist",
+    "Full Stack Developer",
+    "React Developer",
+    "Software Engineer",
+    "IIIT Bhopal",
+  ],
+  authors: [{ name: "Prem Shaw" }],
+  creator: "Prem Shaw",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://itspremdev.vercel.app",
+    title: "Prem Shaw — Developer Portfolio",
+    description:
+      "MERN Stack Developer & Next.js Specialist. Building performant, scalable, and visually appealing web applications.",
+    siteName: "Prem Shaw Portfolio",
+    images: [
+      {
+        url: "/prem.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Prem Shaw - Developer Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Prem Shaw — Developer Portfolio",
+    description:
+      "MERN Stack Developer & Next.js Specialist. Building performant, scalable, and visually appealing web applications.",
+    creator: "@premshaw23",
+    images: ["/prem.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Prem Shaw",
+  url: "https://itspremdev.vercel.app",
+  jobTitle: "MERN Stack Developer",
+  alumniOf: "IIIT Bhopal",
+  sameAs: [
+    "https://github.com/premshaw23",
+    "https://linkedin.com/in/premshaw2311",
+    "https://twitter.com/premshaw23",
+  ],
 };
 
 export default function RootLayout({ children }) {
@@ -48,6 +114,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col transition-colors duration-300 bg-white text-black dark:bg-gradient-to-b dark:from-[#0c0f15] dark:via-[#111139] dark:to-[#0f0f1f] dark:text-white`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <AuthProvider>
           <ThemeProvider
             attribute="class"
@@ -58,10 +128,8 @@ export default function RootLayout({ children }) {
             <LoaderProvider>
               <Loader />
 
-              {/* Sticky Navbar */}
-              <header className="sticky top-0 z-50">
-                <Navbar />
-              </header>
+              {/* Navigation */}
+              <Navbar />
 
               {/* Main Content Area */}
               <main className="flex-1 w-full">{children}</main>
@@ -91,6 +159,7 @@ export default function RootLayout({ children }) {
                   },
                 }}
               />
+              <ScrollToTop />
             </LoaderProvider>
           </ThemeProvider>
         </AuthProvider>

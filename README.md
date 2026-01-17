@@ -2,7 +2,7 @@
 
 Welcome to my **personal developer portfolio**, meticulously crafted to showcase my technical skills, projects, achievements, and professional journey. This site features an integrated admin dashboard for seamless content management and dynamic updates.
 
-🔗 [Live Site →](https://portfolio-one-omega-53.vercel.app/)
+🔗 [Live Site →](https://itspremdev.vercel.app/)
 
 ---
 
@@ -127,7 +127,7 @@ npm run dev
 ### 5. Visit the App
 
 ```
-https://portfolio-one-omega-53.vercel.app/
+https://itspremdev.vercel.app/
 ```
 
 ---

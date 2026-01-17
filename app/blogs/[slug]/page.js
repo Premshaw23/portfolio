@@ -21,6 +21,7 @@ import OnThisPage from "@/components/onthispage";
 import { useLoader } from "@/context/LoaderContext";
 import Footer from "@/components/footer";
 import { Share2, Clock, Calendar } from "lucide-react";
+import BlogInteractions from "@/components/BlogInteractions";
 
 export default function BlogPage() {
   const { slug } = useParams();
@@ -41,11 +42,12 @@ export default function BlogPage() {
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
-          const docData = querySnapshot.docs[0].data();
+          const docSnap = querySnapshot.docs[0];
+          const docData = docSnap.data();
           const { content, ...metadata } = docData;
 
           const { content: markdownContent } = matter(content);
-          setBlog(metadata);
+          setBlog({ ...metadata, id: docSnap.id });
 
           const processed = await unified()
             .use(remarkParse)
@@ -200,6 +202,9 @@ export default function BlogPage() {
                   prose-li:marker:text-indigo-500"
                 dangerouslySetInnerHTML={{ __html: htmlContent }}
               />
+
+              {/* Interactions: Likes & Comments */}
+              <BlogInteractions blogId={blog.id} blogSlug={slug} />
 
               {/* Footer Actions */}
               <div className="flex items-center justify-between mt-12 pt-6 border-t border-gray-200 dark:border-white/10 flex-wrap gap-4">

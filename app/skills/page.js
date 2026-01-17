@@ -18,190 +18,148 @@ import { Code2, Sparkles } from "lucide-react";
 
 const SkillPage = () => {
   const [skills, setSkills] = useState([]);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const { showLoader, hideLoader } = useLoader();
 
   useEffect(() => {
-    const fetchSkillsAndSettings = async () => {
+    const fetchSkills = async () => {
+      setLoading(true);
       try {
         showLoader();
-
-        const settingsData = await getDoc(doc(db, "settings", "skills"));
-        if (settingsData.exists()) {
-          const { itemsPerPage } = settingsData.data();
-          if (itemsPerPage) setItemsPerPage(itemsPerPage);
-        }
-
         const snapshot = await getDocs(collection(db, "skills"));
-        const skillsList = snapshot.docs.map((doc) => doc.data().name);
-        setSkills(skillsList);
+        const skillsData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setSkills(skillsData);
       } catch (error) {
-        console.error("Error fetching skills or settings:", error);
+        console.error("Error fetching skills:", error);
       } finally {
         hideLoader();
+        setLoading(false);
       }
     };
 
-    fetchSkillsAndSettings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchSkills();
   }, []);
 
-  const totalPages = Math.max(1, Math.ceil(skills.length / itemsPerPage));
-
-  useEffect(() => {
-    if (currentPage > totalPages) setCurrentPage(totalPages);
-  }, [currentPage, totalPages]);
-
-  const currentSkills = skills.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+  // Categorize skills by proficiency level
+  const categorizeSkills = () => {
+    const categories = {
+      expert: skills.filter(s => s.percentage >= 90),
+      advanced: skills.filter(s => s.percentage >= 75 && s.percentage < 90),
+      intermediate: skills.filter(s => s.percentage < 75),
+    };
+    return categories;
   };
+
+  const categories = categorizeSkills();
 
   return (
     <>
-      <section className="relative min-h-screen py-20 px-6 md:px-10 bg-gradient-to-br from-white via-indigo-50 to-purple-50 dark:from-slate-950 dark:via-indigo-950 dark:to-slate-950 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      <section className="relative min-h-screen py-24 bg-[#fafafa] dark:bg-[#020617] transition-colors duration-500 overflow-hidden">
+        {/* Background Accents */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] animate-pulse delay-700" />
+          <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:32px_32px]" />
+        </div>
 
-        {/* Floating Orbs */}
-        <motion.div
-          className="absolute top-20 right-20 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 5, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-20 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.5, 0.3, 0.5] }}
-          transition={{ duration: 6, repeat: Infinity }}
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Header */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          {/* Executive Header */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-24"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full backdrop-blur-sm mb-6">
-              <Code2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              <span className="text-sm text-indigo-700 dark:text-indigo-300 font-medium">
-                Tech Stack & Expertise
+            <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-xl mb-6 shadow-sm">
+              <Code2 className="w-4 h-4 text-indigo-500" />
+              <span className="text-[10px] font-black tracking-[0.3em] text-gray-500 dark:text-gray-400 uppercase">
+                Technical Expertise
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                My Skills
+            <h1 className="text-6xl md:text-8xl font-black tracking-tight mb-6">
+              <span className="bg-gradient-to-b from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-300 dark:to-gray-500 bg-clip-text text-transparent">
+                Powering
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                Experiences.
               </span>
             </h1>
 
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              A collection of technologies and tools I use to bring ideas to
-              life
+            <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
+              A curated stack of technologies I've mastered to build scalable, high-performance digital products.
             </p>
           </motion.div>
 
-          {/* Skills Grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex justify-center flex-wrap gap-4 md:gap-6 min-h-[300px]"
-          >
-            {currentSkills.length === 0 ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 w-full">
-                No skills found.
-              </p>
-            ) : (
-              currentSkills.map((skill, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="group relative"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
-
-                  <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-2xl px-8 py-5 shadow-lg hover:shadow-xl hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                      <p className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                        {skill}
-                      </p>
-                    </div>
+          {/* Proficiency Sections */}
+          <div className="space-y-24">
+            {Object.entries(categories).map(([level, items], sectionIndex) => (
+              items.length > 0 && (
+                <section key={level} className="space-y-10">
+                  <div className="flex items-center gap-4">
+                    <h2 className="text-sm font-black uppercase tracking-[0.2em] text-indigo-500 flex items-center gap-3">
+                      <span className="w-8 h-[2px] bg-indigo-500" />
+                      {level} Proficiency
+                    </h2>
+                    <div className="h-px flex-1 bg-gray-200 dark:bg-white/5" />
                   </div>
-                </motion.div>
-              ))
-            )}
-          </motion.div>
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <Pagination className="mt-16 flex justify-center">
-                <PaginationContent className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full px-4 py-2 border border-gray-200 dark:border-gray-700">
-                  <PaginationItem>
-                    <PaginationPrevious
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      className={`cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-900/30 rounded-full ${
-                        currentPage === 1
-                          ? "pointer-events-none opacity-50"
-                          : ""
-                      }`}
-                      aria-label="Previous page"
-                    />
-                  </PaginationItem>
-
-                  {[...Array(totalPages)].map((_, index) => (
-                    <PaginationItem key={index}>
-                      <PaginationLink
-                        isActive={index + 1 === currentPage}
-                        onClick={() => handlePageChange(index + 1)}
-                        href="#"
-                        className={`cursor-pointer rounded-full ${
-                          index + 1 === currentPage
-                            ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                            : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30"
-                        }`}
-                        aria-current={
-                          index + 1 === currentPage ? "page" : undefined
-                        }
-                        aria-label={`Page ${index + 1}`}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {items.map((skill, index) => (
+                      <motion.div
+                        key={skill.id}
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.05 }}
+                        whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                        className="group relative"
                       >
-                        {index + 1}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
+                        <div className="absolute -inset-1 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl blur opacity-0 group-hover:opacity-10 transition duration-500" />
+                        
+                        <div className="relative p-6 bg-white dark:bg-[#0f172a]/40 backdrop-blur-2xl border border-gray-100 dark:border-white/5 rounded-3xl shadow-sm group-hover:border-indigo-500/30 transition-all duration-300">
+                          <div className="flex justify-between items-start mb-6">
+                            <div className="w-12 h-12 rounded-2xl bg-indigo-500/5 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500">
+                               <Sparkles size={20} className={skill.percentage >= 90 ? "animate-pulse" : ""} />
+                            </div>
+                            <span className="text-3xl font-black text-gray-200 dark:text-white/10 group-hover:text-indigo-500/20 transition-colors duration-500">
+                              {skill.percentage}%
+                            </span>
+                          </div>
 
-                  <PaginationItem>
-                    <PaginationNext
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      className={`cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-900/30 rounded-full ${
-                        currentPage === totalPages
-                          ? "pointer-events-none opacity-50"
-                          : ""
-                      }`}
-                      aria-label="Next page"
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </motion.div>
+                          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 group-hover:text-indigo-500 transition-colors">
+                            {skill.name}
+                          </h3>
+
+                          {/* Refined Progress Bar */}
+                          <div className="w-full h-1.5 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${skill.percentage}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1, delay: 0.5 }}
+                              className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full shadow-[0_0_8px_rgba(79,70,229,0.4)]"
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </section>
+              )
+            ))}
+          </div>
+
+          {skills.length === 0 && !loading && (
+            <div className="flex flex-col items-center justify-center py-40 animate-pulse">
+               <div className="w-20 h-20 rounded-3xl border-2 border-dashed border-gray-300 dark:border-white/10 flex items-center justify-center mb-6">
+                 <Code2 className="text-gray-300 dark:text-white/10" size={32} />
+               </div>
+               <p className="text-gray-400 font-black uppercase tracking-widest text-xs">No expertise found yet</p>
+            </div>
           )}
         </div>
       </section>

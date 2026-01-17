@@ -15,7 +15,23 @@ import { db } from "@/lib/firebase";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
 import MarkdownWrapper from "@/components/customConvertor";
-import Footer from "@/components/footer";
+import CloudinaryUpload from "@/components/CloudinaryUpload";
+import { 
+  Save, 
+  ArrowLeft, 
+  Eye, 
+  Settings, 
+  FileText, 
+  Sparkles, 
+  Calendar, 
+  User, 
+  Link as LinkIcon,
+  ChevronRight,
+  Monitor,
+  Layout,
+  Layers
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MarkdownEditor = dynamic(() => import("@uiw/react-md-editor"), {
   ssr: false,
@@ -142,161 +158,206 @@ export default function AdminBlogEditorPage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 dark:bg-gray-900 bg-gray-400 py-5 rounded-lg mt-10 mb-20">
-      <h1 className="text-5xl font-extrabold text-center text-indigo-600 mb-6">
-        {id === "new" ? "Create New Blog" : "Edit Blog"}
-      </h1>
-
-      {(loading || saving) && (
-        <p className="text-indigo-400 mb-4">
-          {loading ? "Loading..." : "Saving..."}
-        </p>
-      )}
-
-      <div className="space-y-6">
-        <label htmlFor="title" className="text-white">
-          Title:
-        </label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
-          value={title}
-          placeholder="Blog title"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
-        <label htmlFor="slug" className="text-white">
-          URL Name:
-        </label>
-        <input
-          type="text"
-          id="slug"
-          name="slug"
-          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
-          value={slug}
-          placeholder="url-friendly-slug"
-          onChange={(e) => setSlug(e.target.value)}
-        />
-
-        <label htmlFor="description" className="text-white">
-          Description
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          rows={3}
-          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
-          value={about}
-          placeholder="Brief summary of the blog"
-          onChange={(e) => setAbout(e.target.value)}
-        />
-
-        <label htmlFor="author" className="text-white">
-          Author
-        </label>
-        <input
-          type="text"
-          id="author"
-          name="author"
-          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
-          value={author}
-          placeholder="Author name"
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-
-        <label htmlFor="date" className="text-white">
-          Date
-        </label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-
-        <label htmlFor="coverImage" className="text-white">
-          Cover Image URL
-        </label>
-        <input
-          type="url"
-          id="coverImage"
-          name="coverImage"
-          className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
-          value={coverImage}
-          placeholder="https://example.com/image.jpg"
-          onChange={(e) => setCoverImage(e.target.value)}
-        />
-
-        {coverImage && (
-          <div className="mt-4">
-            <p className="text-white mb-2">Image Preview:</p>
-            <Image
-              src={coverImage}
-              alt="Cover Preview"
-              width={400}
-              height={400}
-              className="max-w-full h-auto rounded-lg border border-gray-600"
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
-            />
+    <div className="min-h-screen bg-gray-50 dark:bg-[#020617] text-gray-900 dark:text-white transition-colors duration-500 pb-20">
+      {/* Top Header Workspace */}
+      <nav className="sticky top-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-b border-gray-200 dark:border-white/10 px-4 md:px-8 py-3">
+        <div className="max-w-[1800px] mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4 min-w-0">
+            <motion.button
+              whileHover={{ x: -2 }}
+              onClick={() => router.push("/admin/blogs")}
+              className="p-2 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-500 hover:text-indigo-500 transition-colors shrink-0"
+            >
+              <ArrowLeft size={18} />
+            </motion.button>
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-lg shrink-0">
+                <FileText size={18} />
+              </div>
+              <div className="truncate">
+                <h1 className="text-lg font-black tracking-tight leading-none flex items-center gap-2 truncate">
+                  {id === "new" ? "New Entry" : "Edit Post"}
+                  <ChevronRight size={14} className="text-gray-400 shrink-0" />
+                  <span className="text-indigo-600 truncate">{title || "Untitled"}</span>
+                </h1>
+              </div>
+            </div>
           </div>
-        )}
 
-        <div>
-          <label htmlFor="status" className="text-white">
-            Status
-          </label>
-          <select
-            id="status"
-            name="status"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="w-full rounded-lg font-semibold border border-gray-600 bg-gray-200 dark:bg-gray-900 px-3 py-2 text-slate-900 dark:text-white"
-          >
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
+          <div className="flex items-center gap-3 shrink-0">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setShowPreview(!showPreview)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs transition-all ${
+                showPreview 
+                  ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20" 
+                  : "bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10"
+              }`}
+            >
+              {showPreview ? <Layout size={16} /> : <Eye size={16} />}
+              <span className="hidden sm:inline">{showPreview ? "Editor" : "Preview"}</span>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleSave}
+              disabled={saving}
+              className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-2 rounded-xl font-black text-xs uppercase tracking-widest hover:shadow-xl transition-all disabled:opacity-50"
+            >
+              <Save size={16} />
+              <span>{saving ? "..." : "Save"}</span>
+            </motion.button>
+          </div>
         </div>
+      </nav>
 
-        <div className="flex justify-between items-center mb-2 mt-6">
-          <h2 className="text-2xl font-bold text-white">Content</h2>
-          <button
-            onClick={() => setShowPreview(!showPreview)}
-            className="text-sm bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded"
-          >
-            {showPreview ? "Edit Markdown" : "Preview Markdown"}
-          </button>
+      <main className="max-w-[1800px] mx-auto p-4 md:p-8 lg:p-10">
+        <div className="flex flex-col lg:flex-row gap-8">
+          
+          {/* Left Panel: Configuration (lg:w-1/4) */}
+          <aside className="w-full lg:w-[320px] xl:w-[380px] shrink-0 space-y-6">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-white/10 rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-6 text-indigo-600">
+                <Settings size={14} />
+                <h3 className="font-black text-[10px] uppercase tracking-[0.2em]">Post Configuration</h3>
+              </div>
+
+              <div className="space-y-5">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Headline</label>
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Enter post title..."
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-bold placeholder-gray-400"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Slug (URL)</label>
+                  <div className="relative">
+                    <LinkIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
+                    <input
+                      type="text"
+                      value={slug}
+                      onChange={(e) => setSlug(e.target.value)}
+                      className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-xl pl-10 pr-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-gray-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Author</label>
+                    <input
+                      type="text"
+                      value={author}
+                      onChange={(e) => setAuthor(e.target.value)}
+                      className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-xl px-3.5 py-3 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-bold"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Date</label>
+                    <input
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-xl px-3.5 py-3 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-bold"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Publication Status</label>
+                  <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-xl px-3.5 py-3 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-bold appearance-none cursor-pointer"
+                  >
+                    <option value="draft">Draft Mode</option>
+                    <option value="published">Live Publication</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-white/10 rounded-2xl p-6 shadow-sm overflow-hidden">
+              <CloudinaryUpload
+                label="Cover Image"
+                description="Upload entry thumbnail"
+                currentImage={coverImage}
+                onUploadSuccess={(url) => setCoverImage(url)}
+              />
+            </section>
+
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-white/10 rounded-2xl p-6 shadow-sm">
+               <div className="flex items-center gap-2 mb-4 text-indigo-600">
+                <Layers size={14} />
+                <h3 className="font-black text-[10px] uppercase tracking-[0.2em]">Excerpt</h3>
+              </div>
+               <textarea
+                rows={4}
+                value={about}
+                onChange={(e) => setAbout(e.target.value)}
+                placeholder="A brief summary..."
+                className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium resize-none leading-relaxed"
+              />
+            </section>
+          </aside>
+
+          {/* Right Panel: Content (lg:w-3/4) */}
+          <div className="flex-1 min-w-0">
+            <div className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden min-h-[750px] flex flex-col">
+              <AnimatePresence mode="wait">
+                {showPreview ? (
+                  <motion.div
+                    key="preview"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex-1 flex flex-col"
+                  >
+                    <div className="px-6 py-4 bg-gray-50/50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Live View Preview</span>
+                      </div>
+                      <Monitor size={14} className="text-gray-400" />
+                    </div>
+                    <div className="flex-1 overflow-y-auto p-6 md:p-12 custom-scrollbar">
+                      <div className="max-w-3xl mx-auto">
+                        {coverImage && (
+                          <div className="relative aspect-[21/9] w-full mb-10 rounded-xl overflow-hidden shadow-2xl">
+                            <Image src={coverImage} alt="Cover" fill priority className="object-cover" />
+                          </div>
+                        )}
+                        <h1 className="text-3xl md:text-5xl font-black mb-8 leading-tight tracking-tight">{title || "Journal Title"}</h1>
+                        <MarkdownWrapper content={content} />
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="editor"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex-1 flex flex-col"
+                  >
+                    <div className="flex-1 p-2 md:p-4">
+                      <CustomMarkdownEditor content={content} setContent={setContent} />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+
         </div>
-
-        {showPreview ? (
-          <MarkdownWrapper content={content} />
-        ) : (
-          <CustomMarkdownEditor content={content} setContent={setContent} />
-        )}
-
-        <div className="flex gap-4 justify-end mt-4">
-          <button
-            onClick={() => router.push("/admin/blogs")}
-            className="bg-gray-700 hover:bg-gray-800 text-white px-5 py-2 rounded"
-            disabled={loading || saving}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleSave}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded"
-            disabled={loading || saving}
-          >
-            Save Blog
-          </button>
-        </div>
-      </div>
+      </main>
     </div>
-  
   );
 }
