@@ -153,7 +153,7 @@ export default function PremiumHeroSection() {
               </Link>
 
               <a
-                href="https://drive.google.com/file/d/1Atm8oarQdBfpt8p9wab4Ob16JclB9Hah/view?usp=sharing"
+                href="https://drive.google.com/file/d/1gQuj_oOhXi4ocsqkEW2WW-yniL6ZtP9R/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
               >
