@@ -66,7 +66,7 @@ export default function AdminDashboard() {
   if (authLoading) return null;
 
   return (
-    <div className="min-h-screen bg-transparent">
+    <div className="min-h-screen bg-transparent overflow-x-hidden">
       {/* Welcome Section */}
       <section className="mb-12">
         <div className="flex flex-col md:flex-row md:items-center gap-6">

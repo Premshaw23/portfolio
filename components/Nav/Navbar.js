@@ -87,6 +87,10 @@ export default function PremiumNavbar() {
     setIsOpen(false);
   };
 
+  const isAdminRoute = pathname?.startsWith("/admin");
+
+  if (isAdminRoute) return null;
+
   return (
     <>
       <motion.nav
@@ -189,7 +193,6 @@ export default function PremiumNavbar() {
                           src={user.photoURL}
                           alt="Profile"
                           fill
-                          priority
                           sizes="44px"
                           className="object-cover"
                         />

@@ -184,7 +184,7 @@ export default function DashboardPage() {
                     <div className="absolute inset-0 bg-indigo-500 rounded-full blur-2xl opacity-20" />
                     <div className="relative w-32 h-32 rounded-full border-4 border-white dark:border-white/10 overflow-hidden shadow-2xl ring-4 ring-indigo-500/10">
                       {user.photoURL ? (
-                        <Image src={user.photoURL} alt="Profile" fill priority sizes="128px" className="object-cover" />
+                        <Image src={user.photoURL} alt="Profile" fill sizes="128px" className="object-cover" />
                       ) : (
                         <div className="w-full h-full bg-indigo-500 flex items-center justify-center text-white">
                           <UserCircle2 size={64} />
