@@ -41,7 +41,7 @@ const SkillPage = () => {
     };
 
     fetchSkills();
-  }, []);
+  }, [showLoader, hideLoader]);
 
   // Categorize skills by proficiency level
   const categorizeSkills = () => {
@@ -90,7 +90,7 @@ const SkillPage = () => {
             </h1>
 
             <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
-              A curated stack of technologies I've mastered to build scalable, high-performance digital products.
+              A curated stack of technologies I&apos;ve mastered to build scalable, high-performance digital products.
             </p>
           </motion.div>
 

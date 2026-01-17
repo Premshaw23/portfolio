@@ -51,7 +51,7 @@ const ProjectsPage = () => {
     };
 
     fetchSettingsAndProjects();
-  }, []);
+  }, [showLoader, hideLoader]);
 
   const totalPages = Math.ceil(projects.length / itemsPerPage);
   const currentProjects = projects.slice(
@@ -210,7 +210,7 @@ const ProjectsPage = () => {
                   <PaginationItem>
                     <PaginationPrevious
                       onClick={() => handlePageChange(currentPage - 1)}
-                      className={`cursor-pointer w-10 h-10 p-0 rounded-full flex items-center justify-center transition-all ${
+                      className={`cursor-pointer min-w-[32px] sm:min-w-[40px] px-2 sm:px-4 h-8 sm:h-10 rounded-full flex items-center justify-center transition-all ${
                         currentPage === 1 ? "opacity-30 pointer-events-none" : "hover:bg-blue-500 hover:text-white"
                       }`}
                     />
@@ -235,7 +235,7 @@ const ProjectsPage = () => {
                   <PaginationItem>
                     <PaginationNext
                       onClick={() => handlePageChange(currentPage + 1)}
-                      className={`cursor-pointer w-10 h-10 p-0 rounded-full flex items-center justify-center transition-all ${
+                      className={`cursor-pointer min-w-[32px] sm:min-w-[40px] px-2 sm:px-4 h-8 sm:h-10 rounded-full flex items-center justify-center transition-all ${
                         currentPage === totalPages ? "opacity-30 pointer-events-none" : "hover:bg-blue-500 hover:text-white"
                       }`}
                     />

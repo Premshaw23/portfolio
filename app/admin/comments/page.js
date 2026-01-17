@@ -165,7 +165,7 @@ export default function AdminCommentsPage() {
           </div>
         ) : (
           <div className="space-y-6">
-            {filteredBlogs.map((blog) => (
+            {filteredBlogs.map((blog, index) => (
               <motion.div
                 key={blog.id}
                 layout
@@ -185,7 +185,7 @@ export default function AdminCommentsPage() {
                   <div className="flex items-center gap-6 min-w-0">
                     <div className="relative w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-gray-200 dark:border-white/10">
                       {blog.coverImage ? (
-                        <Image src={blog.coverImage} alt={blog.title} fill className="object-cover" />
+                        <Image src={blog.coverImage} alt={blog.title} fill sizes="64px" priority={index < 4} className="object-cover" />
                       ) : (
                         <div className="w-full h-full bg-indigo-500/10 flex items-center justify-center text-indigo-500">
                           <BookOpen size={24} />

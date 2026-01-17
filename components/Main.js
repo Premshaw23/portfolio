@@ -3,12 +3,18 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Download, ArrowRight, Code2, Sparkles } from "lucide-react";
 
 export default function PremiumHeroSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 150 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+
   const [currentRole, setCurrentRole] = useState(0);
 
   const roles = [
@@ -22,15 +28,16 @@ export default function PremiumHeroSection() {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 20 - 10,
-        y: (e.clientY / window.innerHeight) * 20 - 10,
-      });
+      const { clientX, clientY } = e;
+      const x = (clientX / window.innerWidth) * 20 - 10;
+      const y = (clientY / window.innerHeight) * 20 - 10;
+      mouseX.set(x);
+      mouseY.set(y);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,18 +54,22 @@ export default function PremiumHeroSection() {
       {/* Floating Orbs */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/20 rounded-full blur-3xl"
+        style={{
+          x: springX,
+          y: springY,
+        }}
         animate={{
-          x: mousePosition.x * 2,
-          y: mousePosition.y * 2,
           scale: [1, 1.2, 1],
         }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/20 dark:bg-pink-500/20 rounded-full blur-3xl"
+        style={{
+          x: springY, // swapped for variation
+          y: springX,
+        }}
         animate={{
-          x: -mousePosition.x * 2,
-          y: -mousePosition.y * 2,
           scale: [1.2, 1, 1.2],
         }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}

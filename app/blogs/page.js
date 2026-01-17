@@ -60,7 +60,7 @@ const BlogPage = () => {
     };
 
     fetchSettingsAndBlogs();
-  }, []);
+  }, [showLoader, hideLoader]);
 
   const totalPages = Math.ceil(blogs.length / itemsPerPage);
   const currentBlogs = blogs.slice(
@@ -227,7 +227,7 @@ const BlogPage = () => {
                   <PaginationItem>
                     <PaginationPrevious
                       onClick={() => handlePageChange(currentPage - 1)}
-                      className={`cursor-pointer w-8 h-8 sm:w-10 sm:h-10 p-0 rounded-full flex items-center justify-center transition-all ${
+                      className={`cursor-pointer min-w-[32px] sm:min-w-[40px] px-2 sm:px-4 h-8 sm:h-10 rounded-full flex items-center justify-center transition-all ${
                         currentPage === 1 ? "opacity-30 pointer-events-none" : "hover:bg-blue-500 hover:text-white"
                       }`}
                     />
@@ -254,7 +254,7 @@ const BlogPage = () => {
                   <PaginationItem>
                     <PaginationNext
                       onClick={() => handlePageChange(currentPage + 1)}
-                      className={`cursor-pointer w-8 h-8 sm:w-10 sm:h-10 p-0 rounded-full flex items-center justify-center transition-all ${
+                      className={`cursor-pointer min-w-[32px] sm:min-w-[40px] px-2 sm:px-4 h-8 sm:h-10 rounded-full flex items-center justify-center transition-all ${
                         currentPage === totalPages ? "opacity-30 pointer-events-none" : "hover:bg-blue-500 hover:text-white"
                       }`}
                     />

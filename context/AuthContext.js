@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext, useCallback } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { useRouter } from "next/navigation";
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   // No confirm here — confirmation is done via your modal in UI
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       await signOut(auth);
       setUser(null);
@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
       console.error("Logout error:", err);
       toast.error("Failed to logout");
     }
-  };
+  }, [router]);
 
   return (
     <AuthContext.Provider value={{ user, loading, emailVerified, logout }}>

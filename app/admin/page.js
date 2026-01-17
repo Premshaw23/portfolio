@@ -71,9 +71,9 @@ export default function AdminDashboard() {
       <section className="mb-12">
         <div className="flex flex-col md:flex-row md:items-center gap-6">
           <div className="relative">
-            <div className="w-20 h-20 rounded-[2rem] overflow-hidden border-2 border-indigo-500/20 shadow-2xl">
+            <div className="relative w-20 h-20 rounded-[2rem] overflow-hidden border-2 border-indigo-500/20 shadow-2xl">
               {user?.photoURL ? (
-                <Image src={user.photoURL} alt="Profile" fill className="object-cover" />
+                <Image src={user.photoURL} alt="Profile" fill priority sizes="80px" className="object-cover" />
               ) : (
                 <div className="w-full h-full bg-indigo-500 flex items-center justify-center text-white">
                   <span className="text-2xl font-black">Admin</span>

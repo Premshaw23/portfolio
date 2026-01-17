@@ -39,6 +39,9 @@ export default function BlogInteractions({ blogId, blogSlug }) {
       if (user) {
         setIsLiked(likesData.some(like => like.userId === user.uid));
       }
+    }, (error) => {
+      console.error("Likes listener error:", error);
+      setLoading(false);
     });
 
     // Listen for comments
@@ -48,16 +51,17 @@ export default function BlogInteractions({ blogId, blogSlug }) {
     );
     const unsubscribeComments = onSnapshot(commentsQuery, (snapshot) => {
       const commentsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      // Client-side sort: Newest first
       commentsData.sort((a, b) => {
         const dateA = a.createdAt?.toDate ? a.createdAt.toDate() : new Date();
         const dateB = b.createdAt?.toDate ? b.createdAt.toDate() : new Date();
         return dateB - dateA;
       });
       setComments(commentsData);
+      setLoading(false);
+    }, (error) => {
+      console.error("Comments listener error:", error);
+      setLoading(false);
     });
-
-    setLoading(false);
 
     return () => {
       unsubscribeLikes();
@@ -177,7 +181,7 @@ export default function BlogInteractions({ blogId, blogSlug }) {
                   <div className="flex-shrink-0 hidden xs:block">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl overflow-hidden ring-2 ring-purple-500/20">
                       {user.photoURL ? (
-                        <Image src={user.photoURL} alt="Profile" width={48} height={48} className="object-cover" />
+                        <Image src={user.photoURL} alt="Profile" width={48} height={48} priority className="object-cover" />
                       ) : (
                         <div className="w-full h-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600">
                           <User size={20} />
@@ -242,47 +246,53 @@ export default function BlogInteractions({ blogId, blogSlug }) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: index * 0.05 }}
-                  className="group relative flex gap-3 sm:gap-5 p-4 sm:p-6 bg-white/50 dark:bg-white/[0.03] backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-gray-100 dark:border-white/5 hover:border-purple-500/20 transition-all"
+                  className="group relative flex flex-col sm:flex-row gap-4 p-5 sm:p-6 bg-white/40 dark:bg-white/[0.03] backdrop-blur-md rounded-[2rem] border border-gray-100 dark:border-white/5 hover:border-indigo-500/20 transition-all shadow-sm"
                 >
-                  <div className="flex-shrink-0">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-md">
+                  {/* User Meta (Top on mobile, Left on desktop) */}
+                  <div className="flex items-center gap-3 sm:flex-col sm:gap-2 sm:items-center">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-md shrink-0">
                       {comment.userImage ? (
-                        <Image src={comment.userImage} alt={comment.userName} width={48} height={48} className="object-cover" />
+                        <Image src={comment.userImage} alt={comment.userName} width={48} height={48} priority={index < 3} className="object-cover w-full h-full" />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
+                        <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-black text-sm">
                           {comment.userName.charAt(0).toUpperCase()}
                         </div>
                       )}
                     </div>
+                    {/* On Desktop, handle name under image? Usually side is better for comments. Let's keep side for name but improve header. */}
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                      <div className="flex items-center gap-2 flex-wrap min-w-0">
-                        <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white truncate">
-                          {comment.userName}
-                        </h4>
-                        {(comment.userId === process.env.NEXT_PUBLIC_ADMIN_UID || comment.userName === "Prem Shaw") && (
-                          <span className="px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-500 text-[9px] uppercase font-black border border-purple-500/20">Author</span>
-                        )}
+                  <div className="flex-1 min-w-0 flex flex-col">
+                    <div className="flex items-start justify-between gap-4 mb-2">
+                      <div className="flex flex-col gap-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h4 className="font-black text-sm sm:text-[15px] text-gray-900 dark:text-white truncate tracking-tight">
+                            {comment.userName}
+                          </h4>
+                          {(comment.userId === process.env.NEXT_PUBLIC_ADMIN_UID || comment.userName === "Prem Shaw") && (
+                            <span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 text-[8px] uppercase font-black border border-indigo-500/20 tracking-[0.1em]">Author</span>
+                          )}
+                        </div>
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-widest">
+                          {comment.createdAt?.toDate ? comment.createdAt.toDate().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric'}) : "Just Now"}
+                        </span>
                       </div>
-                      <span className="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500 font-medium shrink-0">
-                        {comment.createdAt?.toDate ? comment.createdAt.toDate().toLocaleDateString(undefined, { month: 'short', day: 'numeric'}) : "Recently"}
-                      </span>
+
+                      {user && (user.uid === comment.userId || user.uid === process.env.NEXT_PUBLIC_ADMIN_UID) && (
+                        <button
+                          onClick={() => deleteComment(comment.id)}
+                          className="p-2 text-gray-400 hover:text-red-500 bg-gray-50 dark:bg-white/5 rounded-xl transition-all shrink-0"
+                          title="Delete Comment"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      )}
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-[15px] break-words">
+                    
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm md:text-base break-words font-medium">
                       {comment.text}
                     </p>
                   </div>
-
-                  {user && (user.uid === comment.userId || user.uid === process.env.NEXT_PUBLIC_ADMIN_UID) && (
-                    <button
-                      onClick={() => deleteComment(comment.id)}
-                      className="opacity-0 group-hover:opacity-100 absolute top-3 right-3 p-1.5 text-gray-400 hover:text-red-500 bg-white dark:bg-gray-800 rounded-lg shadow-sm transition-all"
-                    >
-                      <Trash2 size={14} />
-                    </button>
-                  )}
                 </motion.div>
               ))}
             </AnimatePresence>

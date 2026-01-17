@@ -331,7 +331,7 @@ export default function AdminBlogEditorPage() {
                       <div className="max-w-3xl mx-auto">
                         {coverImage && (
                           <div className="relative aspect-[21/9] w-full mb-10 rounded-xl overflow-hidden shadow-2xl">
-                            <Image src={coverImage} alt="Cover" fill priority className="object-cover" />
+                            <Image src={coverImage} alt="Cover" fill priority sizes="(max-width: 768px) 100vw, 800px" className="object-cover" />
                           </div>
                         )}
                         <h1 className="text-3xl md:text-5xl font-black mb-8 leading-tight tracking-tight">{title || "Journal Title"}</h1>

@@ -15,28 +15,36 @@ export default function MarkdownWrapper({ content }) {
   const [html, setHtml] = useState("");
 
   useEffect(() => {
-    async function convert() {
-        const processed = await unified()
-          .use(remarkParse)
-          .use(remarkRehype)
-          .use(rehypeSlug)
-          .use(rehypeAutolinkHeadings)
-          .use(rehypePrettyCode, {
-            theme: "github-dark",
-            transformers: [
-              transformerCopyButton({
-                visibility: "always",
-                feedbackDuration: 3000,
-              }),
-            ],
-          })
-          .use(rehypeFormat)
-          .use(rehypeStringify)
-          .process(content);
+    const timer = setTimeout(() => {
+      async function convert() {
+        try {
+          const processed = await unified()
+            .use(remarkParse)
+            .use(remarkRehype)
+            .use(rehypeSlug)
+            .use(rehypeAutolinkHeadings)
+            .use(rehypePrettyCode, {
+              theme: "github-dark",
+              transformers: [
+                transformerCopyButton({
+                  visibility: "always",
+                  feedbackDuration: 3000,
+                }),
+              ],
+            })
+            .use(rehypeFormat)
+            .use(rehypeStringify)
+            .process(content);
 
-        setHtml(processed.toString());
-    }
-    convert();
+          setHtml(processed.toString());
+        } catch (error) {
+          console.error("Markdown conversion error:", error);
+        }
+      }
+      convert();
+    }, 500); // 500ms debounce
+
+    return () => clearTimeout(timer);
   }, [content]);
 
   return (
