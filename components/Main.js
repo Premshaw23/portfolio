@@ -218,7 +218,7 @@ export default function PremiumHeroSection() {
               {[
                 { label: "Projects", value: "20+" },
                 { label: "CodeChef", value: "3★" },
-                { label: "Experience", value: "1+ Yrs" },
+                { label: "Experience", value: "2+ Yrs" },
               ].map(({ label, value }) => (
                 <div key={label}>
                   <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
