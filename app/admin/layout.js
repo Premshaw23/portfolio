@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import ConfirmModal from "@/components/confirmModal";
 import { motion, AnimatePresence } from "framer-motion";
+import { ModeToggle } from "@/components/theme-btn";
 
 const navLinks = [
   { href: "/admin", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
@@ -88,24 +89,27 @@ export default function AdminLayout({ children }) {
           lg:translate-x-0 overflow-hidden`}
         >
           {/* Sidebar Header */}
-          <div className="p-8 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <div className="p-6 flex items-center justify-between gap-3">
+            <Link href="/" className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center shadow-lg shadow-violet-500/20 flex-shrink-0">
                 <Code2 className="text-white" size={20} />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col min-w-0">
                 <span className="text-lg font-black tracking-tighter text-gray-900 dark:text-white leading-none">
-                  Admin<span className="text-indigo-500">Suite</span>
+                  Admin<span className="text-violet-500">Suite</span>
                 </span>
                 <span className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 mt-1">Management Tool</span>
               </div>
             </Link>
-            <button 
-              onClick={() => setMobileNavOpen(false)}
-              className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-white/5 text-gray-500"
-            >
-              <X size={20} />
-            </button>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <ModeToggle />
+              <button 
+                onClick={() => setMobileNavOpen(false)}
+                className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-white/5 text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -121,12 +125,12 @@ export default function AdminLayout({ children }) {
                   href={href}
                   className={`group flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 ${
                     isActive
-                      ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20"
+                      ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-500/20"
                       : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white"
                   }`}
                 >
                   <div className="flex items-center gap-3 font-bold text-sm">
-                    <span className={isActive ? "text-white" : "text-indigo-500"}>
+                    <span className={isActive ? "text-white" : "text-violet-500"}>
                       {icon}
                     </span>
                     {label}
@@ -185,25 +189,28 @@ export default function AdminLayout({ children }) {
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* Mobile Top Bar */}
-          <header className="lg:hidden sticky top-0 z-40 bg-white/80 dark:bg-[#020617]/80 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 px-6 h-16 flex items-center justify-between">
+          <header className="lg:hidden sticky top-0 z-40 bg-white/90 dark:bg-[#0a0a0f]/90 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 px-4 h-16 flex items-center justify-between gap-3">
             <button 
               onClick={() => setMobileNavOpen(true)}
-              className="p-2 -ml-2 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400"
+              className="p-2 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors"
             >
               <Menu size={20} />
             </button>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
+            <div className="flex items-center gap-2 flex-1 justify-center">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center">
                 <Code2 size={16} className="text-white" />
               </div>
-              <span className="text-sm font-black dark:text-white">AdminPanel</span>
+              <span className="text-sm font-black text-gray-900 dark:text-white">AdminPanel</span>
             </div>
-            <div className="w-8 h-8 rounded-lg overflow-hidden border border-gray-100 dark:border-white/10">
-              {user?.photoURL ? (
-                <Image src={user.photoURL} alt="Admin" width={32} height={32} />
-              ) : (
-                <div className="w-full h-full bg-indigo-500" />
-              )}
+            <div className="flex items-center gap-2">
+              <ModeToggle />
+              <div className="w-8 h-8 rounded-lg overflow-hidden border border-gray-100 dark:border-white/10">
+                {user?.photoURL ? (
+                  <Image src={user.photoURL} alt="Admin" width={32} height={32} />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-violet-500 to-fuchsia-600" />
+                )}
+              </div>
             </div>
           </header>
 

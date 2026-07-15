@@ -130,7 +130,7 @@ export default function AdminBlogsPage() {
   }, [fetchBlogs]);
 
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-[#020617] transition-colors duration-500 py-12 px-6">
+    <div className="min-h-screen bg-transparent transition-colors duration-300 py-12 px-6">
       <ConfirmModal
         open={modalOpen}
         onConfirm={handleDelete}
@@ -143,12 +143,12 @@ export default function AdminBlogsPage() {
         {/* Modern Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-16">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-500 mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 text-violet-500 mb-4">
               <BookOpen size={14} />
-              <span className="text-[10px] font-black uppercase tracking-widest">Journal Management</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-violet-600 dark:text-violet-400">Journal Management</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-black tracking-tight dark:text-white text-gray-900 leading-[1.1]">
-              Manage <span className="text-indigo-500">Blogs.</span>
+              Manage <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">Blogs.</span>
             </h1>
           </div>
 
@@ -171,7 +171,7 @@ export default function AdminBlogsPage() {
 
             <Link
               href="/admin/blogs/new"
-              className="flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-indigo-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center gap-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-violet-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <Plus size={20} />
               Create New Entry
@@ -207,7 +207,7 @@ export default function AdminBlogsPage() {
                     setItemsPerPage(newItemsPerPage);
                   } catch (e) { toast.error("Update failed"); }
                 }}
-                className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:shadow-lg transition-all"
+                className="bg-violet-600 hover:bg-violet-700 text-white px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:shadow-lg transition-all"
              >
                 Apply
              </button>
@@ -233,7 +233,7 @@ export default function AdminBlogsPage() {
                 layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="group relative bg-white dark:bg-[#0f172a]/50 backdrop-blur-2xl border border-gray-200 dark:border-white/10 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:border-indigo-500/30 transition-all duration-500"
+                className="group relative bg-white dark:bg-white/[0.04] backdrop-blur-2xl border border-gray-200 dark:border-white/10 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-violet-500/5 hover:border-violet-400/30 dark:hover:border-violet-500/30 transition-all duration-500"
               >
                 {/* Status Badge */}
                 <div className="absolute top-6 right-6 z-20">
@@ -283,7 +283,7 @@ export default function AdminBlogsPage() {
                     </div>
                   </div>
                   
-                  <h2 className="text-2xl font-black mb-4 dark:text-white text-gray-900 line-clamp-2 leading-tight group-hover:text-indigo-500 transition-colors">
+                  <h2 className="text-2xl font-black mb-4 dark:text-white text-gray-900 line-clamp-2 leading-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
                     {blog.title}
                   </h2>
                   
@@ -313,7 +313,7 @@ export default function AdminBlogsPage() {
                     <Link
                       href={`/blogs/${blog.slug}`}
                       target="_blank"
-                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-500 transition-colors"
+                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                     >
                       View Live
                       <ArrowRight size={14} />

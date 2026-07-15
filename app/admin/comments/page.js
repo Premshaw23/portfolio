@@ -130,12 +130,12 @@ export default function AdminCommentsPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-500 mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 text-violet-500 mb-4">
               <MessageSquare size={14} />
-              <span className="text-[10px] font-black uppercase tracking-widest text-indigo-500 dark:text-indigo-400">Moderation Suite</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-violet-600 dark:text-violet-400">Moderation Suite</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-              Community <span className="text-indigo-500">Feedback.</span>
+              Community <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">Feedback.</span>
             </h1>
           </div>
 
@@ -146,7 +146,7 @@ export default function AdminCommentsPage() {
               placeholder="Search by publication title..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl pl-12 pr-4 py-4 focus:ring-2 focus:ring-indigo-500 outline-none font-bold placeholder-gray-400 transition-all shadow-sm"
+              className="w-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl pl-12 pr-4 py-4 focus:ring-2 focus:ring-violet-500 outline-none font-bold placeholder-gray-400 transition-all shadow-sm text-gray-900 dark:text-white"
             />
           </div>
         </div>
@@ -173,8 +173,8 @@ export default function AdminCommentsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`group border transition-all duration-500 overflow-hidden ${
                   expandedBlog === blog.id 
-                  ? "bg-white dark:bg-white/5 border-indigo-500/50 rounded-[2rem] shadow-2xl" 
-                  : "bg-white/50 dark:bg-white/5 border-gray-200 dark:border-white/10 rounded-3xl hover:border-indigo-500/30 shadow-sm"
+                  ? "bg-white dark:bg-white/5 border-violet-500/50 rounded-[2rem] shadow-2xl" 
+                  : "bg-white/60 dark:bg-white/[0.04] border-gray-200 dark:border-white/10 rounded-3xl hover:border-violet-400/30 dark:hover:border-violet-500/30 shadow-sm"
                 }`}
               >
                 {/* Blog Header Card */}
@@ -197,7 +197,7 @@ export default function AdminCommentsPage() {
                         {blog.title}
                       </h3>
                       <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-gray-400">
-                        <span className="flex items-center gap-1.5 text-indigo-500">
+                        <span className="flex items-center gap-1.5 text-violet-500">
                           <MessageSquare size={12} />
                           {blog.commentCount} Comments
                         </span>
@@ -214,7 +214,7 @@ export default function AdminCommentsPage() {
                   </div>
                   <motion.div
                     animate={{ rotate: expandedBlog === blog.id ? 90 : 0 }}
-                    className="p-3 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-400 group-hover:text-indigo-500 group-hover:bg-indigo-500/10 transition-all"
+                    className="p-3 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-400 group-hover:text-violet-500 group-hover:bg-violet-500/10 transition-all"
                   >
                     <ChevronRight size={20} />
                   </motion.div>
@@ -240,7 +240,7 @@ export default function AdminCommentsPage() {
                               animate={{ opacity: 1, x: 0 }}
                               className="relative flex gap-4 p-5 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 group/comment"
                             >
-                              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-500 shrink-0">
+                              <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-500 shrink-0">
                                 {comment.userImage ? (
                                   <Image src={comment.userImage} alt={comment.userName} width={40} height={40} className="rounded-xl" />
                                 ) : (
@@ -254,7 +254,7 @@ export default function AdminCommentsPage() {
                                       {comment.userName}
                                     </span>
                                     {comment.userEmail === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-                                      <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 text-[8px] font-black uppercase tracking-tighter border border-indigo-500/20">
+                                      <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-500 text-[8px] font-black uppercase tracking-tighter border border-violet-500/20">
                                         <UserCheck2 size={8} />
                                         Author
                                       </span>

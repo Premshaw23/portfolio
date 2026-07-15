@@ -167,19 +167,19 @@ export default function AdminDashboard() {
         </section>
 
         <section>
-          <div className="bg-indigo-600 rounded-[2rem] p-8 text-white h-full relative overflow-hidden shadow-xl shadow-indigo-600/20">
+          <div className="bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-[2rem] p-8 text-white h-full relative overflow-hidden shadow-xl shadow-violet-600/20">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-3xl -mr-32 -mt-32 rounded-full" />
             <div className="relative z-10">
               <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-6">
                 <Layout size={24} />
               </div>
               <h3 className="text-2xl font-black mb-4 leading-tight">Build your<br />Digital Legacy.</h3>
-              <p className="text-indigo-100 text-sm font-medium mb-8 leading-relaxed opacity-80">
+              <p className="text-violet-100 text-sm font-medium mb-8 leading-relaxed opacity-80">
                 Your portfolio is a reflection of your growth. Continue pushing code and documenting your journey.
               </p>
               <Link 
                 href="/admin/blogs/new"
-                className="inline-flex items-center gap-2 bg-white text-indigo-600 px-6 py-3 rounded-xl font-bold text-sm shadow-lg hover:scale-105 active:scale-95 transition-all"
+                className="inline-flex items-center gap-2 bg-white text-violet-600 px-6 py-3 rounded-xl font-bold text-sm shadow-lg hover:scale-105 active:scale-95 transition-all"
               >
                 Launch Post
                 <ArrowUpRight size={16} />
