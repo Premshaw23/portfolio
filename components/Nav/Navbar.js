@@ -98,7 +98,7 @@ export default function PremiumNavbar() {
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-white/80 dark:bg-slate-950/40 backdrop-blur-2xl border-b border-gray-200 dark:border-white/10 shadow-xl"
+            ? "bg-white/85 dark:bg-[#0a0a0f]/80 backdrop-blur-2xl border-b border-slate-200/80 dark:border-violet-500/10 shadow-lg shadow-black/5 dark:shadow-black/30"
             : "bg-transparent backdrop-blur-0"
         }`}
       >
@@ -143,13 +143,13 @@ export default function PremiumNavbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="relative px-5 py-2.5 rounded-xl text-sm font-black uppercase tracking-widest transition-all group overflow-hidden"
+                  className="relative px-5 py-2.5 rounded-xl text-sm font-semibold uppercase tracking-widest transition-all group overflow-hidden"
                 >
                   <span
                     className={`relative z-10 transition-colors duration-300 ${
                       pathname === item.href
-                        ? "text-purple-600 dark:text-white"
-                        : "text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                        ? "text-violet-600 dark:text-white font-bold"
+                        : "text-slate-500 dark:text-gray-400 group-hover:text-slate-900 dark:group-hover:text-white"
                     }`}
                   >
                     {item.name}
@@ -157,7 +157,7 @@ export default function PremiumNavbar() {
                   {pathname === item.href && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 bg-purple-500/10 dark:bg-white/5 border border-purple-500/20 dark:border-white/10 rounded-xl"
+                      className="absolute inset-0 bg-violet-500/10 dark:bg-violet-400/8 border border-violet-400/25 dark:border-violet-400/20 rounded-xl"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -174,7 +174,7 @@ export default function PremiumNavbar() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-7 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-black text-xs uppercase tracking-widest rounded-xl hover:shadow-2xl hover:shadow-purple-500/20 transition-all border border-transparent dark:border-white/10"
+                    className="px-7 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:shadow-xl hover:shadow-violet-500/30 dark:hover:shadow-violet-500/20 transition-all border border-transparent"
                   >
                     Get Started
                   </motion.button>
@@ -293,12 +293,12 @@ export default function PremiumNavbar() {
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center justify-between w-full p-5 rounded-2xl transition-all border shadow-sm ${
                         pathname === item.href
-                          ? "bg-indigo-600 text-white border-indigo-500 shadow-indigo-600/20"
+                          ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white border-violet-500 shadow-violet-600/20"
                           : "bg-white dark:bg-white/5 text-gray-900 dark:text-white border-gray-100 dark:border-white/10"
                       }`}
                     >
                       <div className="flex items-center gap-4">
-                        <span className={pathname === item.href ? "text-white" : "text-indigo-500"}>
+                        <span className={pathname === item.href ? "text-white" : "text-violet-500"}>
                           {item.icon}
                         </span>
                         <span className="text-sm font-black uppercase tracking-[0.2em]">{item.name}</span>

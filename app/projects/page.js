@@ -37,10 +37,9 @@ const ProjectsPage = () => {
         }
 
         const snapshot = await getDocs(collection(db, "projects"));
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const data = snapshot.docs
+          .map((doc) => ({ id: doc.id, ...doc.data() }))
+          .sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
         setProjects(data);
       } catch (error) {
         console.error("Failed to load projects", error);
