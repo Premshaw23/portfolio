@@ -53,7 +53,7 @@ export const metadata = {
     siteName: "Prem Shaw Portfolio",
     images: [
       {
-        url: "/prem.jpg",
+        url: "/prem.png",
         width: 1200,
         height: 630,
         alt: "Prem Shaw - Developer Portfolio",
@@ -66,7 +66,7 @@ export const metadata = {
     description:
       "MERN Stack Developer & Next.js Specialist. Building performant, scalable, and visually appealing web applications.",
     creator: "@premshaw23",
-    images: ["/prem.jpg"],
+    images: ["/prem.png"],
   },
   robots: {
     index: true,
