@@ -174,7 +174,7 @@ export default function PremiumHeroSection() {
                 </Link>
 
                 <a
-                  href="https://drive.google.com/file/d/16W6M5V4hAJ_hh6ye-mZGj4UjRrnalHSr/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1mC-5fcDP92wCczjLPx_GPjqWXFnZSBQ-/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -197,19 +197,22 @@ export default function PremiumHeroSection() {
                     href: "https://github.com/premshaw23",
                     icon: <FaGithub className="w-[18px] h-[18px]" />,
                     label: "GitHub",
-                    hover: "hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-400",
+                    hover:
+                      "hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-400",
                   },
                   {
                     href: "https://linkedin.com/in/premshaw2311",
                     icon: <FaLinkedin className="w-[18px] h-[18px]" />,
                     label: "LinkedIn",
-                    hover: "hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-400 dark:hover:border-blue-500",
+                    hover:
+                      "hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-400 dark:hover:border-blue-500",
                   },
                   {
                     href: "https://twitter.com/premshaw23",
                     icon: <FaTwitter className="w-[18px] h-[18px]" />,
                     label: "Twitter",
-                    hover: "hover:text-sky-500 dark:hover:text-sky-400 hover:border-sky-400 dark:hover:border-sky-500",
+                    hover:
+                      "hover:text-sky-500 dark:hover:text-sky-400 hover:border-sky-400 dark:hover:border-sky-500",
                   },
                 ].map(({ href, icon, label, hover }) => (
                   <a
@@ -256,21 +259,33 @@ export default function PremiumHeroSection() {
                 {/* Floating Badge — MERN Stack */}
                 <motion.div
                   animate={{ y: [-8, 8, -8] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                   className="absolute -top-5 -right-5 flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-violet-200 dark:border-violet-500/30 text-slate-800 dark:text-white rounded-2xl shadow-xl shadow-violet-500/20 dark:shadow-violet-900/40 font-semibold text-sm backdrop-blur-sm"
                 >
                   <Server className="w-4 h-4 text-violet-600 dark:text-violet-400" />
-                  <span className="text-violet-700 dark:text-violet-300">MERN Stack</span>
+                  <span className="text-violet-700 dark:text-violet-300">
+                    MERN Stack
+                  </span>
                 </motion.div>
 
                 {/* Floating Badge — Next.js */}
                 <motion.div
                   animate={{ y: [8, -8, 8] }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{
+                    duration: 3.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                   className="absolute -bottom-5 -left-5 flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-fuchsia-200 dark:border-fuchsia-500/30 text-slate-800 dark:text-white rounded-2xl shadow-xl shadow-fuchsia-500/20 dark:shadow-fuchsia-900/40 font-semibold text-sm backdrop-blur-sm"
                 >
                   <Zap className="w-4 h-4 text-fuchsia-600 dark:text-fuchsia-400" />
-                  <span className="text-fuchsia-700 dark:text-fuchsia-300">Next.js</span>
+                  <span className="text-fuchsia-700 dark:text-fuchsia-300">
+                    Next.js
+                  </span>
                 </motion.div>
               </div>
             </motion.div>
@@ -300,7 +315,9 @@ export default function PremiumHeroSection() {
               >
                 {/* Icon + Value row */}
                 <div className="flex items-center gap-2">
-                  <span className={`${color} transition-transform duration-300 group-hover:scale-110`}>
+                  <span
+                    className={`${color} transition-transform duration-300 group-hover:scale-110`}
+                  >
                     {icon}
                   </span>
                   <span className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white tracking-tight">
@@ -313,7 +330,9 @@ export default function PremiumHeroSection() {
                     {label}
                   </span>
                   {/* Animated underline on hover */}
-                  <span className={`block h-0.5 w-0 group-hover:w-full ${color.replace("text-", "bg-")} transition-all duration-500 rounded-full`} />
+                  <span
+                    className={`block h-0.5 w-0 group-hover:w-full ${color.replace("text-", "bg-")} transition-all duration-500 rounded-full`}
+                  />
                 </div>
               </motion.div>
             ))}
