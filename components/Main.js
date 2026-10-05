@@ -53,9 +53,10 @@ export default function PremiumHeroSection() {
 
   const stats = [
     { value: "20+", label: "Projects", icon: <Trophy className="w-4 h-4" />, color: "text-violet-600 dark:text-violet-400" },
-    { value: "600+", label: "LeetCode", icon: <BookOpen className="w-4 h-4" />, color: "text-orange-500 dark:text-orange-400" },
+    { value: "750+", label: "LeetCode", icon: <BookOpen className="w-4 h-4" />, color: "text-orange-500 dark:text-orange-400" },
+    { value: "1714+", label: "LeetCode Rating", icon: <BookOpen className="w-4 h-4" />, color: "text-orange-500 dark:text-orange-400" },
     { value: "3★", label: "CodeChef", icon: <Star className="w-4 h-4" />, color: "text-amber-500 dark:text-amber-400" },
-    { value: "2+ Yrs", label: "Experience", icon: <Cpu className="w-4 h-4" />, color: "text-fuchsia-600 dark:text-fuchsia-400" },
+    { value: "1+ Yrs", label: "Experience", icon: <Cpu className="w-4 h-4" />, color: "text-fuchsia-600 dark:text-fuchsia-400" },
   ];
 
   return (
